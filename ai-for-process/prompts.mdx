@@ -1,0 +1,213 @@
+---
+title: "Prompt Studio"
+description: "Create, test, and optimize prompts across multiple AI models using templates, variables, version control, and collaboration features in Prompt Studio."
+---
+
+Prompt Studio manages the full lifecycle of prompts — from creation and testing to optimization and deployment. Test prompts across external, fine-tuned, and open-source models to find the best model and configuration through iteration.
+
+## Key features
+
+- **65+ pre-built templates** for common use cases including code generation, summarization, content creation, and Q&A.
+- **Multi-model comparison**: test prompts across up to 5 models simultaneously.
+- **Variable support**: run prompts with multiple values at once using `{{variable}}` syntax.
+- **AI-assisted prompt generation**: expand short instructions into detailed, structured prompts.
+- **Version control**: commit versions with an auditable history. Draft history captures the full canvas state.
+- **Collaboration**: share prompts with other users with Owner, Collaborator, or Viewer roles.
+- **Model performance analytics**: response time and token usage per model.
+
+## Access Prompt Studio
+
+1. Log in to your AI for Process account and click **Prompts** in the top navigation bar.
+2. On the **Prompts** dashboard, select a tab:
+   - **All prompts**: All available prompts.
+   - **My prompts**: Prompts you created or saved.
+   - **Shared prompts**: Prompts shared with you for use or collaboration.
+3. Click **New prompt**.
+4. In the **New prompt** dialog, enter a name and click **Proceed**. The Prompt canvas opens.
+
+## Create a prompt
+
+On the Prompt canvas, choose one of three ways to start:
+
+<Tabs>
+  <Tab title="Generate a prompt">
+    This option expands a short input (one or two sentences) into a detailed, structured prompt.
+
+    <Note>Only OpenAI and Anthropic models are supported for prompt generation and test data generation.</Note>
+
+    1. Click **Generate a prompt**.
+    2. In the Prompt generator dialog, select a model and enter your instruction.
+    3. Review the AI-generated prompt.
+    4. Click **Proceed** to copy the prompt to the canvas. Customize it as needed.
+  </Tab>
+  <Tab title="Start from scratch">
+    This option opens a blank canvas where you add prompts, variables, and models, then generate output. You can pull in templates from the prompt library at any time.
+
+    See [Work on the Prompt Canvas](#work-on-the-prompt-canvas) for steps.
+  </Tab>
+  <Tab title="Prompt library">
+    The Prompt Library includes 65+ built-in templates. Search by keyword or filter by use case category.
+
+    <Note>All templates are read-only. Edit content only after importing a template to the canvas.</Note>
+
+    1. Click **Prompt library**.
+    2. Select a tab: **My templates** or **All templates**.
+    3. Click a template to preview it, then click **Use template**.
+    4. The template loads on the canvas. Customize it as needed.
+  </Tab>
+</Tabs>
+
+## Work on the Prompt Canvas
+
+The prompt canvas is the core workspace for prompt experiments. The workflow follows four steps:
+
+```text
+Add prompts → Apply variables → Select models → Generate output
+```
+
+### Add prompts
+
+1. In the **System prompt** field, assign a role to the model (optional). Use the toggle to enable or disable it.
+2. In the **Prompt** field, enter your instructions. Click **Generate Prompt** to expand a short instruction into a more detailed prompt.
+3. Optionally, define a **Response JSON schema** to structure model responses.
+
+<Note>
+- **System prompts** guide the model's overall behavior or tone. Example: "You are a helpful assistant."
+- **Human prompts** specify what the user wants. Example: "Summarize this error log and tell me the likely cause of the issue."
+</Note>
+
+### Apply variables
+
+Variables let you run prompts with multiple values simultaneously. Use the `{{variable}}` syntax anywhere in the prompt or system prompt.
+
+1. Add variables in double curly braces in the **Prompt** field. For example, `{{customer_name}}`.
+2. The **Variables** column appears automatically. Assign a value to each variable.
+3. Click **Add an empty row** to add multiple rows and test multiple scenarios at once.
+4. Verify that variables are substituted correctly in the **Prompt** window.
+
+<Note>For datasets, map CSV column names to variable names (case-sensitive). For example, `{{Name}}` maps to a CSV column named "Name."</Note>
+
+### Select models
+
+Test prompts with up to 5 models simultaneously to compare accuracy, tone, and relevance.
+
+1. In the prompt canvas, click **Select Model** and choose a model and connection.
+2. To add more models, select from the additional columns on the right.
+3. Click the model settings icon to adjust parameters: temperature, top k, top p, and max tokens.
+
+**Default model settings:** top p: 1, top k: 5, temperature: 1, max tokens: 256.
+
+### Generate output
+
+After selecting models, click **Run** to generate output.
+
+<Note>You can generate a maximum of 10 rows of data simultaneously.</Note>
+
+The output area displays model responses, total input and output tokens, and time taken to generate each response.
+
+## Canvas options
+
+### Model column options
+
+| Feature | Description |
+|---------|-------------|
+| **Rearrange** | Drag and drop to reorder model columns. |
+| **Remove model** | Remove a model from the comparison. |
+| **Bookmark a model** | Set a model as preferred. Required when committing a version if no model is bookmarked. |
+| **Model settings** | Adjust temperature, top k, top p, and max tokens. |
+| **Play** | Regenerate output for the entire column. |
+| **Average response time** | Average time the model takes to generate a response. |
+| **Average tokens** | Mean number of input and output tokens used per interaction. |
+| **Copy** | Copy the generated output to clipboard. |
+| **View in JSON** | View the prompt and response in JSON format. |
+| **Re-generate** | Regenerate output for a single cell. |
+
+### Top toolbar options
+
+| Feature | Description |
+|---------|-------------|
+| **Prompt library** | Browse and select from ~70 templates. |
+| **Prompt API** | Access version-specific API endpoints in cURL, Python, or Node.js format. |
+| **Save to prompt library** | Save the current prompt as a template in My Templates. |
+| **Draft history** | Capture and restore the full canvas state at different points in time. |
+| **Export as CSV** | Export the canvas — inputs, outputs, and metadata — as a CSV file. |
+| **Share** | Share the prompt with other users for collaboration or reuse. |
+| **Versions** | View, compare, and restore prompt versions. |
+| **Commit** | Save the current prompt as a new version (V1, V2, etc.). |
+| **Run** | Execute the prompt and generate output. |
+
+## Advanced features
+
+### Version control
+
+Prompt versioning tracks iterations in a shared repository. Each committed version records the prompt, system prompt, and preferred model.
+
+**Key behaviors:**
+
+- You must generate output before committing. The first commit creates V1; subsequent commits create V2, V3, and so on.
+- The latest committed version is the default. To change it, select a version and click **Mark as a default version**.
+- Load any version as a draft to edit without affecting the original.
+
+**To commit a version:**
+
+1. Click **Commit** on the prompt canvas.
+2. Click **Versions** to view the version history.
+3. Select a version and click **Use as a draft** to load it for editing.
+
+<Note>Select **Mark as a default version** to control which version the Prompt API endpoint serves.</Note>
+
+### Draft history
+
+Draft history saves the complete state of the prompt canvas at different points in time, including inputs, outputs, model selections, and variable values.
+
+Click **Draft History** (from the three dots menu) to open the dialog. Click **Restore** to revert to any saved state.
+
+<Note>
+- **Draft History** captures both inputs and outputs — the full context of each iteration.
+- **Versions** track only prompt inputs (system and human prompts), not outputs.
+</Note>
+
+### Selective regeneration
+
+Selective regeneration lets you re-run specific prompts without regenerating all outputs, reducing unnecessary model usage.
+
+- **Cell-level regeneration**: re-runs a single output cell.
+- **Column-level regeneration**: re-runs all rows for a model.
+
+### Prompt sharing
+
+Share prompts — including inputs, outputs, and settings — with other users.
+
+| Scenario | What is shared | Version history |
+|----------|---------------|-----------------|
+| Share before committing | Inputs, outputs, and settings | Not shared |
+| Share after committing | Inputs, outputs, settings, and full version history | Shared |
+| Share with multiple contributors | All versions; each version shows the contributing user | Shared |
+
+**Prompt roles and permissions:**
+
+| Role | Permissions |
+|------|-------------|
+| **Full (Owner)** | View, edit, restore, commit, and delete prompts. Manage users, API keys, and test data. |
+| **Edit (Collaborator)** | All Full permissions except delete. |
+| **View (Viewer)** | View prompts and versions only. Cannot edit, delete, or commit. |
+
+### Prompt API endpoint
+
+The Prompt API lets you access prompts externally using version-specific API keys. The endpoint generates automatically when you commit the first version of a prompt.
+
+- Each prompt has one API endpoint. By default, it returns the latest version.
+- Set a default version to control which version the endpoint serves.
+- You can create multiple API keys per endpoint. Each key can be copied once and deleted but cannot be reused.
+- Supported request formats: cURL, Python, Node.js.
+
+## Best practices
+
+<Tip>
+- **Start with templates**: Use the prompt library for common use cases to accelerate prompt creation.
+- **Use variables**: Run multiple prompts simultaneously and ensure consistent testing across scenarios.
+- **Bookmark strong models**: Track better-performing models by bookmarking them.
+- **Use version control**: Commit versions for significant changes and log updates clearly.
+- **Export results as CSV**: Save important outputs for sharing and analysis.
+- **Save successful prompts**: Save effective prompts as templates in the prompt library for future use.
+</Tip>

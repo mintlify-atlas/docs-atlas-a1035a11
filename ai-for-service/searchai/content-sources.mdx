@@ -1,0 +1,197 @@
+---
+title: "Content Sources"
+description: "Add websites, documents, and connectors to build a unified knowledge base for Search AI."
+---
+
+Content Sources enable Search AI to ingest data from websites, documents, and third-party applications, creating a unified knowledge base for generating accurate answers. When content is ingested, Search AI automatically initiates training to create the answer index using configured extraction strategies.
+
+## Websites
+
+Crawl and index web pages from any public or authenticated website. Navigate to **Content > Websites** to manage web sources.
+
+### Adding a web crawler
+
+Click **+Web Crawl** and configure the following:
+
+| Field | Description |
+|---|---|
+| **Source Title** | Unique name for the web source |
+| **Description** | Information about the source and its purpose |
+| **Crawl Source** | URL, Upload Sitemap (CSV), or Upload URL (CSV) |
+| **Crawl Depth** | Levels to traverse (1–10, default: 5) |
+| **Max URL Limit** | Maximum URLs to crawl (1–10,000, default: 10) |
+
+### Advanced crawl options
+
+| Option | Purpose |
+|---|---|
+| **Use Cookies** | Crawl pages requiring cookie acceptance |
+| **JavaScript Rendered** | Capture dynamically rendered content |
+| **Crawl Beyond Sitemap** | Include URLs not listed in the sitemap |
+| **Respect robots.txt** | Honor crawler directives in robots.txt |
+| **Automatic Cleaning** | Remove headers, footers, and head tags before ingestion |
+| **Retain Original** | Ingest complete HTML content for custom transformation via Workbench |
+
+### URL filtering
+
+Control which pages are crawled:
+
+- **Crawl everything** — All discovered URLs
+- **Crawl everything except** — Block URLs matching specified conditions
+- **Crawl only specific URLs** — Allow only URLs matching specified conditions
+
+Conditions include: equals, not equal, contains, does not contain, begins with, ends with.
+
+### Authentication
+
+<Tabs>
+  <Tab title="Basic HTTP authentication">
+    - Username/email and password
+    - Optional authorization fields (headers, payload, query string, path parameters)
+    - Authentication URL (may differ from source URL)
+    - Test type: Text Presence, Redirection, or Status Code
+  </Tab>
+  <Tab title="Form-based authentication">
+    - Form fields with key, type, and value
+    - Session maintained after initial authentication
+    - Same test options as Basic Auth
+  </Tab>
+</Tabs>
+
+### Managing web sources
+
+| Action | How to |
+|---|---|
+| **View crawled pages** | Go to source > **Pages** tab (shows Successful, Failed, Skipped) |
+| **View execution logs** | Go to source > **Executions** tab |
+| **Recrawl entire source** | Click **Recrawl** action |
+| **Recrawl specific page** | Pages tab > Actions > Recrawl |
+| **Schedule recrawl** | Set date, time, and frequency in crawl configuration |
+| **Delete source** | Click Delete action (removes all indexed content) |
+
+### Troubleshooting
+
+| Issue | Potential causes | Resolution |
+|---|---|---|
+| **Crawl failure** | Permissions, credentials, invalid URL, domain not whitelisted | Verify access, credentials, and URL format |
+| **Crawl succeeds but no indexing** | JS-rendered pages, incorrect include/exclude rules | Enable JavaScript Rendered, check rules, verify sitemap |
+| **Crawl takes too long** | Large content volume, JS pages returning no content | Adjust max URLs, enable JavaScript Rendered |
+
+## Documents
+
+Upload and index files directly to Search AI. Navigate to **Content > Documents** to manage uploaded files.
+
+### Supported formats
+
+PDF, DOCX, PPT, TXT (scanned PDFs and password-protected files are not supported).
+
+### Upload options
+
+| Method | Description |
+|---|---|
+| **File** | Upload one or more files to an existing directory |
+| **URL** | Upload a file from a remote URL with title and description |
+| **Directory** | Upload a complete folder from local device |
+
+### Upload limits
+
+| Limit | Default value |
+|---|---|
+| File size | 15 MB maximum per file |
+| Batch upload | 40 files at once |
+| Directory upload | 20 files maximum |
+
+Contact support to increase these limits.
+
+## Connectors
+
+Pre-built integrations for 60+ third-party applications. Navigate to **Content > Connectors** to configure integrations.
+
+### Connector setup workflow
+
+<Steps>
+  <Step title="Authentication">
+    Provide OAuth credentials, API keys, or tokens.
+  </Step>
+  <Step title="Ingestion">
+    Select content types and apply filters.
+  </Step>
+  <Step title="Field Mapping">
+    Align source fields with Search AI schema (optional).
+  </Step>
+  <Step title="Permissions">
+    Configure RACL settings.
+  </Step>
+</Steps>
+
+### Sync operations
+
+| Type | Description |
+|---|---|
+| **Manual sync** | Click **Sync Now** on Configuration tab |
+| **Scheduled sync** | Set automatic intervals (files >15 MB are skipped) |
+| **Permission sync** | Separate scheduler for RACL updates |
+
+## Supported connectors
+
+<Note>RACL: **Auto** — permissions synced automatically from source; **Manual** — RACL available, manual entity management required; **No** — not supported.</Note>
+
+| Connector | Repository | Supported content | RACL |
+|---|---|---|---|
+| Aha! | Cloud | Ideas, Features | Auto |
+| Airtable | Cloud | Spreadsheets, Databases | Manual |
+| Amazon S3 | Cloud | .pdf, .ppt, .txt, .docx | No |
+| Asana | Cloud | Projects, Tasks | Auto |
+| Azure Storage | Cloud | .txt, .pdf, .rtf, .doc, .docx, .ppt, .pptx | Manual |
+| Box | Cloud | .pdf, .docx, .txt | Auto |
+| Confluence Cloud | Cloud | Knowledge Articles | Auto |
+| Confluence Server | On-prem | Knowledge Articles | Auto |
+| Dropbox | Cloud | .doc, .docx, .ppt, .pptx, .pdf, .txt, .html | Manual |
+| FreshDesk | Cloud | Tickets | Auto |
+| GitHub | Cloud | Issues, README, Pull Requests | Auto |
+| Google Drive | Cloud | .doc, .docx, .ppt, .pptx, .pdf, .txt, .html | Auto |
+| HubSpot | Cloud | Tickets, Deals, Companies, Contacts | Auto |
+| Jira | Cloud | Issues, Filters, Dashboards | Auto |
+| MS Teams | Cloud | Channel Conversations | Auto |
+| Notion | Cloud | Pages | Manual |
+| OneDrive | Cloud | .aspx, .doc, .docx, .ppt, .pptx, .html, .txt, .pdf | Auto |
+| Salesforce | Cloud | Knowledge Articles | No |
+| ServiceNow | Cloud | Incidents, Service Catalog, Knowledge Articles | Auto |
+| SharePoint | Cloud | .aspx, .doc, .docx, .ppt, .pptx, .html, .txt, .pdf | Auto |
+| Slack | Cloud | Messages | Auto |
+| Zendesk | Cloud | Knowledge Articles, Tickets | Auto |
+| Zoom | Cloud | Meeting Summaries | Auto |
+
+For connectors not listed above, use the Custom Connector or contact Kore.ai.
+
+## Role-based access control (RACL)
+
+RACL ensures users only see content they are authorized to access by synchronizing permissions from source applications.
+
+### How RACL works
+
+1. **Ingestion** — Search AI imports permissions (users, groups, criteria) along with content
+2. **Storage** — Access information stored in the `sys_racl` field of each chunk
+3. **Access control** — Only users whose identities appear in `sys_racl` can view answers from that content
+
+### Configuring RACL
+
+Go to the **Permissions** page of the connector and select:
+
+| Option | Behavior |
+|---|---|
+| **Same users as in source** | Syncs permissions from source application (Restricted Access) |
+| **Everyone (Public Access)** | Content accessible to all Search AI users (sets `sys_racl` to `*`) |
+
+<Note>RACL is supported for connector content only — not websites or uploaded documents.</Note>
+
+## Quick reference
+
+| Task | Location |
+|---|---|
+| Add website | Content > Websites > +Web Crawl |
+| Upload files | Content > Documents > Upload |
+| Add connector | Content > Connectors > Select connector |
+| View indexed content | Index > Content Browser |
+| Configure extraction | Index > Extraction |
+| Test answers | Configuration > Testing |

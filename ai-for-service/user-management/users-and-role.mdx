@@ -1,0 +1,149 @@
+---
+title: "Users and Role Management"
+description: "Manage users and roles to control who has access to Contact Center AI and what they can do."
+---
+
+Manage users and roles to control who has access to Contact Center AI (CCAI) and what they can do. Users include App Owners, App Developers, App Testers, Supervisors, and Agents. Roles define each user's permissions across the platform.
+
+| Section | Description |
+|---|---|
+| [Users](#users) | Add, edit, and manage users and groups. |
+| [Roles and permissions](#roles-and-permissions) | Understand default roles and configure permission sets. |
+| [Custom roles](#custom-roles) | Create and manage custom roles for your organization. |
+
+## Users
+
+Go to **Manage > Users > Manage Users** from the left navigation menu or the product switcher.
+
+### User list features
+
+| Feature | Description |
+|---|---|
+| **Search** | Find a user by name. |
+| **User** | User's name and configured email. |
+| **Role** | Role assigned to the user. |
+| **Skills** | Skills assigned to the user. |
+| **Queues** | Queues assigned to the user. |
+
+### Add a user
+
+<Steps>
+  <Step title="Select Invite Users">Click the **Invite Users** button on the Manage Users page.</Step>
+  <Step title="Fill in the fields">
+    Enter the **Email**, **First Name**, **Last Name**, and select a **Role** (App Developer, App Tester, Agent, or Supervisor).
+  </Step>
+  <Step title="Configure user attributes">
+    Enable **Allow Contact Center Permissions** to configure the agent console as default, assign groups, set a custom ID, and agent nickname.
+  </Step>
+  <Step title="Configure Chat and Voice">
+    Enable **Chat** to set capacity by channel type, language support, and widget features. Enable **Voice** to configure voice and language settings.
+  </Step>
+  <Step title="Assign queues and skills">
+    Search for queues and skills to assign. Set proficiency levels (Novice, Average, Good, Expert) for skills. Mark preferred queues.
+  </Step>
+  <Step title="Send the invitation">Select **Invite User** to save and send the invitation.</Step>
+</Steps>
+
+<Note>
+Minimum requirements to save a user record:
+1. Mandatory fields: email, first name, and role.
+2. At least one channel enabled (Chat or Voice).
+3. At least one language assigned to the enabled channel.
+</Note>
+
+### Edit a user
+
+1. On the Manage Users page, select the **Ellipsis** icon (⋮) for the user.
+2. In the **User Attributes** window, make your changes.
+3. Select **Update Changes**.
+
+### Delete a user
+
+1. Select the **Ellipsis** icon (⋮) for the user.
+2. Select **Delete** and confirm.
+
+<Note>
+- You cannot delete your own user account.
+- You cannot delete the CCAI App Owner.
+- Reports, dashboards, and APIs continue to display deleted agents as long as historical data includes them.
+</Note>
+
+## Roles and permissions
+
+The XO Platform uses role-based access control. Roles determine which features a user can access and at what level.
+
+Go to **Manage > Users > Manage Users** and select the **Role Management** tab.
+
+### Default roles
+
+Default roles are fixed and cannot be edited or deleted.
+
+| Role | Access level |
+|---|---|
+| **App Owner** | Full access and control over the app. |
+| **App Developer** | Co-developer access. |
+| **App Tester** | Read-only access to the app definition. |
+| **Supervisor** | Operations management access. |
+| **Agent** | Access to the agent console and internal chat. |
+
+### Automation permissions
+
+| Permission | Owner | Developer | Tester | Supervisor | Agent |
+|---|---|---|---|---|---|
+| **Tasks** | Full | Full | View | No | No |
+| **Natural Language** | Full | Full | View | No | No |
+| **Knowledge Graph** | Full | Full | View | No | No |
+| **Testing** | Full | Full | View | No | No |
+| **Bot Settings** | Full | Full | No | No | No |
+| **Dashboard** | Yes | Yes | Yes | No | No |
+| **Publish Bot** | Yes | Yes | No | No | No |
+
+### Contact Center permissions
+
+| Permission | Owner | Developer | Tester | Supervisor | Agent |
+|---|---|---|---|---|---|
+| **Queue Settings** | Full | Full | Full | Full | None |
+| **Flow Management** | Full | Full | Full | None | None |
+| **Agent Playbook** | Full | Full | Full | None | None |
+| **Agent Coaching** | Full | Full | Full | None | None |
+| **Service Level** | Full | Full | Full | Full | None |
+
+### App Owner exclusive permissions
+
+| Permission | Description |
+|---|---|
+| **Create New User Role** | Only App Owners can access the Create New User Role menu. |
+| **Billing Module Access** | Only App Owners can access the Billing module. |
+| **Activation of Free Tokens** | Only App Owners can activate free tokens. |
+| **App Profile Modification** | Only App Owners can edit the App Profile. |
+| **Delete App** | Only App Owners can delete the app. |
+
+## Custom roles
+
+Create custom roles to define specific permission sets tailored to your organization's needs.
+
+### Add a role
+
+<Steps>
+  <Step title="Select + New Role">
+    On the Role Management tab, click **+ New Role**.
+  </Step>
+  <Step title="Fill in the details">
+    Enter the **Role Name**, **Description**, and configure **Permissions** using the available dropdown options.
+  </Step>
+  <Step title="Save">
+    Select **Save**.
+  </Step>
+</Steps>
+
+### Edit a role
+
+1. Select the **Ellipsis** icon (⋮) for the role and select **Edit**.
+2. Make your changes in the **Edit Role** window and select **Save**.
+
+### Delete a role
+
+1. Select the **Ellipsis** icon (⋮) for the role and select **Delete**.
+2. Select **Yes** to confirm.
+
+<Note>You cannot delete default roles (App Owner, App Developer, App Tester, Supervisor, Agent). Deleted roles cannot be restored.</Note>

@@ -1,122 +1,268 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Kore.ai",
+  "theme": "linden",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#848c94",
+    "light": "#171f2f",
+    "dark": "#d4d5d7"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "https://media.brand.dev/ff306831-bdc2-4c06-9ffc-22653008c18e.png",
+  "logo": {
+    "light": "https://media.brand.dev/ce58ac3b-99d8-48fd-8ff0-db844e8f06bf.svg",
+    "dark": "https://media.brand.dev/ce58ac3b-99d8-48fd-8ff0-db844e8f06bf.svg"
+  },
+  "navbar": {
+    "primary": {
+      "type": "github",
+      "href": "https://github.com/Koredotcom/docs-v2"
+    }
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/Koredotcom",
+      "linkedin": "https://www.linkedin.com/company/kore-inc",
+      "facebook": "https://www.facebook.com/KoreDotAI"
+    },
+    "links": [
+      {
+        "header": "Legal",
+        "items": [
+          {
+            "label": "Acceptable Use",
+            "href": "https://www.kore.ai/acceptable-use-policy/"
+          },
+          {
+            "label": "Terms of Service",
+            "href": "https://www.kore.ai/terms-of-service/"
+          },
+          {
+            "label": "Privacy Policy",
+            "href": "https://www.kore.ai/privacy-policy/"
+          },
+          {
+            "label": "Cookie Policy",
+            "href": "https://www.kore.ai/cookie-policy/"
+          }
+        ]
+      }
+    ]
+  },
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Home",
+        "pages": ["home"]
+      },
+      {
+        "tab": "Agent Platform",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Overview",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "agent-platform/index",
+              "agent-platform/concepts",
+              "agent-platform/getting-started"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Building Agents",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "agent-platform/agents",
+              "agent-platform/orchestration",
+              "agent-platform/tools",
+              "agent-platform/knowledge",
+              "agent-platform/memory"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Platform Services",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "agent-platform/models",
+              "agent-platform/prompts",
+              "agent-platform/evaluation",
+              "agent-platform/guardrails",
+              "agent-platform/analytics"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Administration",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "agent-platform/administration/overview",
+              "agent-platform/administration/user-management",
+              "agent-platform/administration/security-and-control",
+              "agent-platform/administration/billing-and-usage"
+            ]
+          },
+          {
+            "group": "References",
+            "pages": [
+              "agent-platform/apis",
+              "agent-platform/sdk-overview",
+              "agent-platform/release-notes"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "AI for Work",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Overview",
             "pages": [
-              "api-reference/introduction"
+              "ai-for-work/index",
+              "ai-for-work/getting-started"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Agents",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "ai-for-work/custom-agents",
+              "ai-for-work/pre-built-agents",
+              "ai-for-work/pre-built-solutions"
+            ]
+          },
+          {
+            "group": "Platform Services",
+            "pages": [
+              "ai-for-work/analytics",
+              "ai-for-work/assistant-configurations",
+              "ai-for-work/llm-configuration",
+              "ai-for-work/channels"
+            ]
+          },
+          {
+            "group": "Administration",
+            "pages": [
+              "ai-for-work/administration/account-and-workspace",
+              "ai-for-work/administration/user-management",
+              "ai-for-work/administration/security-and-control",
+              "ai-for-work/administration/audit-log"
+            ]
+          },
+          {
+            "group": "References",
+            "pages": [
+              "ai-for-work/apis",
+              "ai-for-work/release-notes"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "AI for Service",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "ai-for-service/index",
+              "ai-for-service/getting-started"
+            ]
+          },
+          {
+            "group": "Automation AI",
+            "pages": [
+              "ai-for-service/automationai",
+              "ai-for-service/flows",
+              "ai-for-service/automation/dialogs"
+            ]
+          },
+          {
+            "group": "Search AI",
+            "pages": [
+              "ai-for-service/searchai",
+              "ai-for-service/searchai/content-sources",
+              "ai-for-service/searchai/index-configuration"
+            ]
+          },
+          {
+            "group": "Contact Center AI",
+            "pages": [
+              "ai-for-service/contact-center",
+              "ai-for-service/contact-center/flows-and-routing",
+              "ai-for-service/contact-center/configurations"
+            ]
+          },
+          {
+            "group": "Agent AI & Quality AI",
+            "pages": [
+              "ai-for-service/agent-ai",
+              "ai-for-service/quality"
+            ]
+          },
+          {
+            "group": "Platform Services",
+            "pages": [
+              "ai-for-service/generative-ai-tools/overview",
+              "ai-for-service/channels",
+              "ai-for-service/integrations",
+              "ai-for-service/analytics/overview"
+            ]
+          },
+          {
+            "group": "Administration",
+            "pages": [
+              "ai-for-service/administration/overview",
+              "ai-for-service/user-management/users-and-role",
+              "ai-for-service/app-settings"
+            ]
+          },
+          {
+            "group": "References",
+            "pages": [
+              "ai-for-service/apis/automation/api-introduction",
+              "ai-for-service/sdk/bot-sdk-introduction",
+              "ai-for-service/release-notes"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "AI for Process",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "ai-for-process/index",
+              "ai-for-process/concepts",
+              "ai-for-process/getting-started"
+            ]
+          },
+          {
+            "group": "Building Workflows",
+            "pages": [
+              "ai-for-process/workflows/overview",
+              "ai-for-process/nodes",
+              "ai-for-process/workflows/triggers-and-access",
+              "ai-for-process/inbox"
+            ]
+          },
+          {
+            "group": "Platform Services",
+            "pages": [
+              "ai-for-process/prompts",
+              "ai-for-process/models",
+              "ai-for-process/settings/monitoring-overview"
+            ]
+          },
+          {
+            "group": "Administration",
+            "pages": [
+              "ai-for-process/admin-settings",
+              "ai-for-process/settings/user-management",
+              "ai-for-process/settings/security-control",
+              "ai-for-process/settings/billing-and-usage"
+            ]
+          },
+          {
+            "group": "References",
+            "pages": [
+              "ai-for-process/settings/integrations",
+              "ai-for-process/release-notes"
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
-  },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
-  },
-  "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
+    ]
   }
 }

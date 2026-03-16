@@ -1,0 +1,200 @@
+---
+title: "Security and Control"
+description: "Configure authentication, authorization, encryption, API access control, and custom scripts for your Agent Platform account."
+---
+
+Configure authentication, authorization, encryption, API access control, and custom scripts for your Agent Platform account.
+
+| Feature | Description |
+|---|---|
+| [Authentication settings](#authentication-settings) | Authenticate users through an external Identity Provider using SAML, WS-Federation, or OpenID Connect |
+| [Authorization profiles](#authorization-profiles) | Define how the Platform authenticates with external web services using OAuth and other token-based methods |
+| [Encryption key management](#encryption-key-management) | Configure platform-managed or bring-your-own-key (BYOK) encryption for account data |
+| [API scopes](#api-scopes) | Create permission-limited API keys scoped to specific endpoints and integrations |
+| [Custom scripts](#custom-scripts) | Import, deploy, and manage custom scripts in isolated containers via API or tool flows |
+
+## Authentication settings
+
+Authentication Settings lets administrators configure how users sign in to the Platform. You can enable Single Sign-On (SSO) to authenticate users through your organization's identity provider, and Multi-Factor Authentication (MFA) to add a second layer of verification.
+
+<Note>Only account owners and admins can configure Authentication Settings.</Note>
+
+### Single Sign-On (SSO)
+
+SSO allows users to access their Platform accounts using credentials managed by an external IdP.
+
+**Key benefits:**
+- **Secure access** — reduces password fatigue and the risk of phishing
+- **Simplified user management** — centrally grant or revoke access
+- **Improved user experience** — eliminates repeated logins within the same session
+
+**Supported protocols and providers:**
+
+| Protocol | Providers |
+|---|---|
+| SAML 2.0 | Okta, OneLogin, Other Provider |
+| WS-Federation | Windows Azure, Other Provider |
+| OpenID Connect | Google |
+
+### Enabling SSO
+
+<Steps>
+  <Step title="Navigate to Authentication Settings">
+    Go to **Security & Control** > **Authentication Settings** and click **Enable SSO**.
+  </Step>
+  <Step title="Select protocol and provider">
+    Select a sign-on protocol and SSO provider.
+  </Step>
+  <Step title="Enter configuration parameters">
+    Enter the configuration parameters for your selected protocol and provider.
+  </Step>
+  <Step title="Add SSO-excluded users">
+    Add at least one SSO-excluded user (recommended: add one additional admin as a fallback).
+  </Step>
+  <Step title="Save">
+    Click **Save**.
+  </Step>
+</Steps>
+
+<Note>The account owner is excluded from SSO by default. Previously configured SSO parameters are retained if you re-enable SSO after disabling it.</Note>
+
+### Multi-Factor Authentication (MFA)
+
+MFA adds a second layer of verification during sign-in for users who authenticate via email/password.
+
+Supported MFA methods: **Email verification**, **Authenticator App (TOTP)**, **SMS**.
+
+| Authentication state | Who signs in via email/password | MFA managed by |
+|---|---|---|
+| SSO disabled | All users | Platform (organization-wide) |
+| SSO enabled | SSO-excluded users only | Platform for excluded users; IdP manages all others |
+
+## Authorization profiles
+
+Authorization Profiles define how the Platform authenticates with external web services. Configure profiles once and reuse them across API nodes, AI nodes, and other integrations.
+
+### Supported auth types
+
+| Type | Description | Use case |
+|---|---|---|
+| **OAuth V2** | Token-based authorization supporting user-interactive flows | Third-party API access (e.g., "Sign in with Google") |
+| **OAuth V2 Client Credential** | Machine-to-machine flow using client ID and secret; no user interaction | Server-to-server communication, microservices |
+
+### Adding an auth profile
+
+<Steps>
+  <Step title="Navigate to Authorization Profile">
+    Go to **Security & Control** > **Authorization Profile** and click **Create Authorization Profile**.
+  </Step>
+  <Step title="Select authorization type">
+    In the **New Authorization Mechanism** dialog, select the **Authorization Type**.
+  </Step>
+  <Step title="Configure fields">
+    Enter the Identity Provider Name and fill in required fields (Callback URL, Client ID, Client Secret, Authorization URL, Token Request URL).
+  </Step>
+  <Step title="Save">
+    Click **Save New Auth**.
+  </Step>
+</Steps>
+
+## Encryption key management
+
+The Platform encrypts all account data. You can use the platform's built-in key management or integrate with your organization's external Key Management System (KMS) using **Bring Your Own Key (BYOK)**.
+
+| Option | Description |
+|---|---|
+| **Platform-managed** | Automatically encrypts all data using built-in keys. Keys rotate every 90 days. No configuration required. |
+| **BYOK** | Use keys stored in your own KMS. Supported providers: AWS KMS, Azure Key Vault. |
+
+### Configuring BYOK
+
+1. Go to **Settings** → **Key Management**.
+2. Click **Configure BYOK**.
+3. Select your cloud provider (AWS KMS or Azure Key Vault) and enter the required configuration details.
+
+## API scopes
+
+API Scopes replace unrestricted management API keys with permission-limited, scoped keys.
+
+**Key rules:**
+- API keys are restricted to assigned scopes; requests to other scopes are automatically rejected.
+- An API key cannot be shared across multiple apps.
+- API keys cannot be modified after creation — only deleted.
+- Each key can only be copied once (copy-once policy).
+
+### Supported scopes
+
+| Scope | Description |
+|---|---|
+| Deploy Tool | Deploy a specific tool into an environment |
+| Undeploy Tool | Remove a deployed tool from an environment |
+| Deploy Model | Deploy an open-source or fine-tuned model |
+| Undeploy Model | Remove a deployed model from an environment |
+| Import Model | Import a model into the Platform in chunks |
+| Import Tool | Import a new tool into the system |
+| Export Model | Export a trained AI model from the system |
+| Export Tool | Export a tool's configuration and associated data |
+| Deploy Guardrails | Deploy guardrails for security and content moderation |
+| Undeploy Guardrails | Remove previously deployed guardrails |
+| View Connections | View connection details |
+| Manage Connections | Create and update connections |
+
+### Creating an API app and key
+
+<Steps>
+  <Step title="Create API app">
+    Navigate to **Security & Control** > **API Scopes** and click **Create an API App**. Enter an app name and select the required scopes.
+  </Step>
+  <Step title="Generate API key">
+    Click **Create API Key**, enter a key name, and click **Generate Key**.
+  </Step>
+  <Step title="Copy and save">
+    Click **Copy and Close** to copy the key. Save it in a secure location.
+  </Step>
+</Steps>
+
+<Warning>The API key is shown only once. If lost, you must revoke it and generate a new one — this may disrupt any services currently using the key.</Warning>
+
+## Custom scripts
+
+Admins can import, deploy, and manage custom scripts directly from **Settings** → **Manage Custom Scripts**. Scripts run in isolated containers.
+
+| Capability | Description |
+|---|---|
+| Task automation | Automate repetitive or complex tasks without manual intervention |
+| Secure API integration | Call scripts via API endpoints with key-based authentication |
+| Customization | Implement business-specific logic and custom workflows |
+| Data processing | Transform, filter, or validate data for operational requirements |
+
+### Importing and deploying a script
+
+<Steps>
+  <Step title="General details">
+    Click **+ Import** and provide a script name, description, base language (JavaScript v20.19.0 or Python v3.10.15), and upload a project file (`.zip`, `.gz`, or `.tar`, max 1 GB).
+  </Step>
+  <Step title="Runtime settings">
+    Configure environment variables and execution timeout (30–600 seconds).
+  </Step>
+  <Step title="Resource allocation">
+    Set min/max replicas (1–10) and select a hardware profile.
+
+    | Profile | Actual CPU & Memory | Credits/hour |
+    |---|---|---|
+    | 1 vCPU / 2 GB | 0.7 vCPU / 1.1 GB | 0.077 |
+    | 2 vCPUs / 4 GB | 1.5 vCPUs / 2.5 GB | 0.154 |
+    | 4 vCPUs / 16 GB | 3.5 vCPUs / 13.5 GB | 0.288 |
+  </Step>
+  <Step title="Review and deploy">
+    Review all sections, accept the Terms and Conditions, and click **Deploy**.
+  </Step>
+</Steps>
+
+### Script statuses
+
+| Status | Description |
+|---|---|
+| Draft | Saved but not yet deployed |
+| Deploying | Deployment in progress |
+| Ready to Deploy | Configured and ready for deployment |
+| Deployed | Running successfully in the environment |
+| Deployment Failed | Deployment did not complete successfully |

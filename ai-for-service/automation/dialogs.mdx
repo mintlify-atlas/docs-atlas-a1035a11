@@ -1,0 +1,160 @@
+---
+title: "Manage Dialog Tasks"
+description: "Design, build, and manage dialog tasks using the visual Dialog Builder canvas."
+---
+
+Dialog Tasks are the core building blocks for designing conversations between your AI Agent and users. Each task is a sequence of interconnected nodes that collect information, execute logic, call external services, and send responses.
+
+**Key capabilities:**
+
+- **Node-based design** — Build flows visually by connecting typed nodes on a canvas.
+- **AI-assisted creation** — Auto-generate dialogs from a description using Generative AI or prebuilt templates.
+- **Real-time collaboration** — Multi-user editing with cursor presence, comments, and bookmarks.
+- **Conditional routing** — Route flows using if-else conditions based on context, entities, or custom logic.
+- **Voice/IVR** — Configure voice channel behavior per node.
+
+## Access
+
+Go to **Automation > Dialogs**.
+
+## Dialog Tasks list
+
+The Dialogs page lists all dialog tasks with name, description, last updated date, and status.
+
+| Action | Description |
+|---|---|
+| **Create Dialog** | Start a new dialog task. |
+| **Manage Components** | View and edit all components (entities, webhooks, messages, agent transfers, etc.) used across all dialogs in the app. |
+| **More options** | Configure settings, manage interruptions, or amend behavior for a task. |
+
+<Note>Legacy dialog tasks display an upgrade icon. Click it to migrate to the conversation-driven builder.</Note>
+
+## Navigating the Dialog Builder
+
+The Dialog Builder has four areas:
+
+| Area | Location | Purpose |
+|---|---|---|
+| **Tool Set** | Top bar | Builder tools and settings |
+| **Index Panel** | Left sidebar | Bookmarks, assets, and node lists |
+| **Nodes Panel** | Bottom bar | Drag node types onto the canvas |
+| **Canvas** | Center | Assemble and connect nodes |
+
+### Tool set
+
+**Left side:**
+
+| Tool | Description |
+|---|---|
+| **Exit** | Return to the Dialog Tasks list. |
+| **Bookmarks** | Add canvas bookmarks for quick navigation. |
+| **Note** | Add a text note anywhere on the canvas to document logic. |
+| **Comment** | Tag team members with `@mentions` for feedback or questions. |
+| **Find** | Universal search across nodes, variables, bookmarks, and sequences. |
+
+**Right side:**
+
+| Tool | Description |
+|---|---|
+| **Test** | Chat with the agent in real time to test recognition, performance, and flow. |
+| **View Warnings** | Real-time errors and warnings for the current dialog. |
+| **Display Options** | Fit to screen, set zoom level, zoom to last edited position, show/hide mini map. |
+| **More Options** | Access Dialog Settings, Manage Interruptions, Manage Amend Behavior, and View Comments. |
+
+## Node types
+
+| Group | Node types |
+|---|---|
+| **Inform** | Message node — sends information to the user. |
+| **Ask** | Confirmation, Entity nodes — collect user input. |
+| **Action** | Script, Service, Process, Agent Transfer nodes — perform actions without user interaction. |
+| **GenAI** | Agent Node, Prompt Node — use LLMs for complex flows and human-like experiences. |
+
+## Node properties
+
+Click a node to open its Properties panel.
+
+| Tab | Scope | Contents |
+|---|---|---|
+| **Component Properties** | All dialogs using this node | Name, type, and node-specific settings. |
+| **Instance Properties** | This node in this dialog only | Settings customized for the current dialog instance. |
+| **Connection Properties** | Bottommost node in a sequence | Transition conditions and next-node routing. |
+| **NLP Properties** | This node | Intent and entity recognition settings. |
+| **Voice Call Properties** | This node (IVR only) | IVR channel configuration. |
+
+## Sequences
+
+Sequences are containers that group nodes into logical sub-tasks. A sequence is auto-created whenever you add a node to the canvas.
+
+| Operation | How |
+|---|---|
+| **Add node** | Drag the node onto the sequence. |
+| **Connect sequences** | Drag the connector from the source sequence's Transition section to the destination. |
+| **Rename** | Right-click → **Rename**. |
+| **Set as flow start** | Right-click → **Mark as Flow Starting Point**. |
+| **Change color** | Right-click → **Sequence Color**. |
+| **Delete** | Right-click → **Delete**. |
+
+<Warning>Deleted sequences cannot be restored. Their nodes remain available in the Assets tab of the Index Panel.</Warning>
+
+## If-else connections
+
+<Steps>
+  <Step title="Hover over Transitions">
+    Hover over the **Transitions** section of a sequence.
+  </Step>
+  <Step title="Add a condition">
+    Click **Add New** to define an if-else condition.
+  </Step>
+  <Step title="Configure routing">
+    Specify the condition variable, operator, and value, then select the destination sequence.
+  </Step>
+</Steps>
+
+## Real-time collaboration
+
+Multiple users can work in the Dialog Builder simultaneously.
+
+| Feature | Behavior |
+|---|---|
+| **Live presence** | Colored avatars in the header show who is active. |
+| **Cursor tracking** | Each user's cursor is color-coded to match their avatar. |
+| **Cursor chat** | `Cmd+/` (Mac) or `Ctrl+/` (Windows) to open cursor chat. |
+| **Edit access** | The first user to open the dialog gets edit rights; others join as viewers. |
+
+## Dialog settings
+
+Access from **More Options** in the top-right of the Dialog Builder.
+
+| Setting | Description |
+|---|---|
+| **Intent Name** | The dialog's name — typically the main user intent (e.g., *Book Ticket*). |
+| **Intent Description** | Up to 5 descriptions — each broadens semantic coverage for intent detection. |
+| **Sub intent only dialog** | Task is invoked only as a subtask; not listed when users request help. |
+| **Customer Use Cases** | Enable this dialog for end-user access. |
+| **Agent AI Use Cases** | Enable for agents. Sub-settings for chat, calls, emails, and library launch. |
+| **Analytics - Containment Type** | **Abandonment as Self-Service** or **Abandonment as Drop Off**. |
+
+## Upgrade tasks
+
+When a published dialog task needs changes, create an upgrade rather than modifying the live version directly.
+
+| Type | Behavior |
+|---|---|
+| **Mandatory** | Auto-upgraded for users. If user action is required, users are notified and the original task expires after 15 days. |
+| **Optional** | Not auto-upgraded. Users choose whether to upgrade. |
+
+<Steps>
+  <Step title="Go to Automation > Dialogs">
+    Navigate to the Dialogs list in the Automation module.
+  </Step>
+  <Step title="Hover over the published task">
+    Click **More** (···) → **Upgrade**.
+  </Step>
+  <Step title="Modify the task">
+    A duplicate is created with status **Upgrade In Progress**. Make your changes.
+  </Step>
+  <Step title="Finish setup">
+    Click **Finish Setup** when ready to publish the upgraded version.
+  </Step>
+</Steps>

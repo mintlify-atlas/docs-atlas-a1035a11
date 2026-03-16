@@ -1,0 +1,140 @@
+---
+title: "Bot SDKs"
+description: "Platform-specific client libraries for embedding Kore.ai bot capabilities into your applications with precise control over conversation behavior."
+---
+
+The Bot SDKs are platform-specific client libraries that let you embed Kore.ai bot capabilities into your applications and give you precise control over conversation behavior.
+
+- **Web SDK** — Embed a chat widget in web apps using HTML5 and JavaScript. Communicates with the Platform over WebSocket.
+- **BotKit SDK** — Server-side Node.js library for intercepting and customizing messages and webhook events, enabling agent transfer and advanced conversation control.
+- **Widget SDK** — Renders bot data as panels and widgets in a host application.
+
+## Platform-specific SDKs
+
+| SDK | Platform | GitHub |
+|---|---|---|
+| **Web SDK** | Web / Hybrid mobile | [web-kore-sdk](https://github.com/Koredotcom/web-kore-sdk) |
+| **iOS SDK** | Native iOS | [iOS-kore-sdk](https://github.com/Koredotcom/iOS-kore-sdk) |
+| **Android SDK** | Native Android | [android-kore-sdk](https://github.com/Koredotcom/android-kore-sdk) |
+| **React Native SDK** | iOS and Android | [react-native-botsdk](https://github.com/Koredotcom/react-native-botsdk) |
+| **Flutter SDK** | iOS and Android | [KoreBotFlutterPlugin](https://github.com/DocsInternal-Kore/KoreBotFlutterPlugin) |
+
+<Note>In GitHub, select a version-specific branch from the top-left corner.</Note>
+
+## Before you start
+
+Before using any SDK:
+
+<Steps>
+  <Step title="Prepare your application">
+    Have an application ready to embed the SDK into.
+  </Step>
+  <Step title="Set up JWT generation">
+    Host a JWT generation web service on your server. The SDK uses JWT tokens to authenticate bot sessions.
+  </Step>
+  <Step title="Register your app">
+    Register your app on the Platform to get a Client ID and Client Secret. See [App Settings > Dev Tools > Web/Mobile SDK](/ai-for-service/app-settings).
+  </Step>
+</Steps>
+
+## Web SDK
+
+The Web SDK embeds a chat widget into any web application using HTML5 and JavaScript. It communicates with the Kore.ai Platform over WebSocket.
+
+### Use cases
+
+- Add a chat bot widget to a customer-facing website
+- Embed an AI assistant in a web portal or internal tool
+- Build a hybrid mobile app with bot capabilities
+
+### Quick example
+
+```html
+<!-- Include the Web SDK -->
+<script src="https://cdn.kore.ai/kore-sdk.min.js"></script>
+
+<script>
+  var botOptions = {
+    koreAPIUrl: "https://bots.kore.ai/api/",
+    koreSpeechAPIUrl: "https://speech.kore.ai/",
+    ttsSocketUrl: "https://speech.kore.ai/tts/ws",
+    assertionFn: function(options, callback) {
+      // Call your JWT service to get a token
+      callback(null, { assertion: jwtToken });
+    },
+    botInfo: {
+      chatBot: "Your Bot Name",
+      taskBotId: "your-bot-id"
+    },
+    onEvent: function(event) {
+      console.log("Bot event:", event);
+    }
+  };
+
+  var chatWindow = new KoreBot();
+  chatWindow.show(botOptions);
+</script>
+```
+
+## BotKit SDK
+
+BotKit runs on your server and intercepts all messages between the user and the Platform. Use it to:
+
+- Insert asynchronous messages (for example, “Looking for your flight...”) while the Platform processes a request
+- Implement live agent transfer logic
+- Execute custom business logic on webhook events
+
+### Installation
+
+```bash
+npm install kore-bot-sdk-node
+```
+
+### Basic usage
+
+```javascript
+const sdk = require('kore-bot-sdk-node');
+
+// Listen for messages from bot to user
+sdk.on('message', function(requestId, data, callback) {
+  console.log('Bot message:', data);
+  // Modify or intercept as needed
+  callback(null, data);
+});
+
+// Listen for webhook events
+sdk.on('webhook', function(requestId, data, callback) {
+  // Handle webhook events (user utterances, context changes, etc.)
+  callback(null, data);
+});
+
+// Start the BotKit server
+sdk.start({
+  port: 8003
+});
+```
+
+## Widget SDK
+
+The Widget SDK renders bot data as panels and widgets in a host application. Use it to display structured bot responses (cards, tables, lists) as embedded UI components.
+
+## Security
+
+All SDK communications use JWT-based authentication:
+
+1. Your server generates a JWT token signed with your Client Secret.
+2. The SDK passes this token to the Platform to authenticate the bot session.
+3. Tokens should be short-lived and refreshed as needed.
+
+<Warning>Never expose your Client Secret in client-side code. Always generate JWT tokens server-side.</Warning>
+
+## SDK features comparison
+
+| Feature | Web SDK | BotKit SDK | Widget SDK |
+|---|---|---|---|
+| Chat widget UI | Yes | No | No |
+| Message interception | No | Yes | No |
+| Agent transfer | Limited | Full | No |
+| Custom webhook handling | No | Yes | No |
+| Structured UI panels | No | No | Yes |
+| WebSocket communication | Yes | Yes | No |

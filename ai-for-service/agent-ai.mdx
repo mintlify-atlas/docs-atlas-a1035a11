@@ -1,0 +1,194 @@
+---
+title: "Agent AI"
+description: "Intelligent AI assistant for contact center agents providing real-time suggestions, automated summaries, and knowledge assistance."
+---
+
+Agent AI provides real-time assistance to human agents to boost productivity and service quality:
+
+- Suggested responses based on conversation context
+- Automated call and chat summaries
+- Knowledge base search integration
+- Next-best-action recommendations
+
+## How it works
+
+When a customer message comes in, Agent AI analyzes the live conversation, searches connected knowledge sources, and surfaces suggested responses and recommended actions directly in the agent's desktop widget — all in real time.
+
+**Example:**
+
+> Customer: “I received the wrong item in my order.”
+
+Agent AI returns:
+- **Suggested Response:** “I apologize for the inconvenience. I can help you with a replacement or refund. Let me pull up your order details.”
+- **Relevant Knowledge:** Wrong Item Policy (95% confidence), Return Process Guide (87% confidence)
+- **Recommended Actions:** Create Return, Issue Refund, Escalate to Supervisor
+
+## Features
+
+### Real-time suggestions
+
+Contextual response suggestions during conversations:
+
+| Feature | Description |
+|---|---|
+| **Auto-suggest** | Suggestions appear as customer speaks |
+| **One-click use** | Insert suggestion with single click |
+| **Edit before send** | Modify suggestions as needed |
+| **Learn from edits** | System improves from agent modifications |
+
+```yaml
+Suggestions:
+  trigger: continuous
+  display_count: 3
+  confidence_threshold: 0.7
+  sources:
+    - knowledge_base
+    - canned_responses
+    - conversation_history
+  tone: professional
+```
+
+### Automated summaries
+
+Generate conversation summaries automatically:
+
+| Summary type | When generated |
+|---|---|
+| **Real-time** | Updated as conversation progresses |
+| **After-call** | Complete summary at interaction end |
+| **Disposition** | Structured outcome summary |
+
+```yaml
+Auto-Summary:
+  format: structured
+  sections:
+    - customer_issue
+    - resolution
+    - follow_up_required
+  length: concise
+  auto_save_to_crm: true
+```
+
+### Knowledge assistance
+
+Integrated knowledge search:
+
+- Search triggered automatically by conversation context
+- Manual search with natural language queries
+- Results ranked by relevance
+- Source citations included
+
+### Next-best-action
+
+Recommended actions based on conversation context:
+
+```yaml
+NBA Rules:
+  - condition: sentiment == "frustrated" AND issue_unresolved
+    action: offer_supervisor_escalation
+    priority: high
+
+  - condition: customer_tier == "premium" AND wait_time > 5min
+    action: offer_compensation
+    priority: medium
+
+  - condition: issue_type == "billing"
+    action: show_billing_tools
+    priority: normal
+```
+
+## Configuration
+
+### Enable Agent AI
+
+<Steps>
+  <Step title="Navigate to configuration">
+    Go to **Agent AI > Configuration**.
+  </Step>
+  <Step title="Enable for queues">
+    Enable Agent AI for desired queues.
+  </Step>
+  <Step title="Configure feature settings">
+    Set suggestion mode, auto-summary, knowledge search, and next-best-action options.
+  </Step>
+  <Step title="Test with pilot agents">
+    Roll out to a pilot group to gather feedback before full deployment.
+  </Step>
+</Steps>
+
+### Feature settings
+
+| Setting | Options |
+|---|---|
+| **Suggestion mode** | Continuous, On-demand, Disabled |
+| **Auto-summary** | Enabled, Disabled |
+| **Knowledge search** | Auto, Manual, Both |
+| **NBA** | Enabled, Disabled |
+
+### Integration
+
+Connect Agent AI to:
+
+- **Search AI** — For knowledge retrieval
+- **CRM** — For customer context
+- **Case management** — For action execution
+- **Quality AI** — For coaching feedback
+
+## Agent experience
+
+### Desktop widget
+
+Agent AI appears as a widget in the agent console with three sections:
+
+- **Suggested Response** — AI-generated response with Use, Copy, and feedback (thumbs up/down) buttons
+- **Knowledge** — Ranked articles with confidence scores and a manual search option
+- **Quick Actions** — Contextual action buttons (Refund, Credit, Escalate, etc.)
+
+### Feedback loop
+
+Agents can rate suggestions:
+
+- **Thumbs up** — Good suggestion
+- **Thumbs down** — Unhelpful suggestion
+- **Edits** — System learns from modifications
+
+Feedback improves suggestion quality over time.
+
+## Analytics
+
+| Metric | Description |
+|---|---|
+| **Suggestion acceptance** | % of suggestions used |
+| **Time saved** | Handle time reduction |
+| **Knowledge utilization** | Searches and clicks |
+| **NBA conversion** | Recommended actions taken |
+
+**Quality impact metrics to track:**
+
+- First contact resolution rate
+- Customer satisfaction scores
+- Quality evaluation scores
+- Handle time trends
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Deployment">
+    1. Start with a pilot group of agents.
+    2. Gather feedback and iterate.
+    3. Roll out gradually by queue/team.
+    4. Monitor adoption and adjust.
+  </Accordion>
+  <Accordion title="Knowledge quality">
+    - Keep knowledge base current.
+    - Remove outdated content.
+    - Add content for common queries.
+    - Monitor search failures.
+  </Accordion>
+  <Accordion title="Agent training">
+    - Introduce Agent AI in agent training.
+    - Explain feedback mechanism importance.
+    - Show how to use suggestions effectively.
+    - Address concerns about AI assistance.
+  </Accordion>
+</AccordionGroup>

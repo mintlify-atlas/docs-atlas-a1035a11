@@ -1,0 +1,232 @@
+---
+title: "Quality AI"
+description: "Automated quality management and conversation analysis — evaluate 100% of interactions, identify coaching opportunities, and monitor compliance."
+---
+
+Quality AI enables you to:
+
+- Evaluate 100% of customer interactions
+- Identify coaching opportunities automatically
+- Monitor compliance and adherence
+- Drive continuous improvement with data
+
+## How it works
+
+Quality AI analyzes voice, chat, email, and social interactions through speech/text analysis, evaluation scoring, and insight generation. The output flows into three areas:
+
+- **Auto-Scores & Evaluations** — Automated scoring against criteria
+- **Coaching Assignments** — Targeted coaching based on evaluation results
+- **Compliance Monitoring** — Tracking required disclosures and policy adherence
+
+## Evaluation criteria
+
+### Standard criteria
+
+Pre-built evaluation criteria available out of the box:
+
+| Criteria | Description |
+|---|---|
+| **Greeting** | Proper introduction and identification |
+| **Empathy** | Acknowledging customer emotions |
+| **Issue understanding** | Correctly identifying the problem |
+| **Resolution** | Providing accurate solution |
+| **Closing** | Proper wrap-up and next steps |
+| **Compliance** | Following required disclosures |
+
+### Custom criteria
+
+Create custom criteria to match your business needs:
+
+```yaml
+Criteria: Product Knowledge
+Description: Agent demonstrates accurate product knowledge
+Weight: 15%
+Scoring:
+  - 5: Excellent - Comprehensive, accurate information
+  - 4: Good - Mostly accurate with minor gaps
+  - 3: Acceptable - Basic knowledge demonstrated
+  - 2: Below expectations - Significant gaps
+  - 1: Unacceptable - Incorrect information provided
+Auto-evaluate: true
+```
+
+### Evaluation forms
+
+Group criteria into evaluation forms and apply them to queues:
+
+```yaml
+Form: Customer Service Standard
+Criteria:
+  - greeting (10%)
+  - empathy (15%)
+  - issue_understanding (20%)
+  - resolution (30%)
+  - product_knowledge (15%)
+  - closing (10%)
+Pass threshold: 80%
+Apply to:
+  - queue: support
+  - channel: all
+```
+
+## Auto-scoring
+
+AI evaluates interactions in four steps:
+
+<Steps>
+  <Step title="Speech/text analysis">
+    Transcribe and analyze the conversation using NLP.
+  </Step>
+  <Step title="Criteria matching">
+    Map conversation content to evaluation criteria.
+  </Step>
+  <Step title="Scoring">
+    Assign scores based on evidence found in the conversation.
+  </Step>
+  <Step title="Confidence flagging">
+    Flag low-confidence scores for human review.
+  </Step>
+</Steps>
+
+```yaml
+Auto-Scoring:
+  enabled: true
+  evaluation_rate: 100%  # Evaluate all interactions
+  confidence_threshold: 0.8
+  human_review:
+    - low_confidence_scores
+    - failed_evaluations
+    - random_sample: 5%
+```
+
+## Conversation mining
+
+### Topic analysis
+
+| Analysis | Description |
+|---|---|
+| **Topic clustering** | Group conversations by theme |
+| **Trend detection** | Identify emerging topics |
+| **Sentiment by topic** | Track sentiment for each topic |
+| **Volume tracking** | Monitor topic frequency |
+
+### Insights dashboard
+
+Automatic insights surface:
+
+- Top coaching opportunities
+- Emerging quality trends
+- Best performing agents and teams
+- Areas needing attention
+
+## Coaching
+
+### Auto-assignment
+
+Trigger coaching automatically based on evaluation scores:
+
+```yaml
+Coaching Rule: Resolution Improvement
+Trigger:
+  criteria: resolution
+  score: < 3
+  count: 3 consecutive
+Action:
+  assign_coaching: resolution_training
+  notify: supervisor
+  priority: high
+```
+
+### Coaching workflow
+
+<Steps>
+  <Step title="Quality issue detected">
+    Auto-scoring identifies a pattern requiring coaching.
+  </Step>
+  <Step title="Coaching assigned">
+    Coaching is automatically assigned to the relevant supervisor.
+  </Step>
+  <Step title="Supervisor reviews evidence">
+    The supervisor reviews the conversation transcript, recording, and evaluation scorecard.
+  </Step>
+  <Step title="Session scheduled">
+    Coaching session is scheduled with the agent.
+  </Step>
+  <Step title="Follow-up evaluation">
+    A follow-up evaluation confirms improvement.
+  </Step>
+</Steps>
+
+**Each coaching assignment includes:**
+
+- Conversation transcript
+- Audio recording
+- Evaluation scorecard
+- Specific timestamps and sections
+- Comparison to best practices
+
+## Compliance monitoring
+
+### Compliance rules
+
+```yaml
+Compliance: PCI-DSS Card Handling
+Rules:
+  - must_not_say: ["full card number", "CVV"]
+  - must_say: ["secure", "encrypted"]
+  - action_required: mask_card_data
+Alert:
+  severity: critical
+  notify: compliance_team
+```
+
+### Required disclosures
+
+| Disclosure | Required for |
+|---|---|
+| **Recording notice** | All calls |
+| **Rate disclosure** | Financial products |
+| **Terms and conditions** | New accounts |
+| **Privacy policy** | Data collection |
+
+## Analytics
+
+| Dashboard | Metrics |
+|---|---|
+| **Overview** | Quality score trends, pass rates |
+| **Agent performance** | Individual scores, improvement |
+| **Team comparison** | Team-level benchmarking |
+| **Criteria analysis** | Performance by criteria |
+| **Compliance** | Compliance rates, violations |
+
+## Setup Quality AI
+
+<Steps>
+  <Step title="Configure permissions">
+    Go to **User Management > Role Management > New Role > Other Modules**. Assign the Supervisor role or create custom roles with QM permissions.
+  </Step>
+  <Step title="Set up Contact Center">
+    Assign Supervisors and Auditors to the relevant queues so they can access the right interactions.
+  </Step>
+  <Step title="Enable features">
+    Enable **Conversation Intelligence**, **Auto QA**, and **Bookmarks** in Quality AI **Settings**. Enable **Answer** and **Utterance** suggestions in **GenAI Settings**.
+  </Step>
+  <Step title="Create evaluation metrics">
+    Choose a measurement type: By Question, Question Answer Pair, or Adherence (Static or Dynamic). Create evaluation metrics and set the count type (Entire Conversation or Time Bound).
+  </Step>
+  <Step title="Create evaluation forms">
+    Assign a name, description, channel, and pass score. Select metrics, assign weights, and link the form to queues.
+  </Step>
+  <Step title="Analyze interactions">
+    Use Conversation Mining filters to review scored interactions. Save filters to reuse them in audit assignments.
+  </Step>
+  <Step title="Create audit allocations">
+    Assign interactions to auditors for manual evaluation.
+  </Step>
+  <Step title="Run AI-assisted manual audits">
+    Use AI-assisted audits for faster, more consistent scoring. Navigate interactions using adherence moments and violations.
+  </Step>
+  <Step title="Monitor performance">
+    Use the **Dashboard** to track individual QA progress and queue statistics. Use the **Conversation Intelligence Dashboard** for contact center-wide performance trends.
+  </Step>
+</Steps>

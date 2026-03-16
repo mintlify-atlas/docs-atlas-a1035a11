@@ -1,0 +1,161 @@
+---
+title: "Release Notes"
+description: "Feature updates and enhancements introduced in recent Agent Platform releases."
+---
+
+This page provides information on feature updates and enhancements introduced in recent Agent Platform releases.
+
+## v1.7.0 — March 8, 2026
+
+<Info>Minor release</Info>
+
+### Multi-agent orchestration
+
+**Enhanced app creation journey** — A new AI-assisted App Creation wizard walks users through building an application in a few simple steps. Users can build from scratch, import from the Marketplace, or provide a few instructions and let AI generate the complete app definition for review.
+
+**A2A Protocol support** — Agent Platform now supports the A2A (Agent-to-Agent) Protocol, enabling agentic apps to connect with external A2A-compliant agents without custom adapters. Developers can connect external agents using an A2A server URL. External agents can be included in workflows and managed by supervisors just like native agents.
+
+**MCP enhancements** — MCP integration now includes:
+- Refresh of MCP Server Configuration to fetch the latest tool definitions
+- Editable MCP Server Name and URL after configuration
+- Consistent tool naming without prefixing server names (prefix added only for duplicates)
+- Enum parameter support for MCP tools
+
+**Agent activation control** — Agents can now be temporarily disabled without deleting them. Disabled agents are excluded from runtime orchestration but remain fully editable.
+
+**Selective tool response configuration** — Developers can now extract specific values from tool responses using simple path notation.
+
+### No-code and pro-code tools
+
+**Enhanced Workflow Tools versioning** — Tool versions are now automatically created and deployed as part of the app versioning process. Each app version keeps its own tool version, created automatically when users create an app version.
+
+### AI engineering tools
+
+**Expanded model support** — New models include:
+- **Azure OpenAI**: GPT-Realtime, GPT-Realtime-Mini, GPT-5.1, GPT-5.1-Chat, GPT-5.2, and GPT-5.2-Chat
+- **OpenAI**: gpt-image-1.5
+- **Anthropic**: claude-opus-4.6
+
+**Microsoft Foundry Model Catalog integration** — Direct integration with the Microsoft Foundry model catalog enables users to discover and use models deployed there. Single Target URI and Service Principal–based authentication.
+
+### Other improvements
+
+**Centralized SSO and MFA management** — A unified interface for configuring SSO and MFA at the organization level. MFA policies are now context-aware based on SSO status.
+
+**Favorite workspaces** — Users can mark up to three workspaces as favorites, pinning them to the top of the workspace list for quick access.
+
+---
+
+## v1.6.0 — January 31, 2026
+
+<Info>Minor release</Info>
+
+### Multi-agent orchestration
+
+**Enhanced agent creation flow** — Agent creation now supports three paths: building agents from scratch, importing pre-built agents from the Marketplace, or adding externally deployed agents for orchestration.
+
+**AI-assisted prompt refinement** — The prompt editor now includes AI-assisted refinement, enabling users to improve and optimize prompts directly within the editor.
+
+### No-code and pro-code tools
+
+**Enhanced access control for tool logs** — Separate permissions for tool log visibility, supporting three access levels: detailed access, view-only, and no access.
+
+**Environment variables for Workflow Tools in Agentic Apps** — Workflow Tools created within Agentic Apps can now use environment variables defined at the app level, managed through namespaces.
+
+### AI engineering tools
+
+**Vertex AI model integration** — Secure connections to Google Vertex AI-hosted Gemini models (2.5 and 3.0 families). Configure connections manually or via cURL import with automated credential extraction.
+
+**Expanded model support** — New Google Gemini models including gemini-3-pro-preview, gemini-3-flash-preview, gemini-2.5-flash-lite, and more. New OpenAI models including gpt-4.1, gpt-4.1-mini, gpt-4.1-nano, o3, o4-mini, and more.
+
+---
+
+## v1.5.0 — January 17, 2026
+
+<Info>Minor release</Info>
+
+### Multi-agent orchestration
+
+**Direct real-time voice integration for single-agent apps** — The Single Agent Orchestration Pattern now supports real-time models, automatically bypassing the supervisor routing layer and connecting users directly to the agent. Especially beneficial for voice interactions.
+
+**Customizable waiting messages** — The Waiting Experience feature enhances voice interactions by streaming natural filler messages during processing delays. Includes a customizable prompt editor for AI-generated dynamic waiting messages.
+
+**Tool output artifacts in response payload** — Configure tools to include their outputs as artifacts in the final response payload, accessible under the `artifacts` key.
+
+### No-code and pro-code tools
+
+**PII handling for Workflow Tools** — Extends existing PII handling to Workflow Tools, ensuring sensitive data is securely processed and never exposed in logs, traces, or model outputs.
+
+### AI engineering tools
+
+**Open-source model support for Agentic Apps** — Agentic apps now support open-source models including Meta Llama 3.1/3.2 and Mistral models.
+
+---
+
+## v1.4.0 — December 6, 2025
+
+<Info>Minor release</Info>
+
+### Multi-agent orchestration
+
+**Unified orchestration management** — The Adaptive Network Pattern is now generally available. New Behavioral Guidelines let you centrally manage safety, branding, and other instructions. A dedicated Orchestrator section makes it easy to switch between patterns.
+
+**Direct tool invocation via Agent Protocol** — Agent Protocol now supports direct invocation of tools (workflow, code, and MCP tools) while maintaining full access to application context.
+
+**Content variables** — Content Variables provide a centralized way to declare data used throughout the application — such as user profiles, customer IDs, and employee IDs.
+
+### AI engineering tools
+
+**External Model Connection APIs** — New APIs for programmatic management of model connections. Two new API scopes: View connections and Manage connections.
+
+---
+
+## v1.3.1 — November 21, 2025
+
+<Info>Minor release</Info>
+
+### Multi-agent orchestration
+
+**Environment variables and namespace support** — Environment Variables with namespace support enable secure, reusable, and environment-specific configuration management. Developers can centrally define variables and access them in Code Tools.
+
+**Pre-processor for agent execution** — A new Pre-Processor capability allows developers to transform and validate agent context before each execution.
+
+**API key permissions and access control** — Granular permission controls for API keys. Users can create app-level keys scoped to specific permissions.
+
+### AI engineering tools
+
+**Agentic Evaluation: simulations** — Evaluation Studio now supports Simulations, enabling teams to generate realistic mock interaction sessions before deploying agentic apps to production.
+
+### AI safety, security, and governance
+
+**New PII Protection Framework** — A comprehensive PII Protection Framework using regex-based detection to identify sensitive data and automatically apply configured actions (redaction, masking, or replacement).
+
+**Guardrails available by default** — System input and output scanners are now automatically deployed and available by default without consuming credits.
+
+---
+
+## v1.3.0 — November 3, 2025
+
+<Info>Minor release</Info>
+
+**Waiting experience** — A new feature that keeps users engaged during voice interactions using configurable filler messages. Supports both static and dynamic (AI-generated) messages.
+
+**BYOK encryption** — Bring Your Own Keys (BYOK) encryption for public cloud SaaS deployments, integrating with Azure Key Vault and AWS Key Management Service.
+
+**AWS Bedrock integration** — Select a provider schema (Anthropic or OpenAI) and the Platform automatically maps model requests and responses to the chosen format.
+
+---
+
+## v1.2.0 — September 27, 2025
+
+<Info>Minor release</Info>
+
+**Knowledge base test tool** — New test feature at the app level allows users to enter queries and receive real-time responses from connected Search AI sources.
+
+**Enhanced context management** — Rolling context windows with configurable message count limits. When the limit is reached, the oldest messages are automatically removed.
+
+**Improved workflow tool testing** — A unified interface for testing workflow tools directly within Agentic Apps.
+
+**Custom model support** — Seamless integration of custom models in Agentic Apps and Agents through API endpoints. Custom models must support tool calling and follow OpenAI or Anthropic API structures.
+
+**Structured output for open-source models** — Open-source models now support structured JSON output through the `response_format` parameter.

@@ -1,0 +1,156 @@
+---
+title: "Core Concepts"
+description: "Understand the key concepts behind AI for Process: workspaces, workflows, nodes, triggers, the context object, Prompt Studio, Model Hub, Inbox, guardrails, and observability."
+---
+
+AI for Process enables organizations to automate complex business processes by combining AI models, integrations, and human oversight into structured, executable workflows. This page explains the core concepts you need to understand the platform.
+
+## Workspaces
+
+A workspace is a logical grouping of workflows and configurations, typically organized by teams or projects. It controls what workflows and data are accessible, what actions are allowed, and which configurations apply.
+
+- A default workspace is created when a new account is set up.
+- Every workflow is tied to a specific workspace and cannot be moved or accessed across workspaces.
+- All configurations — AI model settings, auth profiles, and permissions — are maintained separately per workspace.
+- Users can switch between workspaces they have access to from the workspace selector in the top-right corner.
+
+## Workflows
+
+A workflow is a directed graph of nodes connected by transitions. You define the logic — what happens, in what order, under what conditions — and the platform executes it. Each workflow run is independent and stateless, producing predictable, repeatable outputs.
+
+Workflows can:
+
+- Process structured and unstructured data using AI models.
+- Integrate with external systems via APIs or pre-built connectors.
+- Route execution through conditional branches or parallel paths.
+- Pause and wait for human input before resuming.
+- Start automatically in response to external events or on a schedule.
+
+The **Workflow Builder** is a visual no-code or low-code interface for designing workflows by placing and connecting nodes on a canvas.
+
+## Workflow nodes
+
+Nodes are the fundamental building blocks of a workflow. Each node performs a discrete, self-contained task and passes its output to downstream nodes through the workflow context.
+
+<CardGroup cols={2}>
+  <Card title="AI Nodes" icon="brain">
+    Multimodal components for text generation, image processing, document intelligence, and audio transcription. Types: Text-to-Text, Text-to-Image, Image-to-Text, Audio-to-Text, Doc Intelligence.
+  </Card>
+  <Card title="Logic Nodes" icon="code-branch">
+    Control branching and iteration. Types: Condition (if/else routing), Loop (iterate over collections), Split (parallel execution), Merge (combine branch results).
+  </Card>
+  <Card title="Integration Nodes" icon="plug">
+    Connect to external systems. Types: API (call external REST/SOAP APIs), Function (run custom Python or JavaScript), DocSearch (query knowledge bases).
+  </Card>
+  <Card title="Control Nodes" icon="play-pause">
+    Define workflow entry and exit points. Start Node configures triggers and input schema; End Node returns the final output.
+  </Card>
+  <Card title="Human Node" icon="user-check">
+    Pauses workflow execution and routes a task to the Inbox for human review, approval, input, or classification. Resumes automatically after the human acts.
+  </Card>
+  <Card title="Utility Nodes" icon="wrench">
+    Support execution management. Types: Delay (pause for a duration), Variable (set or transform context values), Log (write debug messages).
+  </Card>
+</CardGroup>
+
+## Triggers and schedules
+
+Triggers enable event-driven automation by initiating workflows automatically. The Start node is the control point for all trigger configuration.
+
+| Trigger type | Description |
+|--------------|-------------|
+| **API** | Called from external systems via a dedicated REST endpoint generated at deployment. |
+| **Schedule** | Runs at a predetermined time or interval. Supports daily, weekly, monthly, cron, and custom frequencies. |
+| **Event** | Starts automatically when a specific event occurs in a connected third-party app — for example, a new Jira issue or a Salesforce record update. |
+| **Manual** | Triggered by a user action directly in the platform UI. |
+
+Event triggers and schedulers can be used independently or together on the same workflow.
+
+## Context object
+
+The context object is the central runtime state container for a workflow execution. It tracks inputs, intermediate outputs, node status, and metadata for all nodes in a single run.
+
+- Nodes read inputs from the context and write their outputs back using `{{context.steps.NodeName.output.field}}` syntax.
+- The context is discarded after each run — workflows do not persist state across executions.
+- Script nodes can extend the context dynamically, adding computed values accessible to downstream nodes.
+
+```text
+// Reference a previous node's output in any field, prompt, or condition
+{{context.steps.ExtractData.output.invoice_number}}
+```
+
+## Prompt Studio
+
+Prompt Studio manages the full lifecycle of prompts — from creation and testing to optimization and deployment. Key features:
+
+- **65+ pre-built templates** for common use cases: code generation, summarization, content creation, Q&A, and more.
+- **Multi-model comparison**: test prompts across up to 5 models simultaneously.
+- **Variable support**: run prompts with multiple values at once using `{{variable}}` syntax.
+- **AI-assisted prompt generation**: expand short instructions into detailed, structured prompts.
+- **Version control**: commit versions (V1, V2, V3...) with an auditable history of changes.
+- **Draft history**: capture and restore the full canvas state at any point in time.
+- **Collaboration**: share prompts with other users with Owner, Collaborator, or Viewer roles.
+
+## Model Hub
+
+Model Hub centralizes AI model management. It supports three model types:
+
+| Model type | Description | Best for |
+|------------|-------------|----------|
+| **External models** | Commercial models from OpenAI, Anthropic, Google, Azure, Cohere, and Amazon Bedrock. | Production workloads requiring proven reliability. |
+| **Open-source models** | 30+ curated models plus any Hugging Face text generation model. Deploy platform-hosted models, import from Hugging Face, or upload model files. | Cost control, customization, data privacy. |
+| **Fine-tuned models** | Custom models trained on your enterprise data. Supports Full fine-tune, LoRA, and QLoRA configurations. | Domain-specific tasks, consistent outputs. |
+
+After deploying a model, AI for Process generates an API endpoint for external inferencing.
+
+## Inbox (Human-in-the-Loop)
+
+The Inbox is a centralized queue where human reviewers process tasks that require manual judgment. When a workflow reaches a Human Node, it pauses execution and creates a task in the Inbox. Execution resumes automatically after the human completes the task or the configured timeout is reached.
+
+Task types:
+
+| Type | Description |
+|------|-------------|
+| **Review** | Review and optionally edit AI-generated output. |
+| **Approval** | Approve or reject a workflow decision. |
+| **Input** | Provide missing information required to continue the workflow. |
+| **Classification** | Categorize or label data for downstream processing. |
+
+## Guardrails
+
+Guardrails are safety measures that deploy scanners to evaluate prompts and AI responses before and after LLM execution. Available scanners include:
+
+- **Anonymize**: Prevents exposure of sensitive information using redaction, pseudonymization, and generalization.
+- **Ban Topics**: Restricts sensitive or controversial topics to maintain content moderation.
+- **Prompt Injection**: Guards against attacks crafted to manipulate LLM behavior.
+- **Toxicity**: Detects and manages harmful, offensive, or abusive language.
+- **Bias Detection**: Ensures fairness and neutralizes systematic prejudices in AI outputs.
+- **Relevance**: Ensures outputs are accurate to the input context and meet user intent.
+
+Guardrail models must be deployed before they can be added to a workflow as Input or Output Scanner nodes.
+
+## Observability and analytics
+
+The Monitoring module tracks events, actions, and changes across your account:
+
+- **Audit Logs**: Full visibility into every user action and system event. Each log entry captures the event name, category, user, date and time, and a detailed description.
+- **Workflow Analytics Dashboard**: Tracks success and failure rates, average response time, and node execution counts for deployed workflows.
+- **Model Analytics Dashboard**: Measures model latency, request success and failure rates, scaling and replica usage, and credit consumption.
+- **Model Traces**: Run-level analysis including request input, generated output, response time, and source metadata.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Get Started" icon="rocket" href="/ai-for-process/getting-started">
+    Set up a workspace and build your first workflow.
+  </Card>
+  <Card title="Workflow Overview" icon="diagram-project" href="/ai-for-process/workflows/overview">
+    Learn how workflows execute and how to build them.
+  </Card>
+  <Card title="Node Reference" icon="cubes" href="/ai-for-process/nodes">
+    Detailed reference for all available node types.
+  </Card>
+  <Card title="Model Hub" icon="microchip" href="/ai-for-process/models">
+    Deploy and manage AI models for your workflows.
+  </Card>
+</CardGroup>

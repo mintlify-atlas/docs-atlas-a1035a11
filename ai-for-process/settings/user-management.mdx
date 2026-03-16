@@ -1,0 +1,213 @@
+---
+title: "User Management"
+description: "Invite and manage users in your AI for Process account. Invite individuals or import in bulk, synchronize from Active Directory, assign roles, and manage user statuses."
+---
+
+The **Users Management** module in the **Settings** console provides centralized workflows for inviting, importing, and managing users.
+
+As an admin, you can:
+
+- Invite users via email or bulk-import from a file.
+- Synchronize users from your organization's Active Directory (AD).
+- Assign and change roles to control access and permissions.
+- Monitor and manage user statuses — active, inactive, and locked.
+- Configure user profile fields for your domain.
+
+<Warning>Only users with the Admin role or higher (with Users Management permissions) can access the **Settings** console.</Warning>
+
+## Users dashboard
+
+The dashboard displays user counts by status and detailed user information including name, email, role, and status.
+
+| Status | Description |
+|--------|-------------|
+| **Active** | Users with active accounts who can interact with other AI for Process users. |
+| **Inactive** | Invited users who have not yet accepted the invitation. |
+| **Locked** | Users who exceeded 5 failed login attempts and are locked out. |
+
+## Add users
+
+<Tabs>
+  <Tab title="Invite via email">
+    <Steps>
+      <Step title="Open User Management">
+        Click **Settings** on the top navigation bar, then click **Users Management** > **Users** > **Add New User**.
+      </Step>
+      <Step title="Enter email addresses">
+        Click **Invite**, enter a valid email address, and select a role from the dropdown.
+      </Step>
+      <Step title="Add multiple users">
+        To invite multiple users, click **+ Add another member** and repeat. To remove an invitation row, click the **Delete** icon.
+      </Step>
+      <Step title="Send invitations">
+        Click **Send invitation(s)**. A success message appears when the invite is sent.
+      </Step>
+    </Steps>
+
+    **Email address requirements:**
+    - The field must not be empty.
+    - No spaces before, between, or after the email address.
+    - Must include a valid domain (for example, `john@doe.com`).
+    - Duplicate invitations are not allowed.
+
+    <Note>
+    - Invitations expire 15 days after being sent.
+    - The user status is **Inactive** until the invitation is accepted, then changes to **Active**.
+    </Note>
+  </Tab>
+  <Tab title="Bulk import">
+    The bulk import feature lets administrators add multiple users at once using `.txt` or `.csv` files.
+
+    **Requirements:**
+    - Valid file types: `.txt` or `.csv` only.
+    - Required fields: name, email ID, and status.
+    - Each row must contain information for one user.
+    - Accepted delimiters: comma (`,`), pipe (`|`), semicolon (`;`), and tab.
+    - The first row must contain field names.
+    - The **User Status** field determines the post-import action: *New*, *Update*, or *Delete*.
+    - Entries with invalid email formats or missing domains are skipped during import.
+
+    **Steps:**
+
+    1. On the **Users** dashboard, click **Add New User** > **Import**.
+    2. Upload the file by clicking **Upload File** or by dragging and dropping it.
+    3. Review the preview and click **Continue**.
+    4. When the import completes, click **Continue** to view imported users on the dashboard.
+
+    <Note>Imported users are assigned the **Viewer** role by default. You can change this later.</Note>
+
+    Click **Import History** to view past imports, including the date and time, the importing user, and a summary of successful and failed imports.
+  </Tab>
+</Tabs>
+
+## Manage users
+
+### Search for a user
+
+1. Go to the **Users** dashboard.
+2. Click the **Search** text field.
+3. Enter the user's name. Matching results appear automatically.
+
+### Unlock a locked user
+
+Locked users cannot access their accounts until an admin unlocks them.
+
+1. Go to **Settings** > **Users Management** > **Users**.
+2. Hover over the user with status **Locked**.
+3. Click **Unlock**, then click **Confirm**.
+
+The account is unlocked and the status changes to **Active**.
+
+### Change user role
+
+On the **Users** dashboard, you can change the account-level role for one or more users.
+
+**Bulk role change:**
+
+1. Select the required users on the **Users** dashboard.
+2. Click the **Role** dropdown in the bottom pane and select the role.
+
+<Note>To assign different roles to multiple users, change roles individually.</Note>
+
+### Delete a user
+
+<Warning>
+- Deleting a user revokes their access and removes their data from your account. The user can still access their personal AI for Process account. To rejoin, you must invite them again.
+- You cannot delete users who own active workflows. The user must remove all active workflows before deletion.
+</Warning>
+
+**Delete a single user:**
+
+1. Click **Users Management** > **Users** on the left menu.
+2. Hover over the user entry you want to delete.
+3. Click the **Delete** icon.
+
+**Bulk delete:**
+
+1. Select the required users and click the **Delete** icon at the bottom of the screen.
+2. Click **Remove** in the **Remove users** window.
+
+## Active Directory sync
+
+By configuring Active Directory (AD) import, you can sync your organizational user information into the Settings console from a single source of truth, eliminating the need for email invitations or manual file imports.
+
+<Warning>An AD professional with the necessary technical expertise should handle the auto sync configuration process.</Warning>
+
+**Configuration steps overview:**
+
+1. **Set up the connection**: Connect the Settings console to your organization's AD.
+2. **Import organization units**: Choose the OUs from which to import user data.
+3. **Specify user attributes and configure rules**: Define user profile fields and inclusion/exclusion rules for selective import.
+4. **Schedule automatic AD sync**: Set up scheduled sync to keep user data current.
+
+### Step 1: Set up the connection
+
+Provide the following fields to configure the AD connection:
+
+| Field | Description |
+|-------|-------------|
+| **Host Name** | The domain's hostname or IP address where AD services run. |
+| **Server Port** | The network port number used by the domain host. |
+| **Base DN** | The server location for users and groups in the domain. |
+| **User ID** | The identity used to log into the AD. |
+| **Password** | The password used to log into the AD. |
+| **SSL** (Optional) | Enable to secure communications over HTTPS. |
+
+Click **Next** to validate the credentials before proceeding.
+
+### Step 2: Import organization units
+
+Select one of the following options:
+
+- **Import all organization units**: Imports user data from all OUs.
+- **Do not import organization units**: No user data is imported from any OUs.
+- **Import only the following organization units**: Imports user data only from the selected OUs.
+
+Click **Next** to proceed to user profile fields mapping.
+
+### Step 3: Specify user attributes and configure rules
+
+In this step, you can:
+
+- Define the LDAP user attributes (profile fields) to import from the AD.
+- Set **Inclusion rules**: Define which users to include in sync or import based on criteria.
+- Set **Exclusion rules**: Define which users to exclude from the AD import.
+
+**Exclusion rule match types:**
+
+| Match Type | Description |
+|------------|-------------|
+| Exact Match | The AD field must exactly match the specified value. |
+| Partial Match | The AD field can partially match the specified value. |
+| Multiple Matches | The AD field must match all specified values. |
+
+### Step 4: Schedule automatic AD sync
+
+Enabling auto sync is optional but recommended to keep your AD data on AI for Process current.
+
+<Note>When auto sync is disabled, initiate AD sync manually by clicking **Sync Now** under **Configure Sync with Directory**.</Note>
+
+1. Click the **Enable auto-sync** toggle.
+2. Configure the sync frequency (Daily, Weekly, Monthly, or Other), start date, and time.
+3. Click **Save**.
+
+**Sync frequency options:**
+
+| Frequency | Description |
+|-----------|-------------|
+| **Daily** | Syncs every day starting from the sync start date. |
+| **Weekly** | Syncs on the selected day every week. |
+| **Monthly** | Syncs on the designated day of each month. |
+| **Other** | Syncs at custom intervals (for example, every 60 days or weeks). |
+
+### After setup
+
+After configuring AD sync, the following options appear under **Configure sync with directory**:
+
+| Option | Description |
+|--------|-------------|
+| **Sync now** | Performs an ad hoc AD sync without waiting for the schedule. |
+| **Sync History** | Displays the history of AD syncs with date, time, initiating user, and success/failure counts. |
+| **Manage directory sync** | Opens the **Configure Directory** window to edit existing configurations. |
+| **Reset** | Resets the AD sync configuration but retains the last sync data. |
+| **Sync Status** | Shows the date of last sync, total users and OUs synchronized, and any errors encountered. |

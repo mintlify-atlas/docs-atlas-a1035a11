@@ -1,0 +1,234 @@
+---
+title: "Index Configuration"
+description: "Configure content extraction, transformation, workbench stages, and vector embeddings for Search AI."
+---
+
+The Index Configuration in Search AI encompasses the complete data processing pipeline that transforms raw content into searchable, high-quality chunks optimized for answer generation. This pipeline consists of three main phases:
+
+1. **Extraction** – Breaking down source content into manageable chunks using various extraction strategies
+2. **Transformation** – Enriching and refining extracted content through configurable processing stages
+3. **Indexing** – Storing processed chunks with vector embeddings for efficient retrieval
+
+## Content extraction
+
+Content extraction segments ingested data into smaller chunks to organize and efficiently retrieve relevant information for answer generation.
+
+### Extraction strategies
+
+<AccordionGroup>
+  <Accordion title="Text extraction model">
+    Combines NLP and machine learning techniques based on tokenization, where text is segmented into smaller units.
+
+    **Configuration options:**
+    - **Chunk Size (Pages):** Treats every page as a single chunk
+    - **Chunk Size (Tokens):** Configure maximum tokens per chunk (up to 5000) and chunk overlap between consecutive chunks
+  </Accordion>
+  <Accordion title="Layout aware extraction">
+    Extracts data by considering content layout and structure, improving precision for documents with tables, graphs, and charts.
+
+    - Uses OCR technology, layout detection models, and layout awareness rules
+    - Best for complex PDFs and DOCX files with structured visual content
+  </Accordion>
+  <Accordion title="Advanced HTML extraction">
+    Designed specifically for extracting data from HTML files, including tables, images, and textual content.
+
+    **Templates:**
+    - **General:** Identifies different components and classes within HTML documents
+    - **Token-Based:** Generates chunks based on token size (100–1000 tokens)
+
+    <Note>Documents with content shorter than 60 characters are skipped when using the General template.</Note>
+  </Accordion>
+  <Accordion title="Markdown extraction">
+    Transforms each page of a source document into structured Markdown format before processing. Effective for preserving semantic structure.
+
+    Supported formats: PDF files (uploaded directly or via connectors)
+  </Accordion>
+  <Accordion title="Image-based document extraction">
+    Handles complex PDFs with non-textual layouts such as forms, tables, or visually rich content. Each page is converted to an image and processed using VDR embedding models.
+
+    <Note>Requires image-based embedding model selection in Vector Configuration. Answer generation is not supported by Kore XO GPT with this strategy.</Note>
+  </Accordion>
+  <Accordion title="Custom extraction">
+    Enables integration with third-party services for custom content processing.
+
+    **Configuration:**
+    - **Endpoint:** URL for sending content (POST endpoint)
+    - **Concurrency:** Maximum API calls per second
+    - **Headers:** Additional request headers
+    - **Request Body:** Content fields to send to the service
+  </Accordion>
+</AccordionGroup>
+
+### Default extraction strategies
+
+| Content source | Content type | Extraction strategy |
+|---|---|---|
+| WebPages | HTML | Advanced HTML Extraction |
+| Documents | pdf, doc, docx | Markdown Extraction |
+| Documents | pptx, txt | Text Extraction |
+| Connectors | pdf, doc, docx, html, aspx | Markdown Extraction |
+| Connectors | pptx, txt | Text Extraction |
+| Connectors | json | JSON Extraction |
+
+### Managing extraction strategies
+
+<Steps>
+  <Step title="Navigate to Index > Extract">Go to the Extract page in the Index section.</Step>
+  <Step title="Add a strategy">Click **+Add Strategy**.</Step>
+  <Step title="Configure">
+    - Enter a **Strategy Name** (unique identifier)
+    - Select data sources and content types using filters
+    - Choose the extraction model and configure model-specific settings
+  </Step>
+  <Step title="Save">Click **Save** to apply the strategy.</Step>
+</Steps>
+
+<Tip>When multiple strategies exist, they apply based on sequence order. Higher-priority strategies process content first. Use drag-and-drop to reorder.</Tip>
+
+## Content transformation
+
+Content transformation refines extracted text into high-quality data after the extraction phase. This enrichment process addresses incomplete metadata, formatting inconsistencies, and missing context.
+
+### Transformation stages
+
+| Stage type | Purpose |
+|---|---|
+| **Field Mapping** | Add, update, or delete fields. Useful for ensuring uniformity across pages. |
+| **Custom Script** | Implement custom JavaScript transformations for specific business needs. |
+| **Exclude Documents** | Filter out unnecessary or irrelevant content before ingestion. |
+| **API Stage** | Invoke external APIs to modify, enrich, or analyze content during transformation. |
+| **LLM Stage** | Leverage external LLMs to refine, update, or enrich content (summarization, readability improvements, context addition). |
+
+### Custom script example
+
+```javascript
+// Count pages in ingested content
+int temp_total_pages = 0;
+if(ctx.file_content_obj != null){
+    for (def item: ctx.file_content_obj) {
+        if (item!="") {
+            temp_total_pages = temp_total_pages+1;
+        }
+    }
+}
+ctx.total_pages = temp_total_pages;
+```
+
+### Stage availability by extraction strategy
+
+| Strategy | Field Mapping | Custom Script | Exclude Documents | API Stage | LLM Stage |
+|---|---|---|---|---|---|
+| Text Extraction | Yes | Yes | Yes | Yes | Yes |
+| Advanced HTML Extraction | Yes | Yes | Yes | Yes | Yes |
+| Layout Aware Extraction | N/A | N/A | N/A | N/A | N/A |
+| Markdown Extraction | N/A | N/A | N/A | N/A | N/A |
+| Image-based Document Extraction | N/A | N/A | N/A | N/A | N/A |
+
+## Workbench
+
+The Workbench is a tool for processing and enhancing ingested content through a series of configurable stages.
+
+### Key features
+
+- **Pipeline processing** — Sequential stage execution
+- **Custom transformation** — Customizable stages per business needs
+- **Simulation capabilities** — Built-in testing before deployment
+- **Flexible sequencing** — Design efficient processing workflows
+
+### Adding workbench stages
+
+<Steps>
+  <Step title="Navigate to Index > Enrich">Go to the Enrich page in the Index section.</Step>
+  <Step title="Add a stage">Click **+New Stage**.</Step>
+  <Step title="Select stage type">Choose from Field Mapping, Custom Script, Exclude Document, API Stage, or LLM Stage.</Step>
+  <Step title="Configure">
+    Enter a unique stage name, define conditions for content selection, and set outcomes defining transformations.
+  </Step>
+  <Step title="Save">Click **Save**.</Step>
+</Steps>
+
+## Workbench simulator
+
+Test stage behavior before deployment.
+
+<Steps>
+  <Step title="Click Simulate">Click the **Simulate** button on the Workbench page.</Step>
+  <Step title="Select stages">Choose the stage(s) to test.</Step>
+  <Step title="Choose test documents">Select the number of documents for testing.</Step>
+  <Step title="Review results">View results in JSON format in the Chunk Viewer.</Step>
+</Steps>
+
+<Tip>Use the Workbench Simulator frequently during configuration to catch errors early.</Tip>
+
+## Content Browser
+
+The Content Browser provides tools to observe, verify, and edit extracted chunks from source data.
+
+Navigate to **Index > Browse** to view all chunks. Each chunk displays:
+
+- Preview (including images and tables)
+- Document title and chunk title
+- Chunk text and unique chunk ID
+- Source title, source type, and extraction strategy
+- Last edited date and source URL (if applicable)
+
+### Editing chunks
+
+<Steps>
+  <Step title="Click Details">Click the **Details** icon on a chunk.</Step>
+  <Step title="Modify content">Edit the title and/or text as needed.</Step>
+  <Step title="Save">Click **Save**.</Step>
+</Steps>
+
+<Warning>When documents are updated, all related chunks are deleted and recreated, which loses any manual edits.</Warning>
+
+## Vector configuration
+
+Vector Configuration manages how extracted and transformed chunks are converted into vector embeddings for efficient semantic search and retrieval.
+
+- **Embedding model selection** — Choose appropriate embedding models
+- **Image-based embedding** — Enable for image-based document extraction
+- **Indexing parameters** — Configure vector storage settings
+
+## Processing workflow summary
+
+```text
+1. Content Ingestion
+   └── Sources: Websites, Documents, Connectors
+
+2. Extraction Phase
+   └── Apply extraction strategy based on content type
+   └── Generate initial chunks
+
+3. Transformation Phase (Document Workbench)
+   └── Stage 1 → Stage 2 → Stage N
+   └── Each stage processes and passes to next
+
+4. Indexing Phase
+   └── Vector embedding generation
+   └── Storage in vector database
+
+5. Verification
+   └── Content Browser review
+   └── Manual edits if needed
+```
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Extraction strategy selection">
+    - Match strategy to content type and structure
+    - Consider expected query complexity when setting chunk sizes
+    - Use Layout Aware for documents with tables and charts
+  </Accordion>
+  <Accordion title="Transformation pipeline design">
+    - Order stages logically (e.g., exclude before enrichment)
+    - Use simulation frequently during development
+    - Keep transformations focused and modular
+  </Accordion>
+  <Accordion title="Content quality">
+    - Review chunks in Content Browser after processing
+    - Edit chunks only when necessary (edits lost on content updates)
+    - Use filters to identify problematic chunks
+  </Accordion>
+</AccordionGroup>

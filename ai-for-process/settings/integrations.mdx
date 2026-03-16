@@ -1,0 +1,269 @@
+---
+title: "Integrations"
+description: "Connect AI for Process to 120+ third-party services using OAuth2, API, Bearer, or Basic Auth. Configure connections and integrate with Weights & Biases, Hugging Face, and AWS S3."
+---
+
+The **Integrations** feature connects your AI for Process account to third-party services. Once connected, use them from the workflow canvas with the Integration node.
+
+AI for Process supports 120+ integrations with the following authentication methods:
+
+| Auth method | Description |
+|-------------|-------------|
+| **API** | Authenticate using a token in headers or query parameters. Used for API Key or Access Token integrations. |
+| **OAuth2** | Uses the OAuth2 authorization framework to grant limited access without sharing passwords. |
+| **Bearer** | Uses a bearer token in the request header, typically within an OAuth2 flow. |
+| **Basic Auth** | Authenticates using a username and password in the request header. Supported for ServiceNow, Freshdesk, Snowflake, Amplitude, and Mixpanel. |
+
+<Note>Other authentication methods for certain integrations include Basic, Basic with JWT, OAuth1, and custom authentication defined by the service provider.</Note>
+
+## Access integrations
+
+1. In AI for Process, click **Settings** in the top menu.
+2. Click **Integrations** in the left menu.
+
+The **Integrations** page has two tabs:
+- **All Integrations**: Lists available integrations grouped by category.
+- **Connected**: Lists all configured connections.
+
+Use the **Search** field, **Category** filter, or **Authorization** filter to find specific integrations. Toggle between **List view** and **Tile view** (default) using the display options.
+
+## Featured integrations
+
+<CardGroup cols={3}>
+  <Card title="Salesforce" icon="salesforce">
+    CRM for sales, service, marketing, and analytics. 32 supported actions. OAuth2.
+  </Card>
+  <Card title="Slack" icon="slack">
+    Channel-based messaging with workflow integrations. 174 supported actions. OAuth2, Bearer.
+  </Card>
+  <Card title="AWS S3" icon="aws">
+    Connect to AWS S3 buckets for file import and storage. API.
+  </Card>
+  <Card title="Jira" icon="jira">
+    Issue and project tracking. 544 supported actions. OAuth2, API.
+  </Card>
+  <Card title="HubSpot" icon="hubspot">
+    CRM integrating email automation, marketing, and customer service. 229 actions. OAuth2, Bearer.
+  </Card>
+  <Card title="GitHub" icon="github">
+    Git-based code hosting with issue tracking and CI/CD integrations. 908 actions. OAuth2.
+  </Card>
+</CardGroup>
+
+## Full integrations list
+
+<AccordionGroup>
+  <Accordion title="View all supported integrations">
+
+| Integration | Description | Actions | Auth types |
+|-------------|-------------|---------|------------|
+| Acculynx | Data exchange between AccuLynx and third-party applications. | 8 | API |
+| Active_campaign | Marketing automation, CRM, and email marketing. | 7 | API |
+| Affinity | CRM focused on relationship intelligence and workflow automation. | 20 | API |
+| Airtable | Low-code platform for building apps and automating workflows. | 17 | OAUTH2, BEARER, API |
+| Amplitude | Digital analytics software. | 16 | BASIC |
+| Asana | Team task and project management. | 15 | OAUTH2 |
+| Attio | Customizable workspace for team relationships and workflows. | 56 | OAUTH2 |
+| AWS S3 Bucket | Connect to AWS S3 buckets. | 1 | API |
+| Bamboohr | Human resources software as a service. | 159 | API |
+| Bitbucket | Git-based code hosting with pull requests and team collaboration. | 15 | OAUTH2 |
+| Box | Cloud content management and file sharing. | 273 | OAUTH2 |
+| Brevo | Email marketing, SMS campaigns, and marketing automation. | 221 | API |
+| Calendly | Appointment scheduling with automated invitations and availability checks. | 41 | OAUTH2 |
+| Canva | Canvas LMS API for courses, users, enrollments, and grades. | 32 | OAUTH2 |
+| Canvas | Web-based learning management system. | 79 | OAUTH2, API |
+| Clickup | Project management with tasks, docs, goals, and chat. | 126 | OAUTH2, API |
+| Confluence | Team collaboration and knowledge management. | 190 | OAUTH2 |
+| Coda | Collaborative workspace for documents, workflows, and productivity. | 97 | API |
+| Discord | Instant messaging and VoIP social platform. | 169 | OAUTH2, BEARER |
+| Docusign | eSignature and digital agreement management. | 342 | OAUTH2 |
+| Dropbox | Cloud file storage, synchronization, and sharing. | 9 | OAUTH2 |
+| Dynamics365 | Microsoft CRM, ERP, and productivity apps. | 16 | OAUTH2 |
+| Elevenlabs | AI voice generation in any language. | 59 | API |
+| Figma | Collaborative interface design. | 44 | OAUTH2, API |
+| Fireflies | Meeting transcription, summarization, and search. | 10 | API |
+| Freshdesk | Customer support platform with automation. | 7 | BASIC |
+| Gmail | Send and manage emails via Gmail. | 21 | OAUTH2, BEARER |
+| Gong | Platform for video meetings, call recording, and team collaboration. | 54 | API |
+| Googlecalendar | Time management and scheduling. | 12 | OAUTH2, BEARER |
+| Googledocs | Google Docs document management. | 5 | OAUTH2, BEARER |
+| Googledrive | Google Drive cloud storage. | 10 | OAUTH2, BEARER |
+| Googlemeet | Google Meet video conferencing. | 5 | OAUTH2 |
+| Googlesheets | Google Sheets web-based spreadsheets. | 9 | OAUTH2 |
+| Github | Git-based code hosting with issue tracking and CI/CD integrations. | 908 | OAUTH2 |
+| Hubspot | CRM integrating email automation, marketing, and customer service. | 229 | OAUTH2, BEARER |
+| Hugging Face | Hugging Face ML model integration. | 1 | API |
+| Intercom | Business messaging for customer communication. | 43 | OAUTH2 |
+| Jira | Issue and project tracking. | 544 | OAUTH2, API |
+| Klaviyo | Email and SMS marketing for e-commerce. | 231 | API, OAUTH2 |
+| Linear | Issue management and project tracking. | 15 | OAUTH2, API |
+| Linkedin | LinkedIn API. | 4 | OAUTH2 |
+| Mailchimp | Email marketing and automation. | 271 | OAUTH2 |
+| Microsoft_teams | Microsoft Teams channel management. | 13 | OAUTH2 |
+| Monday | Cloud-based work operating system. | 21 | OAUTH2 |
+| Notion | Unified workspace for notes, docs, wikis, and tasks. | 23 | OAUTH2, API |
+| One_drive | Microsoft OneDrive cloud storage. | 7 | OAUTH2 |
+| Outlook | Microsoft email and calendaring. | 22 | OAUTH2 |
+| Pagerduty | Incident, schedule, and alert management. | 357 | OAUTH2, API |
+| Pipedrive | Sales management with pipeline visualization. | 275 | OAUTH2, BEARER |
+| Quickbooks | Cloud-based accounting for finances. | 13 | OAUTH2 |
+| Reddit | Post and comment on Reddit. | 9 | OAUTH2 |
+| Salesforce | CRM for sales, service, marketing, and analytics. | 32 | OAUTH2 |
+| Sendgrid | Cloud-based email delivery with transactional and marketing email services. | 375 | API |
+| Sentry | Error tracking and monitoring. | 178 | BEARER |
+| Servicenow | IT Service Management platform. | 5 | BASIC |
+| Share_point | SharePoint document management and team collaboration. | 6 | OAUTH2 |
+| Shopify | E-commerce platform for online and in-person sales. | 26 | API, OAUTH2 |
+| Slack | Channel-based messaging with workflow integrations. | 174 | OAUTH2, BEARER |
+| Snowflake | Snowflake cloud data platform. | 4 | BASIC |
+| Stripe | Online payment processing. | 19 | API |
+| Supabase | Open-source backend with Postgres, authentication, and storage. | 77 | OAUTH2, API |
+| Todoist | Task and project management app. | 4 | OAUTH2 |
+| Trello | Kanban-style project management. | 323 | OAUTH, BEARER |
+| Twitter | Twitter (now X) social media platform. | 72 | OAUTH2 |
+| Weight & Biases | Weights & Biases ML experiment tracking. | 1 | API |
+| Whatsapp | Customer messaging via WhatsApp Business API. | 5 | API |
+| Youtube | YouTube actions and integrations. | 11 | OAUTH2 |
+| Zendesk | Customer service and sales platform. | 11 | OAUTH2 |
+| Zoom | Video conferencing with breakout rooms and screen sharing. | 172 | OAUTH2 |
+| Zoho | Zoho CRM interactions. | 6 | OAUTH2 |
+
+  </Accordion>
+</AccordionGroup>
+
+## Add a connection
+
+<Note>You can also add a connection directly from the **Integration node** on the workflow canvas.</Note>
+
+<Steps>
+  <Step title="Access Integrations">
+    In AI for Process, click **Settings** > **Integrations**.
+  </Step>
+  <Step title="Select the integration">
+    In the **All Integrations** tab, optionally filter by **Category** and **Authorization**, then click the required integration.
+  </Step>
+  <Step title="Click Add Connection">
+    Click **Add Connection** on the integration page.
+  </Step>
+  <Step title="Configure authorization details">
+    Enter a **Connection Name** and configure the **Authorization Details** based on the selected auth type:
+
+    <AccordionGroup>
+      <Accordion title="OAuth2">
+        Select the configured **Auth Profile** under **Custom** to authenticate the integration. After selecting an auth profile, its credentials populate the corresponding fields. Click **Authorize** to test the integration.
+      </Accordion>
+      <Accordion title="Bearer Token">
+        Enter the bearer token and any related credentials such as Base URL, API Key, or Bot Token. Click **Test** to validate the connection.
+      </Accordion>
+      <Accordion title="API">
+        Enter the **API Key** or **Access Token**. Additional fields may be required based on the provider. Click **Test** to validate the connection.
+      </Accordion>
+      <Accordion title="Basic Auth">
+        Enter the required credentials (for example, Amplitude requires an API key and API secret). Click **Test** to validate the connection.
+      </Accordion>
+    </AccordionGroup>
+  </Step>
+  <Step title="Save">
+    Click **Save** after testing the connection successfully. A success message confirms the connection.
+  </Step>
+</Steps>
+
+## Manage connections
+
+In the **Connected** tab, you can view, edit, test, and manage all configured connections.
+
+Each connection entry shows: Connection Name, Added By, Authorization Details, Integration Type, Added on, and an Action to test or enable/disable.
+
+### Edit a connection
+
+1. Access **Integrations** > **Connected** > Select the connection.
+2. Click the **Ellipses** icon > **Edit**.
+3. Modify the required fields in the **Authorization Details** section.
+4. Optionally click **Test** to validate.
+5. Click **Save**.
+
+### Delete a connection
+
+1. Access **Integrations** > **Connected** > Select the connection.
+2. Click the **Ellipses** icon > **Delete**.
+3. Click **Delete** to confirm.
+
+<Warning>Deletion is irreversible and removes all associations of the connection from the platform.</Warning>
+
+### Enable or disable a connection
+
+Enabling a connection makes it available for user authentication with the provider and for use in the Integration node on the workflow canvas. Use the toggle to enable (default) or disable the connection as needed.
+
+## Integrate with Weights & Biases
+
+Connecting to Weights & Biases (WandB) links AI for Process to your WandB account so that fine-tuning data is sent to the WandB console for additional analytics.
+
+<Steps>
+  <Step title="Access Integrations">
+    In AI for Process, click **Settings** > **Integrations**.
+  </Step>
+  <Step title="Select Weights & Biases">
+    Click **Weights & Biases** from the integrations list. The section expands.
+  </Step>
+  <Step title="Add a connection">
+    Click **Add connection**. In the dialog, enter a **Connection name** and your **API key**.
+  </Step>
+  <Step title="Test and confirm">
+    Click **Test** to verify the connection. If successful, click **Confirm** to complete the setup.
+  </Step>
+</Steps>
+
+<Note>Once the WandB connection is set up, the connection name appears in the **Weights and Biases** section of the Create a Fine-Tuned Model wizard.</Note>
+
+## Integrate with Hugging Face
+
+Connecting to Hugging Face lets you use publicly available text generation models directly in AI for Process. For private or exclusive models, provide your Hugging Face access token.
+
+<Steps>
+  <Step title="Access Integrations">
+    In AI for Process, click **Settings** > **Integrations**.
+  </Step>
+  <Step title="Select Hugging Face">
+    Click **Hugging Face** from the integrations list. The section expands.
+  </Step>
+  <Step title="Add a connection">
+    Click **Add connection**. In the dialog, enter a **Connection name** and your **Access token**.
+  </Step>
+  <Step title="Test and confirm">
+    Click **Test** to verify the connection. If successful, click **Confirm** to complete the setup.
+  </Step>
+</Steps>
+
+<Note>Once the connection is set up, the connection name appears in the dropdown when selecting and deploying an open-source model.</Note>
+
+## Integrate with AWS S3
+
+Connecting to AWS S3 lets you import files from your S3 bucket and use them in AI for Process workflows.
+
+<Steps>
+  <Step title="Access Integrations">
+    In AI for Process, click **Settings** > **Integrations**.
+  </Step>
+  <Step title="Select AWS S3 bucket">
+    Click **AWS S3 bucket** from the integrations list. The section expands.
+  </Step>
+  <Step title="Add a connection">
+    Click **Add connection** and enter:
+    - **Connection name**: A unique name for the connection.
+    - **Access key**: The unique identifier for your AWS account.
+    - **Secret key**: The confidential key paired with the Access Key ID.
+    - **Bucket name**: The bucket name configured in the S3 console.
+  </Step>
+  <Step title="Test and confirm">
+    Click **Test** to verify the connection. If successful, click **Confirm** to complete the setup.
+  </Step>
+</Steps>
+
+### Use S3 files in the Workflow Builder
+
+Once the S3 connection is set up:
+
+1. Create an **Input variable** with type **Remote File**.
+2. Add an API node and point to the remote file using the **URL** field.
+
+The file content is available in the context object and can be accessed in any subsequent nodes.

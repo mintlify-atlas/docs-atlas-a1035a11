@@ -1,0 +1,139 @@
+---
+title: "APIs"
+description: "Access AI for Work programmatically using the REST API. Authenticate with a personal API key and retrieve audit logs, user data, and more."
+---
+
+Access AI for Work programmatically using the REST API.
+
+## Authentication
+
+AI for Work uses a **Personal API Key** for authentication. The key identifies and authorizes users, granting access rights to the API. It simplifies the authentication process by allowing users to provide a single key instead of a username and password combination.
+
+### Generate your personal API key
+
+<Steps>
+  <Step title="Open your profile">
+    Click on the profile icon located in the lower-left corner of the admin dashboard and select **My Profile**. Alternatively, retrieve the key from the **My Profile** section of the application, located in the upper-right corner of the homepage.
+  </Step>
+  <Step title="Generate the key">
+    Navigate to the **Personal API Key** section and click to generate a new key.
+  </Step>
+  <Step title="Copy and secure the key">
+    Once generated, you can:
+    - Copy the key for immediate use.
+    - Regenerate the key if needed.
+    - Delete the key if it is no longer needed.
+  </Step>
+</Steps>
+
+### Use the personal API key
+
+Include the Personal API Key in the `auth` header of your API requests:
+
+```bash
+--header 'auth: {{Admin's Personalkey}}'
+```
+
+<Warning>Treat your API key like a password. Do not expose it in client-side code or public repositories.</Warning>
+
+---
+
+## Audit Log API
+
+Retrieve audit log data programmatically for custom reporting, SIEM integration, or compliance workflows.
+
+### Endpoint
+
+```
+GET https://{{host}}/api/public/auditlogs
+```
+
+**Headers:**
+
+| Header | Value |
+|--------|-------|
+| `Content-Type` | `application/json` |
+| `auth` | `{{Admin's Personalkey}}` |
+
+### Query parameters
+
+| Parameter | Description | Example |
+|-----------|-------------|--------|
+| `entity` | Type of resource to filter by | `entity=usergroups` |
+| `entityId` | Unique ID of a specific resource instance | `entityId=12345` |
+| `userId` | Filter by the user who performed the action | `userId=john_doe` |
+| `emailId` | Filter by the email address of the acting user | `emailId=john.doe@example.com` |
+| `startTime` | Start of the time window (ISO 8601) | `startTime=2024-12-01T00:00:00Z` |
+| `endTime` | End of the time window (ISO 8601) | `endTime=2024-12-05T23:59:59Z` |
+| `action` | Type of action: `create`, `update`, or `delete` | `action=create` |
+
+### Supported entities
+
+| Entity | `entity` Key | Supported Actions |
+|--------|-------------|-------------------|
+| User Group | `usergroup` | create, update, delete |
+| Agent | `Agent` | create, update, delete |
+| Role | `role` | create, update, delete |
+| SSO Status | `ssostatus` | update |
+| Service Account | `serviceaccount` | create, update, delete |
+| LLM Integrations | `llmintegrations` | create, update, delete |
+| Domains | `domains` | create, update, delete |
+| Rate Limits | `ratelimits` | update |
+| Email Notification Preferences | `emailnotificationpreferences` | update |
+| Business Rules | `nlprules` | create, update, delete |
+| User Enrollment | `userenrollment` | update |
+
+### Example request
+
+```bash
+curl --location 'https://{{host}}/api/public/auditlogs?startTime=2024-12-01T23%3A59%3A59Z&endTime=2024-12-12T23%3A59%3A59Z&entity=nlprules&action=update&emailId=test.user%40example.com' \
+--header 'auth: {{Admin's Personalkey}}'
+```
+
+### Example response
+
+```json
+{
+  "logs": [
+    {
+      "parentIds": [],
+      "_id": "67584fc8a16721a7bb876d3b",
+      "entity": "nlprules",
+      "action": "update",
+      "userId": "u-6fd26567-2b99-5265-9b69-54fba448d26f",
+      "accountId": "ac-a16b8603-4c4d-57b7-a6e2-ddf53fee4efb",
+      "entityId": "66a389b40e9b336c5e6edb19",
+      "delta": {
+        "from": {},
+        "to": {
+          "name": "Answer rule - 67"
+        }
+      },
+      "htmlText": "Update business rule <b>Answer rule - 67</b>",
+      "userName": "John Doe",
+      "emailId": "john.doe@example.com",
+      "keywords": "",
+      "cOn": "2024-12-10T14:27:20.286Z"
+    }
+  ]
+}
+```
+
+---
+
+## Base URL
+
+All API endpoints use your account's host URL:
+
+```
+https://{{host}}/api/public/
+```
+
+Replace `{{host}}` with your AI for Work account's domain.
+
+---
+
+## Related
+
+- [Audit Log](/ai-for-work/administration/audit-log) — View and filter audit logs in the Admin Console
+- [Security and Control](/ai-for-work/administration/security-and-control#personal-api-key) — Manage your personal API key

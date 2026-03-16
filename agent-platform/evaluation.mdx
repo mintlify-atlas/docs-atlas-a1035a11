@@ -1,0 +1,72 @@
+---
+title: "Evaluation Studio"
+description: "Measure AI performance with model evaluation and agentic evaluation across pre-production and production environments."
+---
+
+Evaluation Studio is a unified workspace for evaluating AI system performance across two areas: **Model Evaluation** and **Agentic Evaluation**. It enables systematic assessment of both the quality of large language model (LLM) outputs and the end-to-end behavior of agentic applications in real-world scenarios.
+
+```
+Define Criteria → Load Test Data → Run Evaluations → Analyze Results → Iterate
+```
+
+## Evaluation types
+
+<CardGroup cols={2}>
+  <Card title="Model evaluation" icon="chart-bar">
+    Assess LLM performance using configurable quality and safety metrics. Organize datasets into projects, apply built-in or custom evaluators, and analyze results through visual scoring.
+  </Card>
+  <Card title="Agentic evaluation" icon="robot">
+    Assess how effectively an agentic app performs in both production and pre-production environments. Import real session data or generate simulated sessions.
+  </Card>
+</CardGroup>
+
+## Model evaluation
+
+Model Evaluation enables you to assess LLM performance using configurable quality and safety metrics.
+
+**Key capabilities:**
+
+- Upload datasets with input-output pairs, or generate outputs from a deployed model.
+- Apply Quality, Safety, and RAGAS evaluators — or create custom evaluators tailored to your needs.
+- Integrate external outputs via Run a Prompt, Run an API, or Run Search AI.
+- Analyze model effectiveness through visual scoring, pass/fail thresholds, and exportable results.
+
+**Use when:** Fine-tuning, comparing, or validating models before or after deployment.
+
+## Agentic evaluation
+
+Agentic Evaluation assesses how effectively an agentic app performs in both production and pre-production environments.
+
+**Key capabilities:**
+
+- Import app sessions and traces from production or simulations.
+- Generate simulated sessions using **Personas** and **Test Scenarios** to validate behavior before deployment.
+- Run multi-level evaluations across sessions and traces to assess goal achievement, workflow adherence, and tool usage.
+- Analyze inputs and outputs across supervisors, agents, and tools to uncover coordination issues.
+
+**Use when:** Pre-deployment validation, debugging agentic workflows, or ongoing production quality monitoring.
+
+### Simulation capabilities
+
+Simulations allow teams to generate realistic mock interaction sessions before deploying agentic apps to production.
+
+| Capability | Description |
+|---|---|
+| **Reusable personas** | Create personas representing different communication styles and behaviors |
+| **Test scenarios** | Define scenarios to simulate specific tasks, intents, and edge cases |
+| **Mock conversations** | Generate realistic conversations based on the app's current configuration |
+| **Transcript review** | Review transcripts to validate agent behavior before go-live |
+
+## Accessing Evaluation Studio
+
+<Steps>
+  <Step title="Log in">
+    Log in to your Platform account.
+  </Step>
+  <Step title="Select Evaluation Studio">
+    From the modules menu, select **Evaluation Studio**.
+  </Step>
+  <Step title="Choose evaluation type">
+    On the Evaluation page, select **Model Evaluation** or **Agentic Evaluation** to begin.
+  </Step>
+</Steps>

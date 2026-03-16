@@ -1,0 +1,97 @@
+---
+title: "Admin Console"
+description: "Central hub for managing users, security, apps, enrollment, and billing across the AI for Service platform."
+---
+
+The Administration module provides tools to manage your platform account, users, security, and billing.
+
+| Topic | Description |
+|---|---|
+| [Admin Console Overview](#admin-console-overview) | Central platform management hub |
+| [Administration Dashboard](#administration-dashboard) | Real-time activity and usage metrics |
+| [User Management](#user-management) | Add users, manage groups and roles |
+| [App Management](#app-management) | Manage apps deployed in your account |
+| [Enrollment](#enrollment) | Invite, import, and sync users |
+| [Security and Control](#security-and-control) | SSO, encryption, API scopes, 2FA, security settings |
+| [Analytics for Bots Admin](#analytics-for-bots-admin) | Bot-level analytics for admins |
+| [Billing](#billing) | Plans, usage, and payments |
+
+## Admin Console overview
+
+The Admin Console is the central hub for platform administrators to manage users, security, apps, and account settings.
+
+Sign in at `https://platform.kore.ai/admin`.
+
+## Administration dashboard
+
+The Dashboard gives administrators a real-time snapshot of platform activity, bot usage, and user engagement metrics.
+
+## User management
+
+Manage the users, groups, and roles within your account.
+
+| Task | Guide |
+|---|---|
+| [User Management Overview](/ai-for-service/user-management/users-and-role) | Overview of the Users module |
+| **Add Users** | Add and manage individual users |
+| **Manage Groups** | Create and manage user groups |
+| **Manage Roles** | Define and assign roles to users |
+
+## App management
+
+View and manage all apps (bots) deployed within your account from a central interface.
+
+## Enrollment
+
+Enroll users into the platform individually, in bulk, or by syncing from an external directory.
+
+| Task | Description |
+|---|---|
+| **Invite Users** | Send an invitation to a new user |
+| **Send Bulk Invites** | Invite multiple users at once |
+| **Import User Data** | Import users and user data from a file |
+| **Synchronize Users from Active Directory** | Sync users automatically from Active Directory |
+
+## Security and control
+
+Configure authentication, encryption, API access, and security policies for your account.
+
+### Single sign-on (SSO)
+
+Configure SSO for platform access using SAML-based authentication. Users authenticate once and gain access to all authorized applications without re-entering credentials.
+
+### Enterprise encryption
+
+| Feature | Description |
+|---|---|
+| **Enterprise Key Management** | Manage enterprise encryption keys |
+| **BYOK for AWS** | Bring your own key using AWS KMS |
+| **BYOK for Azure** | Bring your own key using Azure Key Vault |
+
+### API scopes
+
+Configure and restrict which API capabilities client applications can access. API scopes are associated with JWT apps and control access to Platform and Admin Console APIs.
+
+### Two-factor authentication (2FA)
+
+Enable and manage 2FA for platform access. Users are prompted for a verification code after entering their username and password.
+
+### Security settings
+
+Configure platform-wide security policies including password requirements, session management, and IP restrictions.
+
+## Analytics for bots admin
+
+Access analytics scoped to bot performance and usage from the Admin Console. View conversation metrics, user engagement trends, and task execution rates across all bots in your account.
+
+## Billing
+
+Manage your subscription plan, view usage, and handle payments.
+
+| Feature | Description |
+|---|---|
+| **Plans** | View and upgrade your subscription plan |
+| **Usage** | Monitor usage against your plan limits |
+| **Billing history** | View past invoices and payment details |
+
+<Note>Only App Owners can access the Billing module.</Note>

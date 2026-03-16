@@ -1,0 +1,313 @@
+---
+title: "Inbox"
+description: "Manage human-in-the-loop tasks from a centralized queue. Review AI outputs, approve decisions, provide missing data, and handle exceptions and escalations."
+---
+
+The Inbox provides a centralized queue for tasks that require human judgment. When a workflow reaches a Human Node, execution pauses and a task appears in the Inbox. Execution resumes automatically after a reviewer acts or the task reaches its timeout.
+
+## How it works
+
+```text
+Workflow Execution
+        │
+        ▼
+  Human Node (requires human action)
+        │
+        ▼
+  Inbox (task created and queued)
+  ┌────────────────────────────────────────┐
+  │  Task: Review Invoice Extraction              │
+  │  Workflow: Invoice Processor | Priority: High │
+  │                                               │
+  │  Invoice #: INV-12345  [Edit]                 │
+  │  Amount: $1,250.00     [Edit]                 │
+  │  Vendor: Acme Corp     [Edit]                 │
+  │                                               │
+  │  [Approve]  [Reject]  [Request Changes]       │
+  └────────────────────────────────────────┘
+        │
+        ▼
+  Workflow continues
+```
+
+For configuration details on the node itself, see [Human node](/ai-for-process/nodes#human-node).
+
+## Inbox interface
+
+The task list shows all pending tasks with the following columns:
+
+| Column | Description |
+|--------|-------------|
+| **Task** | Task name and description. |
+| **Workflow** | Source workflow that created the task. |
+| **Priority** | High, Medium, or Low. |
+| **Due** | Deadline for completion. |
+| **Assigned** | Current assignee. |
+| **Status** | Pending, In Progress, or Completed. |
+
+Use filters to narrow down the task list by workflow name, priority level, due date range, assignee, status, or tags.
+
+Use the search bar to find tasks by task content, workflow ID, custom fields, or notes.
+
+## Task types
+
+### Review task
+
+Review and optionally edit AI-generated content before the workflow continues.
+
+<Accordion title="Review task configuration example">
+```yaml
+Task: Review Document Summary
+Type: review
+Fields:
+  - name: original_document
+    type: document
+    readonly: true
+  - name: ai_summary
+    type: text
+    editable: true
+    label: "AI Generated Summary"
+  - name: confidence_score
+    type: number
+    readonly: true
+Actions:
+  - approve
+  - edit_and_approve
+  - reject
+```
+</Accordion>
+
+### Approval task
+
+Binary decision with optional comments.
+
+<Accordion title="Approval task configuration example">
+```yaml
+Task: Approve Expense Report
+Type: approval
+Fields:
+  - name: expense_details
+    type: structured_data
+    readonly: true
+  - name: total_amount
+    type: currency
+    readonly: true
+  - name: comments
+    type: text
+    optional: true
+Actions:
+  - approve
+  - reject
+Required:
+  - comment_on_reject: true
+```
+</Accordion>
+
+### Input task
+
+Collect information from humans when the AI could not extract required fields.
+
+<Accordion title="Input task configuration example">
+```yaml
+Task: Provide Missing Information
+Type: input
+Instructions: |
+  The AI couldn't extract the following fields.
+  Please provide the missing information.
+Fields:
+  - name: vendor_address
+    type: address
+    required: true
+  - name: payment_terms
+    type: dropdown
+    options:
+      - Net 30
+      - Net 60
+      - Net 90
+    required: true
+```
+</Accordion>
+
+### Classification task
+
+Categorize or label content for downstream processing.
+
+<Accordion title="Classification task configuration example">
+```yaml
+Task: Classify Support Ticket
+Type: classification
+Fields:
+  - name: ticket_content
+    type: text
+    readonly: true
+  - name: category
+    type: single_select
+    options:
+      - Technical Support
+      - Billing
+      - Sales
+      - General Inquiry
+    required: true
+  - name: priority
+    type: single_select
+    options:
+      - High
+      - Medium
+      - Low
+    required: true
+```
+</Accordion>
+
+## Assignment
+
+### Assignment rules
+
+Configure how tasks are assigned to users or roles:
+
+<Accordion title="Assignment rules configuration example">
+```yaml
+Assignment Rules:
+  # Assign to specific role
+  - condition: task_type == "approval"
+    assign_to:
+      role: approver
+
+  # Assign based on workflow data
+  - condition: amount > 10000
+    assign_to:
+      role: senior_approver
+
+  # Round-robin assignment
+  - condition: default
+    assign_to:
+      role: reviewer
+      strategy: round_robin
+```
+</Accordion>
+
+### Manual reassignment
+
+To reassign a task manually:
+
+1. Open the task details.
+2. Click **Reassign**.
+3. Select the new assignee.
+4. Add an optional note.
+5. Confirm the reassignment.
+
+### Self-assignment
+
+Allow users to claim unassigned tasks from the queue:
+
+```yaml
+Self-Assignment:
+  enabled: true
+  max_concurrent: 5
+  claim_action: "Take Task"
+```
+
+## SLAs and escalation
+
+### SLA configuration
+
+Set time-based expectations for task completion:
+
+<Accordion title="SLA configuration example">
+```yaml
+SLA:
+  warning:
+    threshold: 4h
+    action: notify_assignee
+  critical:
+    threshold: 8h
+    action: notify_supervisor
+  breach:
+    threshold: 24h
+    action: escalate
+```
+</Accordion>
+
+### Escalation rules
+
+Automatic escalation when deadlines approach:
+
+<Accordion title="Escalation rules configuration example">
+```yaml
+Escalation:
+  - level: 1
+    trigger: sla_warning
+    action:
+      notify:
+        - assignee
+      highlight: true
+
+  - level: 2
+    trigger: sla_critical
+    action:
+      notify:
+        - assignee
+        - supervisor
+      reassign_to: supervisor
+
+  - level: 3
+    trigger: sla_breach
+    action:
+      notify:
+        - assignee
+        - supervisor
+        - manager
+      reassign_to: manager
+      priority: high
+```
+</Accordion>
+
+## Notifications
+
+| Channel | Events |
+|---------|--------|
+| **Email** | New task, approaching deadline, escalation. |
+| **In-app** | All task events. |
+| **Slack** | Configurable events. |
+| **Webhook** | All events for integration. |
+
+## Bulk actions
+
+Process multiple tasks at once using bulk actions:
+
+| Action | Description |
+|--------|-------------|
+| **Bulk approve** | Approve multiple tasks simultaneously. |
+| **Bulk assign** | Assign a batch of tasks to a user. |
+| **Bulk prioritize** | Update priority for multiple tasks. |
+| **Bulk tag** | Add labels to multiple tasks at once. |
+
+Bulk actions require confirmation and support a maximum batch size of 50 tasks.
+
+## Analytics
+
+### Inbox metrics
+
+| Metric | Description |
+|--------|-------------|
+| **Queue depth** | Number of tasks waiting for action. |
+| **Avg completion time** | Average time taken to complete tasks. |
+| **SLA compliance** | Percentage of tasks completed within SLA. |
+| **Throughput** | Tasks completed per day. |
+
+### User performance
+
+| Metric | Description |
+|--------|-------------|
+| **Tasks completed** | Count per user. |
+| **Avg time** | Average time per task type. |
+| **SLA rate** | On-time completion percentage. |
+
+## Best practices
+
+<Tip>
+- Keep tasks focused and clear. Provide sufficient context and include original data for reference.
+- Balance workload across team members. Match skills to task types.
+- Use escalation for blockers to prevent queue buildup.
+- Train users on task types and provide decision guidelines.
+- Collect feedback from reviewers to improve AI accuracy over time.
+</Tip>

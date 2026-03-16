@@ -1,0 +1,190 @@
+---
+title: "Models"
+description: "Configure and manage AI models for your agents, tools, and workflows with the Model Hub."
+---
+
+The Agent Platform is model-agnostic, supporting a wide range of AI models from commercial providers, open-source repositories, and custom fine-tuned deployments. Access **Model Hub** from the top navigation to manage all your models in one place.
+
+Model Hub provides three ways to work with models:
+
+| Model type | Description | Best for |
+|---|---|---|
+| **External models** | Commercial models from OpenAI, Anthropic, Google, Azure, Cohere, and Amazon Bedrock | Production workloads requiring proven reliability |
+| **Open-source models** | 30+ curated models plus any Hugging Face text generation model | Cost control, customization, data privacy |
+| **Fine-tuned models** | Custom models trained on your enterprise data | Domain-specific tasks, consistent outputs |
+
+## External models
+
+Connect commercial models with minimal setup using Easy Integration or API Integration.
+
+### Supported providers
+
+| Provider | Popular models | Tool calling |
+|---|---|---|
+| **OpenAI** | GPT-4o, GPT-4 Turbo, GPT-3.5 Turbo, o1 series | ✓ |
+| **Anthropic** | Claude 3.5 Sonnet, Claude 3 Opus/Sonnet/Haiku | ✓ |
+| **Google** | Gemini 1.5 Pro, Gemini 1.5 Flash | ✓ |
+| **Azure OpenAI** | GPT-4o, GPT-4, GPT-3.5 Turbo | ✓ |
+| **Cohere** | Command R+, Command R | ✓ |
+| **Amazon Bedrock** | Claude, Titan, Llama models via AWS | ✓ |
+
+### Adding an external model
+
+<Tabs>
+  <Tab title="Easy integration (recommended)">
+    <Steps>
+      <Step title="Navigate to Models">
+        Go to **Models** → **External Models** → **Add a model**.
+      </Step>
+      <Step title="Select Easy Integration">
+        Select **Easy Integration** and choose your provider.
+      </Step>
+      <Step title="Enter credentials">
+        Enter your API credentials.
+      </Step>
+      <Step title="Select model">
+        Select the model and confirm.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="API integration (custom endpoints)">
+    <Steps>
+      <Step title="Start API integration">
+        Select **API Integration** when adding a model.
+      </Step>
+      <Step title="Configure endpoint">
+        Configure the endpoint URL and authentication.
+      </Step>
+      <Step title="Map parameters">
+        Map request/response parameters.
+      </Step>
+      <Step title="Test and save">
+        Test and save the integration.
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+<Note>Custom models must support tool calling and follow OpenAI or Anthropic API structures to work with Agentic Apps.</Note>
+
+## Open-source models
+
+Deploy from 30+ curated models or import any text generation model from Hugging Face.
+
+### Deployment options
+
+| Option | Description |
+|---|---|
+| **Kore-hosted** | Select from curated models, optimize, and deploy on managed infrastructure |
+| **Hugging Face import** | Bring any compatible model from Hugging Face (public or private) |
+
+### Optimization techniques
+
+Before deployment, optimize models for better performance:
+
+- **vLLM**: High-throughput inference optimization
+- **CTranslate2 (CT2)**: Efficient inference with reduced memory footprint
+- **No optimization**: Deploy as-is for maximum compatibility
+
+### Quick deploy steps
+
+<Steps>
+  <Step title="Navigate to open-source models">
+    Go to **Models** → **Open-source models** → **Deploy a model**.
+  </Step>
+  <Step title="Select model">
+    Select a Kore-hosted model or import from Hugging Face.
+  </Step>
+  <Step title="Choose optimization">
+    Choose an optimization technique (optional).
+  </Step>
+  <Step title="Configure and deploy">
+    Configure parameters and hardware, then click **Deploy**.
+  </Step>
+</Steps>
+
+## Fine-tuned models
+
+Create custom models trained on your enterprise data for domain-specific tasks.
+
+### When to fine-tune
+
+- Consistent output format required across responses
+- Domain-specific terminology or jargon
+- Unique tone, style, or brand voice
+- Improved accuracy for specialized tasks
+
+### Fine-tuning process
+
+<Steps>
+  <Step title="Prepare data">
+    Format training data as JSONL with conversation examples.
+
+    ```json
+    {"messages": [{"role": "system", "content": "You are a support agent."}, {"role": "user", "content": "Order status?"}, {"role": "assistant", "content": "I'll check your order status right away."}]}
+    {"messages": [{"role": "system", "content": "You are a support agent."}, {"role": "user", "content": "Return request"}, {"role": "assistant", "content": "I can help process your return."}]}
+    ```
+  </Step>
+  <Step title="Select base model">
+    Choose from supported Kore-hosted or Hugging Face models.
+  </Step>
+  <Step title="Configure training">
+    Select fine-tuning type: Full, LoRA, or QLoRA.
+  </Step>
+  <Step title="Monitor progress">
+    Track metrics via Weights & Biases integration.
+  </Step>
+  <Step title="Deploy">
+    Make the model available across Agent Platform.
+  </Step>
+</Steps>
+
+## Model parameters
+
+Configure generation behavior when using models across Agent Platform:
+
+| Parameter | Description | Typical range |
+|---|---|---|
+| **Temperature** | Controls randomness. Lower = focused, higher = creative | 0.0–2.0 (default: 0.7) |
+| **Top P** | Nucleus sampling — considers tokens within probability mass | 0.0–1.0 (default: 0.9) |
+| **Top K** | Limits selection to top K tokens | 1–100 (default: 50) |
+| **Max tokens** | Maximum output length | Varies by model |
+| **Stop sequences** | Strings that stop generation | Custom list |
+
+## Tool calling support
+
+<Warning>Tool calling support is required for Agentic Apps. Use models with tool calling support for agent orchestration.</Warning>
+
+**Supported for tool calling:**
+- OpenAI: GPT-4o, GPT-4 Turbo, GPT-3.5 Turbo
+- Anthropic: Claude 3.5 Sonnet, Claude 3 series
+- Google: Gemini 1.5 Pro, Gemini 1.5 Flash
+- Azure OpenAI: GPT-4o, GPT-4, GPT-3.5 Turbo
+- Amazon Bedrock: Models via supported providers
+
+**Not supported:**
+- Kore-hosted open-source models
+- Most Hugging Face imports
+- Models without function calling capabilities
+
+## Model selection guide
+
+| Use case | Recommended models | Why |
+|---|---|---|
+| Complex reasoning | GPT-4o, Claude 3 Opus | Highest accuracy |
+| Fast responses | GPT-3.5, Claude 3 Haiku, Gemini Flash | Low latency |
+| Code generation | GPT-4o, Claude 3.5 Sonnet | Best code quality |
+| Cost-sensitive | GPT-3.5, Claude 3 Haiku | Lower token cost |
+| Long context | Claude 3, Gemini 1.5 | 100K+ token windows |
+| Data privacy | Open-source (Kore-hosted) | No external API calls |
+| Real-time voice | GPT-4o Realtime Preview | Native voice support |
+
+## Monitoring
+
+Track model performance across Agent Platform:
+
+- **Model analytics dashboard**: Token usage, latency, error rates
+- **Model traces**: Detailed request/response logs
+- **Usage summary**: Cost tracking by model
+
+Access via **Settings** → **Monitoring** → **Analytics**.

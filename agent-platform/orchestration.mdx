@@ -1,0 +1,240 @@
+---
+title: "Orchestration"
+description: "Choose the right orchestration pattern for your agentic app: Single Agent, Supervisor, or Adaptive Network."
+---
+
+Orchestration defines how agents coordinate to handle user requests. The Agent Platform supports three patterns, each suited to different use cases.
+
+## Orchestration patterns
+
+<CardGroup cols={3}>
+  <Card title="Single Agent" icon="robot">
+    One agent handles all requests directly. Best for focused, single-domain apps with low complexity.
+  </Card>
+  <Card title="Supervisor" icon="sitemap">
+    A central supervisor coordinates multiple specialized agents working in parallel. Best for complex tasks.
+  </Card>
+  <Card title="Adaptive Network" icon="network-wired">
+    Agents dynamically hand off to each other based on context. Best for naturally flowing, multi-domain conversations.
+  </Card>
+</CardGroup>
+
+## Single agent
+
+The single agent pattern routes all user requests directly to one agent without multi-agent coordination. This agent independently manages intent understanding, knowledge retrieval, tool invocation, and response generation.
+
+```
+User Request → Agent → Tools/Knowledge → Response
+```
+
+### When to use single agent
+
+- Your app has **one primary capability** or domain.
+- Tasks are **straightforward** and don't require specialists.
+- **Low latency** is critical.
+- You want **minimal complexity**.
+
+### Good fit examples
+
+| Use case | Why single agent works |
+|---|---|
+| Leave management | All requests (check balance, apply, cancel) fall within one domain |
+| FAQ bot | Questions map to a single knowledge base |
+| Order lookup | All actions relate to order data |
+| Appointment scheduling | Booking, rescheduling, cancellation are related tasks |
+
+### Benefits and limitations
+
+| Benefit | Description |
+|---|---|
+| **Simplicity** | No orchestration complexity. One agent, direct execution. |
+| **Low latency** | No agent selection overhead. Requests process immediately. |
+| **Easy maintenance** | Single point of configuration and debugging. |
+| **Predictable behavior** | Clear scope boundaries make testing straightforward. |
+
+| Limitation | Mitigation |
+|---|---|
+| **Single point of failure** | Add fallback handling or upgrade to a multi-agent pattern |
+| **Scope creep** | Define clear boundaries; upgrade pattern when scope expands |
+| **No specialization** | Use multi-agent pattern for complex, multi-domain tasks |
+
+---
+
+## Supervisor
+
+The supervisor pattern uses a hierarchical structure where a central orchestrator acts as a supervisor, managing and coordinating multiple specialized AI agents.
+
+The supervisor:
+- Analyzes incoming requests.
+- Breaks down complex tasks.
+- Delegates to appropriate agents.
+- Aggregates and synthesizes results.
+- Delivers unified responses.
+
+```
+User Request → Supervisor → [Agent A, Agent B, Agent C] → Aggregated Response
+```
+
+### When to use supervisor
+
+- Tasks can be **decomposed** into independent subtasks.
+- You need **parallel execution** for performance.
+- Multiple **specialists** should contribute to responses.
+- You want **centralized control** over coordination.
+
+### Good fit examples
+
+| Use case | Why supervisor works |
+|---|---|
+| Customer service | Billing, orders, and tech support agents work in parallel |
+| Research assistant | Multiple agents gather info from different sources |
+| Travel booking | Flight, hotel, and car rental agents coordinate |
+| Financial planning | Investment, tax, and insurance agents provide comprehensive advice |
+
+### Execution flow
+
+<Steps>
+  <Step title="User input">
+    Request arrives at the application.
+  </Step>
+  <Step title="Supervisor analysis">
+    Parse intent, identify required capabilities.
+  </Step>
+  <Step title="Task decomposition">
+    Break complex request into subtasks.
+  </Step>
+  <Step title="Agent selection and delegation">
+    Route subtasks to specialized agents.
+  </Step>
+  <Step title="Parallel execution">
+    Agents work simultaneously on their tasks.
+  </Step>
+  <Step title="Result aggregation">
+    Collect outputs from all agents.
+  </Step>
+  <Step title="Response synthesis">
+    Resolve conflicts, generate unified response.
+  </Step>
+</Steps>
+
+### Example conversation
+
+```
+User: "I need to return my order and get a refund. Also, can you explain your return policy?"
+
+Supervisor analysis:
+├── Subtask 1: Process return request (Order Agent)
+├── Subtask 2: Initiate refund (Billing Agent)
+└── Subtask 3: Explain return policy (Support Agent)
+
+Parallel execution:
+├── Order Agent: Initiates return for order #12345
+├── Billing Agent: Queues refund of $89.99
+└── Support Agent: Retrieves return policy
+
+Aggregated response:
+"I've initiated the return for your order #12345.
+ A refund of $89.99 will be processed within 3-5 business days once we receive the item.
+
+ Our return policy: Items can be returned within 30 days of purchase in original condition.
+ Electronics have a 15-day window. Free return shipping is included."
+```
+
+### Key capabilities
+
+- **Modularity**: Each agent focuses on a specific domain, making the system easier to build and maintain.
+- **Scalability**: Distribute complex tasks across multiple agents for better performance.
+- **Specialization**: Each agent can use different models, tools, and knowledge optimized for their domain.
+- **Fault tolerance**: If one agent fails, others can still complete their tasks.
+
+### Conflict resolution
+
+When agents return conflicting information, the supervisor applies a resolution strategy:
+
+| Strategy | Behavior |
+|---|---|
+| `prefer_specialized` | Use domain expert's answer |
+| `verify_source` | Check authoritative system |
+| `ask_user` | Clarify with user |
+| `aggregate` | Present both with context |
+
+---
+
+## Adaptive network
+
+The adaptive network pattern enables decentralized orchestration where agents autonomously decide when to hand off tasks to other specialists. Unlike the supervisor pattern, there's no central coordinator — agents evaluate tasks and route them directly to peers.
+
+```
+User Request → Agent A → Agent B → Agent C → Response
+                 └──────────┴──────────┘
+                   Dynamic handoffs
+```
+
+### When to use adaptive network
+
+- Tasks naturally **flow between domains**.
+- You need **dynamic routing** based on conversation context.
+- Agents should **autonomously decide** when to hand off.
+- **Sequential expertise** is required.
+- You want **lower latency** than supervisor aggregation.
+
+### Good fit examples
+
+| Use case | Why adaptive network works |
+|---|---|
+| Employee onboarding | HR → IT → Finance flow based on current step |
+| Customer journey | Sales → Support → Success natural progression |
+| Incident handling | Triage → Specialist → Resolution escalation |
+| Complex troubleshooting | Problem domains emerge during conversation |
+
+### Key characteristics
+
+**Dynamic delegation**: Agents assess incoming tasks and route them to the most suitable peer when the task falls outside their scope.
+
+**Context preservation**: Conversation history travels with handoffs — users don't repeat information.
+
+**Decentralized control**: No central supervisor. Each agent is aware of other agents and can directly initiate transfers.
+
+**Sequential workflows**: Tasks typically flow through agents sequentially rather than in parallel.
+
+### Best practices
+
+**Define clear handoff rules**:
+
+```yaml
+handoff_triggers:
+  - condition: "User mentions billing or payment"
+    target: billing_agent
+  - condition: "Technical issue beyond my scope"
+    target: specialist_agent
+  - condition: "User explicitly requests different help"
+    target: router_agent
+```
+
+**Prevent circular handoffs**:
+
+```yaml
+handoff:
+  max_handoffs: 5
+  allow_circular: false
+  track_visited: true
+```
+
+**Add graceful fallbacks**:
+
+```yaml
+fallback:
+  agent: support_agent
+  message: "I'll connect you with a specialist who can help."
+```
+
+## Pattern comparison
+
+| Aspect | Single agent | Supervisor | Adaptive network |
+|---|---|---|---|
+| Control | Single agent | Centralized supervisor | Decentralized |
+| Execution | Sequential | Parallel | Sequential |
+| Routing | Direct | Supervisor decides | Agents decide |
+| Latency | Lowest | Higher (aggregation) | Low (direct) |
+| Complexity | Lowest | Medium | Medium |
+| Best for | Single domain | Decomposable tasks | Flowing conversations |

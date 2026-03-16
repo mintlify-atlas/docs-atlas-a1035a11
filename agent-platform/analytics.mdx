@@ -1,0 +1,171 @@
+---
+title: "Analytics"
+description: "Monitor performance and gain real-time insights into your agentic app's usage, sessions, traces, and resource consumption."
+---
+
+The analytics dashboard provides real-time visibility into how your agentic app performs — tracking users, sessions, messages, and resource consumption across agents, tools, and models.
+
+## Key metrics
+
+| Metric | Description |
+|---|---|
+| **Users** | Unique active users in the period |
+| **Sessions** | Total conversation sessions |
+| **Messages** | Messages exchanged (user + agent) |
+| **Tokens** | Total token consumption |
+
+## Run analytics
+
+Track execution across your app's components.
+
+<Tabs>
+  <Tab title="Agent runs">
+    | Agent | Runs | Avg response | Tokens | Success |
+    |---|---|---|---|---|
+    | Support Agent | 1,234 | 2.3s | 450K | 98.5% |
+    | Billing Agent | 567 | 1.8s | 180K | 99.1% |
+    | Order Agent | 890 | 3.1s | 320K | 97.8% |
+  </Tab>
+  <Tab title="Tool runs">
+    | Tool type | Tool | Runs | Avg time | Success |
+    |---|---|---|---|---|
+    | Workflow | get_order | 890 | 450ms | 99.2% |
+    | Code | validate_input | 1,200 | 120ms | 99.8% |
+    | MCP | crm_lookup | 456 | 890ms | 96.5% |
+    | Knowledge | faq_search | 2,100 | 340ms | 99.9% |
+  </Tab>
+  <Tab title="Model runs">
+    | Model | Invocations | Avg latency | Tokens | Cost |
+    |---|---|---|---|---|
+    | gpt-4o | 3,400 | 1.2s | 1.8M | $45.20 |
+    | gpt-3.5 | 1,200 | 0.4s | 320K | $0.64 |
+  </Tab>
+</Tabs>
+
+## Traces
+
+Traces provide detailed visibility into individual request lifecycles.
+
+```
+Trace: req_abc123
+├── Start: 2024-01-15 14:30:22.123
+├── End: 2024-01-15 14:30:25.456
+├── Duration: 3.333s
+│
+├── Events
+│   ├── [14:30:22.123] Request received
+│   ├── [14:30:22.145] Agent selected: Support Agent
+│   ├── [14:30:22.200] Tool invoked: get_order_status
+│   ├── [14:30:22.650] Tool response received
+│   ├── [14:30:22.700] LLM generation started
+│   ├── [14:30:25.400] LLM generation completed
+│   └── [14:30:25.456] Response sent
+│
+├── Spans
+│   ├── Agent Processing: 3.2s
+│   ├── Tool Execution: 450ms
+│   └── LLM Generation: 2.7s
+│
+└── Generations
+    └── Support Agent response
+        ├── Model: gpt-4o
+        ├── Input tokens: 1,234
+        ├── Output tokens: 256
+        └── Latency: 2.7s
+```
+
+**Trace benefits:**
+- Debug request flow issues
+- Identify performance bottlenecks
+- Understand agent behavior
+- Optimize response times
+
+## Sessions
+
+Sessions track continuous user interactions across multiple exchanges.
+
+```
+Session: sess_xyz789
+├── User: user_456
+├── Started: 2024-01-15 14:25:00
+├── Duration: 12 minutes
+├── Traces: 5
+│
+├── Trace 1: "What's my order status?"
+│   └── Agent: Support Agent, Duration: 3.3s
+│
+├── Trace 2: "When will it arrive?"
+│   └── Agent: Support Agent, Duration: 2.1s
+│
+└── ...
+
+Total cost: $0.12
+```
+
+## Filtering
+
+| Filter | Options |
+|---|---|
+| **Time range** | Last hour, Last 24 hours, Last 7 days, Last 30 days, or custom range |
+| **Environment** | Draft (development), Staging, or Production |
+| **Dimensions** | By agent, tool, model, or user segment |
+
+## Exporting data
+
+Download analytics for external analysis:
+
+| Format | Use case |
+|---|---|
+| **CSV** | Spreadsheet-compatible analysis |
+| **JSON** | Programmatic processing |
+| **PDF** | Shareable reports |
+
+## Alerts
+
+Configure notifications for important events:
+
+```yaml
+alerts:
+  - name: High error rate
+    condition: error_rate > 5%
+    window: 1 hour
+    action: email
+
+  - name: Slow responses
+    condition: avg_latency > 5s
+    window: 15 minutes
+    action: slack
+
+  - name: Cost spike
+    condition: daily_cost > $100
+    window: 1 day
+    action: email
+```
+
+## Audit logs
+
+Track all changes made across your account.
+
+**What's logged:**
+- User actions (create, update, delete)
+- Configuration changes
+- Deployments
+- Access events
+
+```yaml
+Event: Tool Updated
+User: alice@company.com
+Time: 2024-01-15 14:30:00
+Details:
+  Tool: get_order_status
+  Changes:
+    - timeout: 30s → 60s
+    - description: Updated
+```
+
+## Best practices
+
+- **Monitor key metrics**: Success rate, latency, cost, user satisfaction
+- **Set baselines**: Establish normal ranges to detect anomalies (e.g., success rate 95–99%, avg latency 1–3s)
+- **Review regularly**: Daily health checks, weekly trend analysis, monthly deep dives
+- **Act on insights**: Slow agent? Optimize tools or prompts. High error rate? Review configurations.

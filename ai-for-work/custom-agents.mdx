@@ -1,0 +1,409 @@
+---
+title: "Custom Agents"
+description: "Build AI agents tailored to your organization's specific needs, from prompt-based content generators to autonomous task executors."
+---
+
+Build AI agents tailored to your organization's specific needs.
+
+## Overview
+
+Custom agents let you create AI-powered assistants with:
+
+- **Custom instructions** — Define how the agent responds.
+- **Enterprise knowledge** — Connect internal data sources.
+- **Tool integrations** — Access external systems and APIs.
+- **Configurable behavior** — Control tone, scope, and capabilities.
+
+## Agent types
+
+| Agent Type | Description | Best For |
+|------------|-------------|----------|
+| **Prompt Agent** | LLM-powered agent with custom instructions and variable-based prompts | Content generation, text transformation, data analysis |
+| **API Agent** | No-code integration with external REST APIs and systems of record | Real-time data retrieval, triggering external actions |
+| **Search Agent** | RAG-based retrieval from Search AI or Amazon Q indexes | Enterprise search, documentation Q&A |
+| **Agentic Flow Agent** | Sequential multi-agent workflows with decision logic | Complex processes, multi-step automation |
+| **Autonomous Agent** | Self-directed agent connected to Agent Platform via API | Research, complex automation, long-running tasks |
+| **Bot Agent** | Conversational bot built on AI for Service Platform | Guided workflows, form filling, structured interactions |
+| **Workflow Agent** | Integration with Agent Platform workflow automation | Business process automation, sync/async workflows |
+| **MCP Agent** | Tools hosted on Model Context Protocol servers | External tool connections, multi-system workflows |
+
+<CardGroup cols={2}>
+  <Card title="Prompt Agents" icon="message" href="#prompt-agents">
+    LLM-powered agents with custom instructions and variable-based prompts for content generation and text transformation.
+  </Card>
+  <Card title="API Agents" icon="plug" href="#api-agents">
+    No-code integration with external REST APIs and systems of record for real-time data retrieval.
+  </Card>
+  <Card title="Search Agents" icon="magnifying-glass" href="#search-agents">
+    RAG-based retrieval from Search AI or Amazon Q indexes for enterprise search and documentation Q&A.
+  </Card>
+  <Card title="Agentic Flow Agents" icon="diagram-project" href="#agentic-flow-agents">
+    Sequential multi-agent workflows with decision logic for complex processes and multi-step automation.
+  </Card>
+  <Card title="Autonomous Agents" icon="microchip" href="#autonomous-agents">
+    Self-directed agents connected to Agent Platform via API for research and complex automation.
+  </Card>
+  <Card title="Bot Agents" icon="comments" href="#bot-agents">
+    Conversational bots built on AI for Service Platform for guided workflows and structured interactions.
+  </Card>
+  <Card title="Workflow Agents" icon="gears" href="#workflow-agents">
+    Integration with Agent Platform workflow automation for business process automation.
+  </Card>
+  <Card title="MCP Agents" icon="server" href="#mcp-agents">
+    Tools hosted on Model Context Protocol servers for external tool connections and multi-system workflows.
+  </Card>
+</CardGroup>
+
+---
+
+## Prompt agents
+
+Prompt Agents collect specific user inputs as variables to customize prompts, enabling content generation, language translation, text summarization, and similar tasks. Administrators create and configure these agents; users interact with them to produce consistent, standardized outputs.
+
+### When to use prompt agents
+
+**Content generation and standardization**
+- Creating standardized documents (job descriptions, project proposals, marketing copy) that follow organizational templates.
+- Generating consistent reports, summaries, or communications that maintain brand voice and formatting.
+- Producing multiple content variations for A/B testing or different audiences.
+
+**Text processing and transformation**
+- Translating content into multiple languages while maintaining context and tone.
+- Summarizing lengthy documents, reports, or meeting transcripts with consistent structure.
+- Converting technical documentation into user-friendly formats or different complexity levels.
+
+**Data analysis and insights**
+- Processing uploaded files (.pdf, .docx, .csv, .xls) to extract insights, generate summaries, or create reports.
+- Analyzing data patterns and generating standardized analytical reports.
+- Creating executive summaries from complex datasets or research documents.
+
+### Create a prompt agent
+
+Navigate to **Admin Console** > **AI Agents** > **Prompt Agents**, then click **+Create Agent**.
+
+<Steps>
+  <Step title="Details and purpose">
+    Provide a unique name and describe the agent's purpose. The system auto-generates fields, queries, and prompts based on the purpose provided. To change the icon, click the logo above the agent's name and choose a predefined logo or upload a custom one. Click **Continue**.
+  </Step>
+  <Step title="Source configuration">
+    Configure user inputs, knowledge files, and prompts.
+
+    **User input**: Click **+Add context** to add context fields. Enter a name, optional placeholder text, and select a field type (single-line, multiline, or file upload). Toggle **Mandatory** if required.
+
+    **Knowledge**: Click **+ Upload** to upload knowledge files (templates, reference documents) that the agent uses to generate responses. Select the model from the **Model selection** drop-down.
+
+    <Note>If the file size exceeds the model's context limit, all uploaded knowledge files are referenced for answering but not for generation.</Note>
+
+    **Prompts**: A default prompt is auto-generated based on the purpose defined earlier. Enable **Show to users** to display the prompt to end users. Select **Read-only** or **Editable**.
+
+    **Multi prompt**: Click **+ Add another prompt** to add multiple prompt options. Click **Generate prompt** to auto-generate a prompt based on the form's purpose and field values.
+  </Step>
+  <Step title="Business rules">
+    Set rules to fill entities automatically when specific keywords are detected:
+
+    - **Entity Rule**: Automatically adds entities to queries based on detected keywords.
+    - **Answering Rule**: Controls and customizes responses when specific conditions or keywords are met.
+  </Step>
+  <Step title="Appearance and behavior">
+    Review the list of sample queries. Click **+ Add Query** to add more. Enable **Clear End-User Chat History** to automatically delete the agent's chat history after a specified period. Click **Publish** to proceed.
+  </Step>
+  <Step title="Publish">
+    Configure who has access to the agent and what actions they can perform, then publish.
+  </Step>
+</Steps>
+
+---
+
+## API agents
+
+API Agents integrate with legacy systems and external REST APIs using a no-code builder, enabling users to query business data through natural language.
+
+### Key features
+
+- **Easy setup**: Step-by-step wizard in the Admin Console
+- **Flexible configuration**: Supports various API types, authentication methods, and data processing options
+- **Customizable fields**: Select and configure up to 10 fields for querying and display
+- **Intelligent querying**: Handles simple lookups, compound queries, and computational requests
+- **Data processing**: ID and meta-resolution for presenting meaningful information to end users
+
+### Prerequisites
+
+**API requirements**:
+- Standard REST APIs with JSON response format from Systems of Records (SOR)
+- Maximum 500 records per API call
+- Stable API endpoints with consistent data schema
+
+**Before you begin, have available**:
+- Administrator access to the system you want to integrate
+- API documentation for the Schema API and Action API
+- cURL commands for the ID resolver and meta resolver
+
+### Create an API agent
+
+Navigate to **Admin Console** > **AI Search** > **API Agents**, then click **+ Create Agent**.
+
+<Steps>
+  <Step title="Purpose of agent">
+    Describe the system to integrate and the desired actions in 50 words or fewer.
+
+    *Example*: *"Integrate Jira system to manage tickets. Actions include getting ticket details, creating new tickets, or updating existing tickets."*
+  </Step>
+  <Step title="Basic details">
+    Provide the **Agent Name** and select a **Logo** (from presets or upload a custom image).
+  </Step>
+  <Step title="Connection setup">
+    Connection Setup uses admin-provided profiles. The system accesses data using admin tokens for all retrieval operations. End users cannot create new connection profiles.
+  </Step>
+  <Step title="Actions">
+    Configure the actions the agent performs:
+
+    1. Describe the specific action, including what information it retrieves and from which fields.
+    2. Define the data structure using a Schema API or Data API.
+    3. Select up to 10 fields from the API response for querying and display.
+    4. Configure each field (primary field, field type, field options, resolvers).
+    5. Set query filters to define which fields are available for querying and filtering.
+    6. Add sample queries.
+  </Step>
+  <Step title="Business rules">
+    Set account-level entity and answering rules for the agent.
+  </Step>
+  <Step title="Publish">
+    Configure publishing settings and make the agent available to users.
+  </Step>
+</Steps>
+
+### Writing API payloads with JavaScript
+
+The configuration script is an IIFE invoked for each query with three arguments:
+
+```javascript
+(function (headers, body, queryParams) {
+    // Write your code here
+    return { headers, queryParams, body }
+})(headers, body, queryParams);
+```
+
+**Sample script — GET request (Jira)**:
+
+```javascript
+(function (headers, body, queryParams) {
+    const jqlParts = [];
+    for (const entityKey in entities) {
+        const entity = entities[entityKey];
+        if (entity.value) jqlParts.push(`${entity.filterKey} = ${entity.value}`);
+        if (entity.values) {
+            const valuesString = entity.values.map(v => `'${v}'`).join(', ');
+            jqlParts.push(`${entity.filterKey} IN (${valuesString})`);
+        }
+        if (entity.min) jqlParts.push(`${entity.filterKey} >= ${entity.min}`);
+        if (entity.max) jqlParts.push(`${entity.filterKey} <= ${entity.max}`);
+    }
+    const jqlQuery = jqlParts.join(' AND ');
+    queryParams.push({ key: 'jql', value: jqlQuery, enabled: true });
+    return { headers, queryParams, body }
+})(headers, body, queryParams);
+```
+
+---
+
+## Search agents
+
+Search Agents (also called RAG Agents) combine retrieval and generation techniques to provide accurate, contextually relevant answers. They retrieve information from connected knowledge bases and use LLMs to generate precise responses.
+
+Integration options:
+
+- **Search AI**: Configure and index content from knowledge bases, files, and websites. Use when you need full control over content sources within your environment.
+- **Amazon Q**: Index enterprise data in your AWS cloud using 90+ connectors for AWS and non-AWS systems.
+
+### Create a search agent
+
+Navigate to **Admin Console** > **Search Agents**, then click **Create Agent**.
+
+<Steps>
+  <Step title="Details and purpose">
+    Provide a unique **Name** and brief **Purpose**. The purpose enables the Orchestrator to route user queries to this agent.
+  </Step>
+  <Step title="Configure search index">
+    Select your search solution: **Search AI** or **Amazon Q**.
+
+    **For Search AI**, provide: URL, App ID, Client ID, Client Secret ID, and Search ID (available in the Search AI app under **Manage** > **Dev Tools** > **Web/Mobile SDK**).
+
+    **For Amazon Q**, provide: Application ID, Retriever ID, Access Resource Name, Application Location, and IDC Location.
+  </Step>
+  <Step title="Appearance and behavior">
+    Review auto-generated sample queries. Click **+ Add Query** to add more. Enable **Clear End-User Chat History** if needed.
+  </Step>
+  <Step title="Publish">
+    Configure publishing settings and publish the agent.
+  </Step>
+</Steps>
+
+---
+
+## Agentic flow agents
+
+Agentic Flow enables the sequential execution of multiple AI agents to automate complex tasks. These flows streamline workflows by automating interactions and decision-making processes based on predefined logic and user input.
+
+### Create an agentic flow agent
+
+Navigate to **Admin Console** > **AI Agents** > **Agentic Flow**, then click **+Create Agent**.
+
+<Steps>
+  <Step title="Details and purpose">
+    Enter a unique **Agent Name** and describe the **Purpose**. A well-defined purpose enhances the agent's ability to correctly interpret and execute tasks.
+  </Step>
+  <Step title="Build agentic flow">
+    1. Review the auto-generated **Prompt** based on the agent's purpose.
+    2. Click **Get Flow** to review the generated flow.
+    3. Customize your flow — add, edit, delete, or reorder steps.
+    4. Click **Run** to execute all configured steps sequentially.
+  </Step>
+  <Step title="Appearance and behavior">
+    Review auto-generated sample queries and add more. Enable **Clear End-User Chat History** if needed.
+  </Step>
+  <Step title="Publish">
+    Configure publishing settings and publish the agent.
+  </Step>
+</Steps>
+
+### Example: Finance advisor
+
+The Finance Advisor demonstrates a four-step Agentic Flow:
+
+| Step | Agent Type | Action |
+|------|-----------|--------|
+| 1. Market Analysis Overview | Search (RAG) Agent | Analyzes NVIDIA market performance from indexed files |
+| 2. Company Share Owners | API Agent | Retrieves shareholder information from the client database |
+| 3. Client Information and Risk | Prompt Agent | Performs risk evaluation and develops hold/sell recommendations |
+| 4. Compose an Email | Prompt Agent | Generates a professional email synthesizing all analyses |
+
+---
+
+## Autonomous agents
+
+Autonomous Agents are AI-powered agents that leverage Agent Platform to autonomously manage complex business tasks and workflows. They use adaptive algorithms for dynamic decision-making, responding to evolving business requirements in real time.
+
+### Create an autonomous agent
+
+Navigate to **Admin Console** > **AI Agents** > **Autonomous Agents**, then click **+Create Agent**.
+
+<Steps>
+  <Step title="Details and purpose">
+    Choose an icon, enter a unique **Agent Name**, and define the **Purpose of Agent**.
+  </Step>
+  <Step title="Configure autonomous agent">
+    In the **Define Autonomous API** section, select the interaction mode:
+
+    | Mode | Description | Requirements |
+    |------|-------------|-------------|
+    | **Sync Mode** | Immediate responses; 60-second timeout | No POST URL or access token required |
+    | **Async Mode** | Flexible; suitable for tasks taking longer than 60 seconds | POST URL and access token required |
+
+    Configure the API connection: URL, Method, Headers, Query String, Body Type, and Content Type. For existing APIs, use **Curl Import** to auto-populate the configuration.
+  </Step>
+  <Step title="Appearance and behavior">
+    Add test queries, optionally enable end-user notifications, and configure chat history clearing.
+  </Step>
+  <Step title="Publish">
+    Configure publishing settings. After publishing, the agent appears in the **Autonomous Agent List** on the Admin Console.
+  </Step>
+</Steps>
+
+---
+
+## Bot agents
+
+Administrators create Bot Agents for users using the bot agent builder. Workflows designed on the AI for Service Platform integrate seamlessly, allowing actions to execute when a workflow triggers.
+
+<Note>You must first build a bot on the AI for Service Platform and create a webhook channel before creating a Bot Agent.</Note>
+
+### Create a bot agent
+
+Navigate to **Admin Console** > **AI Agents** > **Bot Agents**, then click **+Create Agent**.
+
+<Steps>
+  <Step title="Details and purpose">
+    Provide a unique name and describe the agent's purpose.
+  </Step>
+  <Step title="Add bot">
+    Enter the Post URL, Access Token, Webhook URL, Bot client ID, and Bot secret ID. Click **Connect account**.
+  </Step>
+  <Step title="Appearance and behavior">
+    Add test queries, optionally enable end-user notifications, and configure chat history clearing.
+  </Step>
+  <Step title="Publish">
+    Configure publishing settings and publish the agent.
+  </Step>
+</Steps>
+
+---
+
+## Workflow agents
+
+Workflow Agents integrate tools from Agent Platform to deliver contextually relevant responses in real time. They combine APIs, retrieval, and generation techniques, and support both synchronous and asynchronous interactions.
+
+### Create a workflow agent
+
+Navigate to **Admin Console** > **AI Agents** > **Workflow Agents**, then click **+Create Agent**.
+
+<Steps>
+  <Step title="Details and purpose">
+    Provide a unique name and describe the agent's purpose.
+  </Step>
+  <Step title="Configure workflow flow">
+    Select the interaction mode (Sync or Async). For Async Mode, enter the POST URL and Access Token, then configure the Workflow Platform to push results back to AI for Work.
+
+    Configure the API connection using **CURL Import** from the Workflow Platform's agent endpoint.
+  </Step>
+  <Step title="Appearance and behavior">
+    Add test queries, optionally enable end-user notifications, and configure chat history clearing.
+  </Step>
+  <Step title="Publish">
+    Configure publishing settings and publish the agent.
+  </Step>
+</Steps>
+
+---
+
+## MCP agents
+
+MCP Agents enable AI agents to interact with external systems through tools hosted on Model Context Protocol (MCP) servers.
+
+### How MCP agents work
+
+1. **Tool discovery**: During MCP server configuration, the MCP Client discovers available tools on the server.
+2. **Intent detection**: When a user sends a query, the system sends the tool list and query to the LLM for intent detection and tool invocation.
+3. **Tool invocation**: The MCP Client sends a structured request to the MCP Server with the tool name and required parameters.
+4. **Execution**: The MCP Server executes the tool logic and sends results back to the MCP Client.
+5. **Response generation**: The agent uses the tool's output to formulate a natural language response via the LLM.
+
+### Create an MCP agent
+
+Navigate to **MCP Connections** under your **Workspace**, then click **Create Agent**.
+
+<Steps>
+  <Step title="Define details and purpose">
+    Choose an icon, enter a unique **Agent Name**, and define the **Purpose of Agent**.
+  </Step>
+  <Step title="Configure MCP tools">
+    The platform displays all tools available from both workspace and account connections. Select the specific tools you want the agent to use, then configure each tool's input parameters.
+
+    For each parameter, choose **Static Values** (constant values) or **Dynamic Values** (extracted from user queries at runtime).
+  </Step>
+  <Step title="Business rules (optional)">
+    Set entity or answering rules triggered by specific keywords.
+  </Step>
+  <Step title="Save and publish">
+    Click **Save** and then **Publish** to make the agent available to users.
+  </Step>
+</Steps>
+
+### End-user experience
+
+When a user triggers an MCP Agent:
+
+1. The platform displays a form with the required input fields for the selected tool.
+2. Values extracted from the user's query via entity extraction are pre-filled.
+3. The **Continue** button remains disabled until all mandatory fields are complete.
+4. When the user clicks **Continue**, the agent executes the corresponding MCP action.
+5. Results are displayed as a natural language response.

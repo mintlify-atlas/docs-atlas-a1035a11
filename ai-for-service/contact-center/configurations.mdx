@@ -1,0 +1,194 @@
+---
+title: "Configurations"
+description: "Set up hours of operation, languages, response templates, surveys, agent forms, widgets, and wallboards for Contact Center AI."
+---
+
+Use the Configurations section to set up the operational parameters of your contact center — working hours, languages, agent tools, and monitoring displays.
+
+| Configuration | Description |
+|---|---|
+| [Hours of Operation](#hours-of-operation) | Define working hours, holidays, and special days. |
+| [Languages and Speech](#languages-and-speech) | Manage supported languages, hold audio, and voice authentication. |
+| [Response Templates](#response-templates) | Create and organize canned responses for agents. |
+| [Surveys](#surveys) | Configure post-interaction customer satisfaction surveys. |
+| [Agent Forms](#agent-forms) | Build forms for capturing customer information. |
+| [Widgets](#widgets) | Embed external systems into the Agent Console. |
+| [Wallboards](#wallboards) | Monitor contact center performance in real time. |
+
+## Hours of operation
+
+Hours of Operation defines when agents are available — standard working hours, weekends, holidays, and special days by time zone. Contact Center AI uses this configuration to trigger Conditional Flows for out-of-hours and no-agents-available scenarios.
+
+To access, go to **Contact Center AI > CONFIGURATIONS > Hours of Operation**.
+
+### Add hours of operation
+
+<Steps>
+  <Step title="Select + Add New">
+    Open the new Hours of Operation panel.
+  </Step>
+  <Step title="Configure the profile">
+    Enter a **Name** and select a **Time Zone**.
+  </Step>
+  <Step title="Set standard hours">
+    Set hours per day. Weekdays are open by default (9 AM to 6 PM); weekends are closed. Toggle Saturday and Sunday as needed.
+  </Step>
+  <Step title="Add holidays and special days">
+    Select **+ Add New** to add an entry with a date, name, and period (Partial or Full). Select **Save** when done.
+  </Step>
+</Steps>
+
+## Languages and speech
+
+This section manages the languages, hold audio, and voice authentication settings for your contact center.
+
+To access, go to **Contact Center AI > CONFIGURATIONS > Languages & Speech**.
+
+### Language management
+
+Select **Supported Languages** to manage which languages the contact center supports. The platform supports 80+ languages including English, Spanish, French, German, Japanese, Chinese Simplified, Arabic, Hindi, Portuguese, and many more.
+
+### Hold audio
+
+Hold audio plays to customers while they wait in queue or are on hold.
+
+1. Select **Browse** or drag a `.WAV` file into the panel.
+2. Optionally rename the file in the **Rename Audio** field.
+3. Select **Save**.
+
+### Voice authentication
+
+Voice authentication uses voiceprints to identify and verify customers for secure access.
+
+1. Go to **Languages & Speech > Voice Authentication**.
+2. Enable **Voice Biometric Authentication** and select a provider: **Illuma** or **ID R&D**.
+3. Enter the **Host URL** and **API Key** from the provider.
+4. Select **Save**.
+
+## Response templates
+
+Response Templates are predefined messages that agents send during customer interactions. Templates are organized into Response Groups and can be filtered by skill, agent group, or queue.
+
+To access, go to **Contact Center AI > CONFIGURATIONS > Response Templates**.
+
+**Default response groups:**
+
+| Group | Purpose |
+|---|---|
+| **Greeting** | Welcome messages. |
+| **Conversational** | Small talk, follow-ups on delays. |
+| **Closing** | End-of-chat messages, survey requests. |
+| **Transfer** | Messages for transferring to an agent, manager, or queue. |
+| **Abuse** | Initial and final warnings for abusive language. |
+| **Privacy** | Permission-based privacy responses. |
+
+### Template variables
+
+| Variable | Description |
+|---|---|
+| `Customer First Name` | Customer's first name |
+| `Customer Last Name` | Customer's last name |
+| `Customer Email` | Customer's email address |
+| `Agent First Name` | Agent's first name |
+| `Agent Last Name` | Agent's last name |
+| `Agent Nick Name` | Agent's nickname |
+
+## Surveys
+
+Surveys collect customer satisfaction feedback after an interaction ends. You can configure surveys per channel — chat, call, and email.
+
+To access, go to **Contact Center AI > CONFIGURATIONS > Surveys**.
+
+**Supported survey types:**
+
+| Type | Scale |
+|---|---|
+| **CSAT (Customer Satisfaction)** | 1 (extremely poor) to 5 (extremely good). |
+| **NPS (Net Promoter Score)** | 0–10: Detractors (0–6), Passives (7–8), Promoters (9–10). |
+| **Like or Dislike** | Thumbs up (satisfied) or thumbs down (unsatisfied). |
+
+### Survey frequency options
+
+| Option | Description |
+|---|---|
+| Show to Everyone | All customers receive the survey. |
+| Show to Every nth User | Sends to every nth customer. |
+| Agents can Trigger | Agents manually trigger the survey. Enable **Auto Trigger** to send automatically. |
+
+## Agent forms
+
+Agent Forms are configurable input forms that agents use to capture customer information during interactions.
+
+To access, go to **Contact Center AI > CONFIGURATIONS > Agent Forms**.
+
+| Status | Meaning |
+|---|---|
+| **In-development** | The form is being built, or was edited after publishing. |
+| **Published** | The form is approved and available to human agents in the console. |
+
+<Steps>
+  <Step title="Create the form">
+    Select **+ New Form**. Enter the **Name**, **Display Name**, and **Description**.
+  </Step>
+  <Step title="Configure data security">
+    Enable **Agent Form Data** to redact form input from logs and context objects.
+  </Step>
+  <Step title="Assign the form">
+    Assign to specific queues or agent groups.
+  </Step>
+  <Step title="Build the form">
+    Add components using the Form Builder — text fields, checkboxes, radio buttons, date fields, and more.
+  </Step>
+  <Step title="Publish">
+    Select **More Options > Publish** to make the form available to agents.
+  </Step>
+</Steps>
+
+## Widgets
+
+Widgets embed external systems or web pages into the Agent Console.
+
+To access, go to **Contact Center AI > CONFIGURATIONS > Widgets**.
+
+### Widget URL variables
+
+| Variable | Description |
+|---|---|
+| `Agent Id` | Unique agent identifier |
+| `Agent First Name` | Agent's first name |
+| `Customer Email Id` | Customer's email address |
+| `Customer First Name` | Customer's first name |
+| `Conversation Id` | Unique conversation identifier |
+
+**Example:** `https://www.example.com/?id={{context.metaInfo.customerId}}` resolves to `https://www.example.com/?id=12345` at runtime.
+
+## Wallboards
+
+Wallboards display real-time contact center performance metrics across queues.
+
+To access, go to **Contact Center AI > CONFIGURATIONS > Wallboards**.
+
+<Note>Contact Kore Support to enable Wallboards.</Note>
+
+### Wallboard types
+
+<Tabs>
+  <Tab title="Center Wide">
+    Shows aggregated data across multiple queues.
+
+    | Setting | Description |
+    |---|---|
+    | **Display to** | The queues that can view this wallboard. |
+    | **Queues** | Queues to include in the data. Defaults to all if none selected. |
+    | **Time Period** | Last 15 min, 30 min, 1 hr, 2 hr, 8 hr, 12 hr, or Today. |
+    | **Enable Scroll Text** | Adds horizontally scrolling text at the bottom. |
+  </Tab>
+  <Tab title="Queue Specific">
+    Shows agent performance rankings for a specific queue.
+
+    | Setting | Description |
+    |---|---|
+    | **Display Top 3 Performers** | Choose **Multiple Insights** (three different metrics) or **One Insight** (three agents for one metric). |
+    | **Available metrics** | Top Closed, Top Answered, Top CSAT, Top Occupancy Rate, Top Average First Response Time. |
+  </Tab>
+</Tabs>

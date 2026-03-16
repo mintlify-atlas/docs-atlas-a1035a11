@@ -1,0 +1,224 @@
+---
+title: "Flows and Dialogs"
+description: "Build conversation flows for virtual assistants using intents, entities, dialogs, and transitions."
+---
+
+Dialog flows define how your virtual assistant handles conversations:
+
+- **Intents** — What users want to accomplish
+- **Entities** — Information extracted from messages
+- **Dialogs** — Conversation logic and responses
+- **Transitions** — How conversations move between states
+
+## Dialog types
+
+<Tabs>
+  <Tab title="Standard dialog">
+    A structured conversation flow for specific tasks. The flow collects required information step by step, validates it, and delivers a response.
+
+    ```yaml
+    Node: Welcome Message
+    Type: message
+    Content:
+      text: "Hello! I'm your order assistant. How can I help you today?"
+      quick_replies:
+        - "Check order status"
+        - "Start a return"
+        - "Track my package"
+    Transitions:
+      - intent: check_order → order_status_flow
+      - intent: start_return → return_flow
+      - default → fallback
+    ```
+  </Tab>
+  <Tab title="Agent flow">
+    Complex flows with AI agent capabilities. The agent uses configured tools (web search, document analysis) to handle open-ended queries.
+
+    ```yaml
+    Agent Flow: Research Assistant
+    Capabilities:
+      - search_web
+      - analyze_documents
+      - summarize_findings
+    Behavior: |
+      Research the user's question using available tools.
+      Synthesize findings into a comprehensive answer.
+      Cite sources when providing information.
+    ```
+  </Tab>
+  <Tab title="Sub-dialog">
+    Reusable dialog components that can be invoked from multiple parent dialogs.
+
+    ```yaml
+    Sub-Dialog: Collect Address
+    Entities required:
+      - street_address
+      - city
+      - state
+      - zip_code
+    Validation: address_verification_api
+    Reusable: true
+    ```
+  </Tab>
+</Tabs>
+
+## Building dialogs
+
+### Dialog builder
+
+The visual drag-and-drop builder uses typed node groups:
+
+| Node type | Purpose |
+|---|---|
+| **Message** | Display text, cards, or media |
+| **Prompt** | Collect user input |
+| **Condition** | Branch based on conditions |
+| **API Call** | Execute integrations |
+| **Script** | Run custom code |
+| **Agent** | Invoke AI agent |
+| **Transfer** | Hand off to human |
+
+### Transitions
+
+Define how conversations move between nodes:
+
+| Transition type | Description |
+|---|---|
+| **Intent** | Move based on detected intent |
+| **Entity** | Move based on extracted entity |
+| **Condition** | Move based on variable value |
+| **Default** | Fallback when no match |
+| **Error** | Handle errors gracefully |
+
+## Entity management
+
+### Entity types
+
+| Type | Use case | Example |
+|---|---|---|
+| **Built-in** | Common data types | Date, Number, Email |
+| **List** | Defined options | Product names, sizes |
+| **Regex** | Pattern matching | Order ID: `ORD-\d{6}` |
+| **Composite** | Grouped entities | Full address |
+
+### Entity extraction configuration
+
+```yaml
+Entity: OrderNumber
+Type: regex
+Pattern: "(?:order|ORD)?[-#]?(\d{5,8})"
+Validation: |
+  length >= 5 AND length <= 8
+Prompts:
+  initial: "What's your order number?"
+  retry: "I didn't catch that. Order numbers are usually 5-8 digits."
+Max retries: 3
+```
+
+## Context management
+
+### Variable scopes
+
+| Scope | Lifetime | Use case |
+|---|---|---|
+| **Turn** | Single turn | Temporary processing |
+| **Session** | Conversation | Order details, selections |
+| **User** | Across sessions | Preferences, history |
+| **Global** | All users | Configuration, flags |
+
+### Using context variables
+
+```javascript
+// Set context
+context.session.orderNumber = "12345"
+context.session.customerTier = "premium"
+
+// Use in messages
+"Your order {{context.session.orderNumber}} is being processed."
+
+// Use in conditions
+if (context.session.customerTier === "premium") {
+  // Premium customer handling
+}
+```
+
+## Interruption handling
+
+Handle topic switches mid-conversation:
+
+| Scenario | Handling |
+|---|---|
+| **New intent** | Hold current, start new |
+| **Clarification** | Handle inline, resume |
+| **Cancel** | Confirm and exit |
+| **Go back** | Return to previous step |
+
+```yaml
+Interruption Handling:
+  allow_interruptions: true
+  hold_and_resume:
+    enabled: true
+    message: "No problem, let me help with that first."
+  implicit_confirmation: true
+  max_depth: 3
+```
+
+## Testing
+
+### Interactive testing
+
+<Steps>
+  <Step title="Open the Test panel">Click the **Test** button in the dialog builder header.</Step>
+  <Step title="Enter test utterances">Type sample user messages to simulate a conversation.</Step>
+  <Step title="Verify intent detection">Check that the correct intent is detected with sufficient confidence.</Step>
+  <Step title="Check entity extraction">Confirm that entities are correctly identified and extracted.</Step>
+  <Step title="Validate flow navigation">Trace the flow through nodes and transitions.</Step>
+</Steps>
+
+### Batch testing
+
+Upload test suites in YAML or CSV to run automated validation:
+
+```yaml
+Test Suite: Order Status Flow
+Tests:
+  - name: "Valid order number"
+    utterance: "Where is my order 123456?"
+    expected:
+      intent: check_order_status
+      entities:
+        order_number: "123456"
+      response_contains: "order status"
+
+  - name: "Missing order number"
+    utterance: "Where is my order?"
+    expected:
+      intent: check_order_status
+      next_prompt: "order number"
+```
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Dialog design">
+    - Keep flows focused on single tasks
+    - Use sub-dialogs for reusable components
+    - Handle errors gracefully
+    - Provide clear escape paths
+    - Test edge cases thoroughly
+  </Accordion>
+  <Accordion title="Intent training">
+    - Add 15–25 utterances per intent
+    - Include variations and typos
+    - Use real customer language
+    - Regularly review misclassifications
+    - Avoid overlapping intents
+  </Accordion>
+  <Accordion title="Conversation UX">
+    - Confirm understanding before actions
+    - Provide clear options when ambiguous
+    - Keep messages concise
+    - Use quick replies for common paths
+    - Allow natural conversation flow
+  </Accordion>
+</AccordionGroup>

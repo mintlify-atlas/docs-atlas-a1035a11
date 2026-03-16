@@ -1,0 +1,154 @@
+---
+title: "Billing and Usage"
+description: "Monitor AI for Process credit consumption and resource costs across workflows, models, guardrails, OCR, and custom scripts."
+---
+
+The **Billing** section in AI for Process helps you monitor expenses through detailed usage metrics and cost breakdowns. Track computational costs across workflows, models, guardrails, OCR models, and custom script deployments.
+
+## Account credits and limits
+
+New accounts receive the following free credits by default:
+
+- **75 model credits** — used for model inference and setting guardrails.
+- **10,000 workflow runs** — consumed when inferring workflows.
+
+Once free credits are exhausted, you can no longer perform these actions. Contact [AI for Process Support](https://kore.ai/support/) to add credits.
+
+## Access the Usage page
+
+1. Log in to AI for Process and click **Settings**.
+2. On the left navigation pane, click **Billing** > **Usage**.
+
+The Usage page displays the following tabs:
+
+| Tab | What it shows |
+|-----|---------------|
+| **Overview** | High-level summary of credit and run consumption with usage trends. |
+| **Workflows** | Workflow activities and operational status. |
+| **Models** | Computational costs for specific models. |
+| **Guardrails** | Guardrail statistics and credit consumption. |
+| **Custom Scripts** | Statistics and credit usage trends for deployed custom scripts. |
+| **OCR** | OCR model deployments and credit consumption. |
+| **Browser Automation** | Credit consumption for browser automation pod deployments. |
+
+<Note>Use the Calendar bar on all tabs to filter usage by 24 hours, 7 days, 30 days, 90 days, or a custom date range.</Note>
+
+## Quick usage check
+
+A **Clock** icon on the top right of the page shows a real-time usage summary:
+
+- Your unique **Account ID**.
+- **Credits** — total allocation and remaining credits for models, guardrails, and custom scripts.
+- **Workflow Runs** — total allocation and remaining runs for workflow automation.
+
+The icon's color reflects your remaining balance:
+
+| Color | Status | Credits remaining |
+|-------|--------|------------------|
+| Green | Good balance | More than 75% |
+| Yellow/Orange | Moderate usage | 25–75% |
+| Red | Low credits | Less than 25% |
+| Triangle (warning) | Credits exhausted | None |
+
+## Alerts and notifications
+
+AI for Process sends alerts when credits are running low to help you take action before service is disrupted.
+
+**Banner alerts** appear at the top of the page at 20%, 50%, 70%, 80%, and 90% credit exhaustion.
+
+**Email notifications** are sent automatically at 50%, 70%, 80%, and 90% credit exhaustion. Each email includes instructions on next steps such as contacting support to add credits.
+
+## Usage overview
+
+The **Overview** tab summarizes consumption patterns across all resources:
+
+- **Runs** — Workflow run usage against total allocation.
+- **Credits** — Credits used across models, guardrails, OCR, and custom scripts against total available credits.
+- **Usage trend** — Visual chart showing consumption over time.
+- **Distribution chart** — Dynamic pie chart showing credit distribution by usage type (models, guardrails, OCR, and custom scripts).
+
+## Workflows usage
+
+The **Workflows** tab lists all workflows deployed at least once.
+
+| Field | Description |
+|-------|-------------|
+| Total workflows | Total number of workflows in the account. |
+| Total runs | Total runs across all workflows. |
+| Workflow name | Name of the workflow. |
+| Runs | Number of times the workflow was inferred. |
+| Owner Name | User who created the workflow. |
+| Last active on | Date the workflow was last active. |
+| Status | Workflow status: Deployed, Undeployed, or Deleted. |
+
+## Models usage
+
+The **Models** tab lists open-source and fine-tuned models with their computational costs.
+
+| Metric | Description |
+|--------|-------------|
+| Total models | Total number of models in the account. |
+| Total credits | Total credits used by all models, including all deployments. |
+| Fine-tuning credits | Credits used for fine-tuning, based on training data size, model complexity, training epochs, hardware type, and other parameters. |
+| Hosting credits | Credits for deploying and hosting models on GPUs. Each GPU instance is a "replica." |
+
+Click a model record to view all its deployments, including name, type, credits used, last updated date, and status.
+
+## Guardrails usage
+
+The **Guardrails** tab lists all guardrails and their hardware-based charges. Guardrail usage is deducted from Model credits.
+
+| Field | Description |
+|-------|-------------|
+| Total guardrails | Total guardrails used in the account. |
+| Total credits | Total credits used by all guardrails. |
+| Time | Total duration all guardrails were deployed. |
+| Name | Name of the guardrail or scanner. |
+| Credits | Credits used to deploy the guardrail. |
+| Last deployed on | Date the guardrail was last deployed. |
+| Status | Deployed or Undeployed. |
+
+**Credit behavior when credits are low:**
+- New guardrail deployments are disabled when credits fall below the lowest threshold.
+- An active deployment continues and proceeds into negative credits if the low credit limit is reached mid-deployment.
+- Once the negative credit limit is crossed, the deployment stops.
+- Negative credits are adjusted in the next billing cycle.
+
+## Custom scripts usage
+
+The **Custom Scripts** tab lists deployed custom scripts with their credit consumption. **Total Scripts** and **Hosting Credits** are shown as key metrics.
+
+| Field | Description |
+|-------|-------------|
+| Script name | Name of the script. |
+| Language (Version) | Language and version of the script. |
+| Credits used | Credits consumed for hardware and resources. |
+| Last active on | Latest date the script was actively used. |
+| Status | Deployment status. |
+
+## OCR usage
+
+The **OCR** tab provides a unified view of all OCR-related credit usage.
+
+- Review OCR model deployments.
+- See credits consumed per deployment.
+- Check deployment status and usage history.
+
+Click a row to open a detailed view showing hosting infrastructure, hosting time, credits consumed, and total aggregated credit usage.
+
+## Browser automation usage
+
+The **Browser Automation** tab provides a unified view of browser automation credit usage.
+
+- Review pod deployments for browser automation scripts.
+- See deployment-level credit consumption.
+- Check deployment status and usage history.
+
+## Best practices
+
+<Tip>
+- Regularly monitor usage trends to optimize resource allocation.
+- Review workflows, models, guardrails, OCR, and custom scripts to identify cost-saving opportunities.
+- Track guardrail deployment duration to manage hardware costs effectively.
+- Contact [Support](https://kore.ai/support/) to add credits before they are exhausted to avoid service disruptions.
+</Tip>

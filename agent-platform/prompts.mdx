@@ -1,0 +1,76 @@
+---
+title: "Prompt Studio"
+description: "Design, test, and optimize prompts across models in a collaborative workspace with version control and multi-model comparison."
+---
+
+Prompt Studio is a unified workspace for designing, testing, and optimizing prompts across AI models.
+
+## Key features
+
+<CardGroup cols={2}>
+  <Card title="Multi-model comparison" icon="code-compare">
+    Test prompts across different models simultaneously to find the best fit.
+  </Card>
+  <Card title="65+ templates" icon="file-lines">
+    Pre-built prompts for code generation, summarization, Q&A, and more.
+  </Card>
+  <Card title="AI prompt generation" icon="wand-magic-sparkles">
+    Expand basic prompts into detailed instructions automatically.
+  </Card>
+  <Card title="Variables" icon="brackets-curly">
+    Test prompts with multiple values using `{{variable}}` syntax.
+  </Card>
+  <Card title="Version control" icon="code-branch">
+    Track iterations, restore versions, and collaborate with teams.
+  </Card>
+  <Card title="Prompt API" icon="plug">
+    Share prompts externally via versioned API endpoints.
+  </Card>
+</CardGroup>
+
+## Creating prompts
+
+Navigate to **Agent Platform** > **Prompt Studio** > **Create Prompts**.
+
+| Path | Use when |
+|---|---|
+| **Generate a prompt** | Need AI to expand a basic instruction into a detailed prompt |
+| **Start from scratch** | Want full control with a blank canvas |
+| **Prompt library** | Starting from proven templates for common use cases |
+
+## Prompt canvas
+
+On the canvas, you can:
+
+- Write **system prompts** (model behavior) and **human prompts** (task instructions)
+- Add **variables** and import CSV test data
+- Generate **synthetic test datasets** with AI
+- Define **JSON schemas** for structured responses
+- **Compare outputs** across multiple models
+
+### Canvas options
+
+| Category | Options |
+|---|---|
+| **Model settings** | Temperature, max tokens, top-p, frequency/presence penalty |
+| **Output tools** | Export to CSV, bookmark models |
+| **Prompt tools** | Generate prompt, prompt library, JSON schema |
+
+## Collaboration
+
+| Feature | Description |
+|---|---|
+| **Sharing** | Share prompts with version history preserved |
+| **Versioning** | Commit, restore, and mark default versions |
+| **Roles** | Owner, Editor, Viewer permissions |
+| **API access** | Fetch prompts via versioned endpoints |
+| **Templates** | Save prompts as reusable templates |
+
+## Best practices
+
+- Use version control for significant changes
+- Bookmark strong-performing models for quick reference
+- Start with templates for common use cases
+- Use variables for consistent multi-scenario testing
+- Export results as CSV for external analysis
+- Save successful prompts as templates for the team

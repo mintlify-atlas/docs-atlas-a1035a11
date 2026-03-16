@@ -1,0 +1,188 @@
+---
+title: "Workflows Overview"
+description: "Learn how workflows execute in AI for Process, how to create and configure them, and how to deploy, redeploy, and manage the full workflow lifecycle."
+---
+
+Workflows in AI for Process automate business processes by orchestrating AI models, integrations, and human decision points into a structured, executable sequence. Each workflow run is independent and stateless, producing predictable, repeatable outputs.
+
+```text
+Create ──► Configure ──► Deploy ──► Redeploy ──► Undeploy ──► Delete ──► Workflow Management
+```
+
+## What is a workflow
+
+A workflow is a directed graph of nodes connected by transitions. You define the logic — what happens, in what order, under what conditions — and the platform executes it. Workflows do not retain memory between runs; each execution starts fresh from the inputs provided at runtime.
+
+Workflows can:
+
+- Process structured and unstructured data using AI models.
+- Integrate with external systems via APIs or pre-built connectors.
+- Route execution through conditional branches or parallel paths.
+- Pause and wait for human input before resuming.
+- Start automatically in response to external events or on a schedule.
+
+The platform provides the **Workflow Builder**, a visual no-code or low-code interface for designing workflows by placing and connecting nodes on a canvas.
+
+## Execution model
+
+A workflow runs from a Start node through processing nodes to an End node. Execution follows the connections you define. The platform maintains a **context object** — a shared runtime state container — for the duration of each run. Nodes read inputs from this context and write their outputs back to it.
+
+```text
+[Start Node] ──► [Node A] ──► [Node B] ──► [End Node]
+                     │
+                     ├──► [Node C]  ─────► [End Node]
+                     │    (parallel branch)
+                     └──► [Node D]  ─────► [End Node]
+```
+
+Key properties of workflow execution:
+
+| Property | Description |
+|----------|-------------|
+| **Stateless** | The context object is discarded after each run. Workflows do not persist state across executions. |
+| **Sequential execution** | Nodes run one after another when tasks depend on prior results. |
+| **Parallel execution** | Multiple branches from the same node run simultaneously for independent tasks. A single node supports up to 10 outgoing parallel branches. |
+| **Context propagation** | Nodes reference each other's outputs using `{{context.steps.NodeName.output}}` syntax, resolved at runtime. |
+
+<Note>Timeout precedence: Workflow timeout > Node timeout > Model timeout.</Note>
+
+## Start node and workflow initiation
+
+Every workflow begins with a Start node, added automatically when you create a workflow. The Start node is the mandatory entry point and must connect to at least one other node.
+
+The Start node defines:
+
+| Setting | Purpose |
+|---------|---------|
+| Input variables | Data passed into the workflow at runtime. |
+| Output variables | Variables captured from the workflow's results. |
+| Event triggers | Automatic initiation when a specific event occurs in a connected third-party application. |
+| Scheduled execution | Time-based initiation using daily, weekly, monthly, cron, or custom intervals. |
+
+## Context object
+
+The context object is the central runtime state container for a workflow execution. It tracks inputs, intermediate outputs, node status, and metadata for all nodes in a single run.
+
+| Category | Contents |
+|----------|---------|
+| Run metadata | Identifiers, timestamps, version, and workflow instance information. |
+| Execution state | Each node's input, output, status, and timing data. |
+| Environment and config | Runtime parameters, environment variables, and execution settings. |
+
+Nodes reference data from earlier nodes using `{{context.steps.NodeName.output.field}}` syntax:
+
+```text
+{{context.steps.ExtractData.output.invoice_number}}
+```
+
+## Node types
+
+| Node category | Purpose |
+|---------------|----------|
+| Start / End | Entry and exit points. Every workflow requires both. |
+| AI nodes | LLM-powered nodes for text, image, audio, and document processing. |
+| Integration nodes | Connect to third-party services via pre-built connectors or custom APIs. |
+| API nodes | Call external REST APIs and use the response in downstream nodes. |
+| Function nodes | Execute custom JavaScript or Python logic inline. |
+| Condition nodes | Route execution based on if/else expressions. |
+| Loop nodes | Iterate over a list, running child nodes for each item. |
+| Human nodes | Pause execution and send a task to the Inbox for human input. |
+| Agentic App nodes | Delegate a task to a deployed AI agent for autonomous reasoning. |
+
+For the full node reference, see [Workflow Nodes](/ai-for-process/nodes).
+
+## Create a workflow
+
+<Steps>
+  <Step title="Open the Workflows page">
+    Log in to your account and navigate to **Workflows**.
+  </Step>
+  <Step title="Create a new workflow">
+    Click **Create new workflow**. The **New workflow** dialog opens.
+  </Step>
+  <Step title="Enter workflow details">
+    Enter a name and a brief description for the workflow.
+  </Step>
+  <Step title="Open the Workflow Builder">
+    Click **Create**. The workflow is created and the Workflow Builder canvas opens. You can now add and connect nodes.
+  </Step>
+</Steps>
+
+### Collaborate on workflows
+
+Account owners can invite users to collaborate on specific workflows. Invited users can access the Models and Data modules but can only see the workflows they are invited to.
+
+1. In your workflow, click **Sharing & Permissions** in the left navigation bar.
+2. Click **Invite**.
+3. Enter the users' email addresses and click **Invite** to grant them access.
+
+## Configure a workflow
+
+From your workflow's **Configurations** page, you can update workflow details, set the sync/async mode, and manage environment variables.
+
+### Set sync/async mode
+
+The sync/async mode determines how the workflow endpoint responds to callers.
+
+| Mode | Behavior |
+|------|---------|
+| **Synchronous** | Blocks the client until the workflow completes and returns a response. Timeout range: 60–300 seconds (default: 180 seconds). |
+| **Asynchronous** | Lets the client continue working while the workflow processes. Delivers results to a callback URL. Timeout range: 60–600 seconds (default: 180 seconds), or no timeout. |
+
+<Note>If you change the mode after deployment, you must redeploy the workflow for the change to take effect.</Note>
+
+### Manage environment variables
+
+Environment variables store reusable values — such as API base URLs or configuration flags — that nodes across the workflow can reference. Marking a variable as secure encrypts its value.
+
+To add an environment variable:
+
+1. On the **Configurations** page, select **Manage environment variables**.
+2. Click **Add variable**.
+3. Provide the variable name, value, and optional notes.
+4. Enable **Secure variable** to encrypt the value.
+5. Click **Save**.
+
+To edit or delete a variable, click the three-dots icon next to the variable name.
+
+## Deploy a workflow
+
+Deploying a workflow generates a dedicated API endpoint. The endpoint supports three delivery modes:
+
+| Endpoint type | How it works |
+|---------------|--------------|
+| **Synchronous** | The client sends a request and waits. The workflow returns the response immediately. |
+| **Async poll** | The workflow processes the request independently. The client periodically checks back to retrieve the response. |
+| **Async push** | The workflow pushes the response to a client-provided callback URL when processing is complete. |
+
+<Warning>Fix all errors and warnings in the workflow before deploying.</Warning>
+
+1. Select the workflow you want to deploy.
+2. In the left menu, select **Workflow endpoint**.
+3. Click **Deploy**. The Sync and Async poll endpoints are generated automatically.
+4. To enable the Async push endpoint, click the **Async push** tab, then **Enable/Settings**, configure the callback URL and access token, and click **Save**.
+
+## Redeploy a workflow
+
+The **Workflow endpoint** page shows the deployed version of your workflow. Select **View the Flow** to view the deployed flow in read-only mode.
+
+To redeploy with an updated flow, click **Deploy** at the top right of the **Workflow endpoint** page. Redeployment does not change the workflow's endpoint URL.
+
+## Undeploy a workflow
+
+Undeploying a workflow disconnects it from all active instances immediately. On the **Configurations** page, select **Proceed to undeploy** and follow the on-screen instructions.
+
+## Delete a workflow
+
+You can only delete a workflow that is not deployed. Deleting a workflow removes the workflow and all its associated data permanently. On the **Configurations** page, select **Proceed to delete** and follow the on-screen instructions.
+
+## Workflow management features
+
+| Phase | Feature | Description |
+|-------|---------|-------------|
+| Build and design | Workflow Builder | Visual no-code/low-code builder for creating and managing workflows and workflow versions. |
+| Configure and manage | Configurations | Manage workflow metadata, define reusable values using environment variables, and control workflow deployment. |
+| Collaborate and control access | Sharing and Permissions | Invite users to collaborate on specific workflows. |
+| Deploy and integrate | Workflow Endpoint and API Keys | Deploy a workflow to generate a dedicated API endpoint. Create API keys to enable secure access. |
+| Monitor and optimize | Workflow Monitor | Track and analyze workflow executions across multiple runs to identify issues and optimize performance. |
+| Govern and audit | Guardrails and Audit Logs | Apply guardrail models to scan LLM inputs and outputs. View detailed audit logs for all workflow activities. |

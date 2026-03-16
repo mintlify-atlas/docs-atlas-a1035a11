@@ -1,0 +1,138 @@
+---
+title: "Pre-built Agents"
+description: "Deploy pre-configured, customizable AI agents that integrate into your workflows to streamline operations and enhance productivity."
+---
+
+Deploy pre-configured, customizable AI agents that integrate into your workflows to streamline operations and enhance productivity.
+
+## Available pre-built agents
+
+### Pre-built API agents
+
+<CardGroup cols={2}>
+  <Card title="Microsoft 365 Calendar" icon="calendar">
+    Creates calendar events, fetches events based on filters, checks colleague's availability, and sends quick messages when you delay in joining a meeting.
+  </Card>
+  <Card title="Microsoft 365 Email" icon="envelope">
+    Retrieves emails based on user queries and entities, sends responses as emails, sets individual emails as context, and supports follow-up questions.
+  </Card>
+  <Card title="Microsoft OneDrive" icon="cloud">
+    Fetches files based on user queries and filters, sets individual files as context, and supports follow-up questions.
+  </Card>
+  <Card title="Microsoft Teams" icon="users">
+    Fetches files based on user queries and filters, sets individual files as context, and supports follow-up questions.
+  </Card>
+  <Card title="Google Calendar" icon="calendar-days">
+    Creates calendar events, fetches events based on filters, checks colleagues' availability, and sends quick messages when you delay in joining meetings.
+  </Card>
+  <Card title="Google Mail" icon="envelope-open">
+    Retrieves emails based on user queries and entities, sends responses as emails, sets individual emails as context, and supports follow-up questions.
+  </Card>
+  <Card title="Google Drive" icon="hard-drive">
+    Fetches files based on user queries and filters, sets individual files as context, and supports follow-up questions.
+  </Card>
+  <Card title="Jira" icon="ticket">
+    Retrieves issues based on user queries using entity filters and creates Jira issues using AI intelligence derived from action items.
+  </Card>
+  <Card title="HubSpot" icon="chart-line">
+    Pulls deals based on user queries.
+  </Card>
+  <Card title="Slack" icon="message">
+    Sends responses to Slack channels and threads.
+  </Card>
+  <Card title="Zendesk" icon="headset">
+    Fetches Zendesk tickets based on the entities.
+  </Card>
+</CardGroup>
+
+---
+
+## Publish a pre-built agent
+
+Administrators can publish selected pre-built agents to make them available to users through the Agent Store.
+
+<Steps>
+  <Step title="Navigate to pre-built agents">
+    Go to **User Profile** > **Admin Console** > **Workspaces** > **API Agents** or **Prompt Agents**. You'll see a list of Pre-Built Agents, each marked with a "Prebuilt" label.
+  </Step>
+  <Step title="Enable the agent">
+    Toggle the switch **ON** next to the specific agent, or click the **ellipsis (⋮)** icon. A pop-up window appears.
+  </Step>
+  <Step title="Configure publishing settings">
+    Provide the following details:
+
+    - **Published Version**: Select the version of the agent you want to publish.
+    - **Publish to**: Choose who has access to the agent:
+      - **Admins**: Restricts the agent to Admin users only.
+      - **Selected User Groups/Users**: Allows you to specify individual users or groups.
+      - **Everyone in the Account**: Makes the agent available to all users.
+    - **Actions**: Choose what users can do with this agent:
+      - **Lookup**: Users can search for existing items.
+      - **Creation**: Users can create new items.
+  </Step>
+  <Step title="Configure authentication">
+    Click **Publish**. The system displays the **Auth Settings** screen before completing the publishing process. Configure the authentication method required for the agent.
+  </Step>
+</Steps>
+
+---
+
+## Configure authentication settings
+
+When you click **Publish** for a pre-built agent, the platform presents the Auth Settings screen. You must configure authentication before the agent is available to users.
+
+### Authorization methods
+
+The Auth Settings screen displays the type of authorization the agent supports:
+
+- **OAuth**: Most pre-built agents use this method (Jira, HubSpot, Microsoft 365 Calendar, Microsoft 365 Email, Microsoft OneDrive, Microsoft Teams, Google Calendar, Google Mail, Google Drive, Slack).
+- **Basic Auth**: The Zendesk agent uses this method.
+
+### OAuth application configuration
+
+<Tabs>
+  <Tab title="Use product registered app">
+    Select **Use Product Registered OAuth Application** to route the OAuth credentials of the user's account to the product-registered application. The platform stores and manages the credentials automatically.
+  </Tab>
+  <Tab title="Use your own OAuth app">
+    Select **Use Your Own OAuth Application** to use your organization's own OAuth application credentials. Provide:
+
+    - **Client ID**: Enter the Client ID from your OAuth application.
+    - **Client Secret**: Enter the Client Secret from your OAuth application.
+    - **Redirect URL** (read-only): Register this URL in your OAuth application.
+    - **Scopes** (read-only): Required OAuth scopes for the agent.
+
+    The **Save** button enables after you enter valid values for Client ID and Client Secret.
+  </Tab>
+</Tabs>
+
+<Note>For Google agents (Google Calendar, Google Mail, and Google Drive), you must provide your own OAuth application credentials.</Note>
+
+### OAuth setup resources by provider
+
+| Provider | Required scopes | Setup guide |
+|----------|----------------|--------------|
+| **Jira** | `offline_access`, `read:jira-user`, `read:jira-work`, `write:jira-work`, `manage:jira-project` | [Atlassian OAuth guide](https://developer.atlassian.com/cloud/oauth/getting-started/enabling-oauth-3lo/) |
+| **HubSpot** | `sales-email-read`, `crm.objects.deals.read`, `crm.objects.deals.write` | [HubSpot OAuth Quickstart](https://developers.hubspot.com/docs/apps/legacy-apps/authentication/oauth-quickstart-guide) |
+| **Microsoft 365** | Varies by service | [Microsoft Graph documentation](https://learn.microsoft.com/en-us/graph/auth-register-app-v2) |
+| **Google** | Varies by service | [Google Cloud authentication docs](https://docs.cloud.google.com/application-integration/docs/configure-authentication-profiles) |
+| **Slack** | `mpim:read`, `users:read`, `chat:write`, `team:read`, `channels:read` | Slack API Apps page |
+| **Zendesk** | Basic Auth credentials | [Zendesk OAuth guide](https://support.zendesk.com/hc/en-us/articles/4408845965210) |
+
+---
+
+## Using a published agent
+
+After the administrator publishes an agent and configures authentication, users can access it through the Agent Store.
+
+<Steps>
+  <Step title="Open the Agent Store">
+    Users navigate to the Agent Store from the AI for Work homepage.
+  </Step>
+  <Step title="Connect to the agent">
+    Click **Connect** for the desired agent and follow the on-screen instructions to **Add Connection**.
+  </Step>
+  <Step title="Start using the agent">
+    After successfully adding the connection, the agent responds to user questions and queries through the **Ask or Search Anything** box on the homepage.
+  </Step>
+</Steps>

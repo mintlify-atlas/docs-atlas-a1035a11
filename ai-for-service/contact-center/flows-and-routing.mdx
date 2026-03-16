@@ -1,0 +1,175 @@
+---
+title: "Flows and Routing"
+description: "Configure conditional flows, waiting flows, and routing logic for Contact Center AI."
+---
+
+Contact Center AI lets you customize what customers experience when they wait for an agent, contact you outside business hours, or cannot reach an available agent.
+
+| Feature | Description |
+|---|---|
+| [Conditional Flows](#conditional-flows) | Configure voice and chat behavior for out-of-hours, no-agents-available, and click-to-call scenarios. |
+| [Waiting Flows](#waiting-flows) | Set up messages, hold audio, callbacks, and voicemail for customers waiting in queue. |
+| [Debug and Troubleshoot](#debug-and-troubleshoot) | Review flow execution logs, NLP analysis, and session variables. |
+
+## Conditional flows
+
+Conditional Flows let you define what happens during three common routing scenarios:
+
+| Scenario | Trigger |
+|---|---|
+| **Out of Hours** | Customer contacts support outside configured Hours of Operation. |
+| **No Agents Available** | No online agents have the skills required for the conversation. |
+| **In Queue Transfer** | Conversation enters a queue before being assigned to an agent. |
+
+Contact Center AI provides default voice and chat flows for Out of Hours and No Agents Available. You can replace or customize these defaults.
+
+To access Conditional Flows, go to **Contact Center AI > Flows & Routing > Conditional Flows**.
+
+### Voice flows
+
+#### Out of operational hours
+
+Plays a voice message to callers who contact support outside business hours.
+
+- Select **Default Out of Operational Hours Voice Flow** to open the flow in the Flow Builder.
+- In the **End Flow** node's General Settings, edit the default message, change the language, or add messages.
+
+#### No agents available
+
+Plays a message when online agents lack the skills required for the conversation.
+
+- Select **No Agents Available Voice Flow** to open the flow in the Flow Builder.
+- In the **End Flow** node's General Settings, edit the message, change the language, or add messages.
+
+#### Click-to-call
+
+Click-to-Call lets website visitors start a voice call directly from the chat widget, providing a seamless escalation path from bot to live agent.
+
+Customers can initiate a call:
+
+- Before interacting with the bot
+- During an active bot conversation
+- During a live chat (the chat agent receives a closure notification and moves to After Call Work)
+
+<Note>The Click-to-Call flow appears in Conditional Flows only after it is enabled in Theme & Design settings.</Note>
+
+**What administrators can add to a Click-to-Call flow:**
+
+- Script nodes
+- Message prompts
+- Business hours checks
+- Queue assignments
+- Agent availability checks
+- Agent transfers
+- End Flow node
+
+**End-to-end flow:**
+
+<Steps>
+  <Step title="Customer clicks the Call button">
+    The customer clicks the **Call** button in the chat widget.
+  </Step>
+  <Step title="Confirmation">
+    A confirmation pop-up appears. The customer selects **Confirm**.
+  </Step>
+  <Step title="Voice call initiated">
+    The system initiates a voice call to the contact center. Context (chat transcript, user ID, session ID, page URL) is passed to the agent. The call routes through the configured Click-to-Call flow.
+  </Step>
+</Steps>
+
+### Chat flows
+
+#### Out of operational hours
+
+Sets the auto-response message sent during non-business hours for automated and live chats.
+
+- **Messaging (automated chat):** Edit the message, change the language, or add messages in General Settings. Select the In Queue Flow to add the customer to an agent's waiting queue.
+- **Live Chat:** Edit the message, change the language, or add messages. The chat ends after the message is displayed.
+
+#### No agents available
+
+Sets the message sent when no agents with the required skills are available.
+
+- **Messaging:** The chat ends after the message is displayed.
+- **Live Chat:** The chat ends after the message is displayed.
+- **On Error:** The chat ends after the error message is displayed.
+
+### Manage conditional flows
+
+| Action | How |
+|---|---|
+| **Update a flow** | Select the (⋮) icon next to the flow and select **Update**. |
+| **Delete a flow** | Select the (⋮) icon, select **Delete**, then confirm. |
+
+<Note>Deleted conditional flows cannot be restored. Default flows cannot be deleted.</Note>
+
+## Waiting flows
+
+Waiting Flows let you customize the experience for customers waiting in queue — for both voice and chat channels.
+
+**What you can configure:**
+
+- Routing rules based on agent skills
+- Initial messages when a request enters a queue
+- Hold audio for calls
+- Periodic messages for calls and chats
+- Callback when wait time exceeds a limit
+- Voicemail when wait duration, queue position, or estimated wait time exceeds a threshold
+
+To access Waiting Flows, go to **Contact Center AI > Flows & Routing > Waiting Flows**.
+
+### Add a waiting experience
+
+<Steps>
+  <Step title="Open Waiting Flows">
+    Go to **Flows & Routing > Waiting Flows** and select **+ New Waiting Experience**.
+  </Step>
+  <Step title="Configure routing rules">
+    Define which conversations use this Waiting Experience based on Skill Group and Skill.
+  </Step>
+  <Step title="Set up call experience">
+    Configure initial messages, hold audio, periodic messages, callback, and voicemail options.
+  </Step>
+  <Step title="Set up chat experience">
+    Configure initial messages, agent transfer messages, and periodic messages for chat.
+  </Step>
+  <Step title="Save">
+    Select **Save** at the bottom of the window.
+  </Step>
+</Steps>
+
+### Periodic message variables
+
+| Variable | Description |
+|---|---|
+| `{{queue.waitTime}}` | Average wait time in minutes, refreshed every 15 minutes. |
+| `{{queue.position}}` | Customer's current position in the queue. |
+
+### Routing rules priority
+
+When multiple Waiting Experiences match a conversation:
+
+1. Filters all entries that match the conversation's skills.
+2. Sorts by number of routing rules (descending) — more specific entries take priority.
+3. If two entries have the same number of rules, selects the one created earliest.
+
+## Debug and troubleshoot
+
+The Debug window lets you inspect NLP details, execution logs, and session variables for a chat interaction. Select the **Debug** icon in the upper-right corner of the chat window.
+
+| Tab | Description |
+|---|---|
+| **Debug Log** | Step-by-step flow execution with timestamps, including Script, Service, and Webhook node logs. |
+| **NL Analysis** | Task loading details and recognition scores for each user utterance. |
+| **Session Context & Variables** | Lists context objects and session variables used during dialog execution. |
+
+### Debug log events by node type
+
+| Node | Key events |
+|---|---|
+| **IVR Menu, IVR Digit Input** | User input → Transitioning X to Y → Execution completed |
+| **Check Agent Availability** | Transitioning X to Y → Execution completed |
+| **Check Business Hours** | User input → Transitioning X to Y → Execution completed |
+| **Agent Transfer** | Agent transfer node triggered → Transfer successful / Transfer failure |
+| **Connect to API** | API connection established → Execution completed → Error detected |
+| **End Flow** | End flow initiated → Execution completed |

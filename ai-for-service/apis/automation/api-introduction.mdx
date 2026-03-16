@@ -1,0 +1,149 @@
+---
+title: "API Introduction"
+description: "Authenticate and use the AI for Service Platform APIs for agent creation, import/export, training, publishing, and account management."
+---
+
+The AI for Service platform lets you develop AI Agents using secured APIs. All key developer activities — creation, import and export, training, and publishing — are available via these APIs. Key account management activities like managing XO Platform access, admin, and roles can also be performed via secured public APIs.
+
+Authentication involves two steps:
+
+1. **Create a JWT App** — A client JWT App creates secure authentication credentials to access XO Platform features.
+2. **Assign API Scopes to the App** — Assigning API scopes allows the app to access Platform APIs securely.
+
+## Creating and managing JWT apps
+
+<Steps>
+  <Step title="Navigate to Dev Tools">
+    Go to **App Settings > Dev Tools > Web/Mobile SDK**.
+  </Step>
+  <Step title="Create the JWT app">
+    If creating a JWT app for the first time, click **Add**. Alternatively, select **Create JWT App** from the **JWT App** drop-down list.
+  </Step>
+  <Step title="Enter app name">
+    On the Create JWT App page, enter a **name** for the app.
+  </Step>
+  <Step title="Select JWT signing algorithm">
+    Select the JWT Signing Algorithms for Client App Authentication.
+  </Step>
+  <Step title="Configure security options">
+    Select **Enforce JTI**, **JWE**, or both as needed:
+    - **Enforce JTI (JWT ID) Claim** — The platform only accepts requests with the JTI Claim.
+    - **Enforce JWE Encryption** — Requires JWT-based authentication for accessing public APIs.
+    - **Enforce Request and Response Payload Encryption** — Provide the symmetric encryption key for encrypting public API request and response payloads.
+  </Step>
+  <Step title="Complete and save">
+    Select **Next** and **Done**. The app's Client ID and Client Secret are now available.
+  </Step>
+</Steps>
+
+<Note>Use the **Client ID** and **Client Secret** of the client app to generate a JWT token. Pass this token in each API request for authorization.</Note>
+
+### How request and response payload encryption works
+
+When the Enforce Request and Response Payload Encryption option is enabled:
+
+1. Accepts the client's public key for the JWT app.
+2. Generates a secure AES-256 encryption key.
+3. Encrypts request and response payloads using the AES-256 key.
+4. Encrypts (wraps) the AES-256 key with the client's public key.
+5. Returns the encrypted response payload, the protected AES key, and related metadata.
+6. The client uses its private key to decrypt the AES key, then decrypts the original payload.
+
+## Associating API scopes
+
+### Adding API scopes in the XO Platform
+
+<Steps>
+  <Step title="Go to API Scope">
+    Go to **App Settings > Dev Tools > API Scope** and click **Create API Scope**.
+  </Step>
+  <Step title="Select the JWT app">
+    From the **JWT App** drop-down list, select an existing client app.
+  </Step>
+  <Step title="Copy credentials">
+    Copy the **Client ID** and **Client Secret** displayed on the screen.
+  </Step>
+  <Step title="Select scopes">
+    Select the appropriate **Automation** or **Contact Center** scopes.
+  </Step>
+  <Step title="Save">
+    Click **Save**.
+  </Step>
+</Steps>
+
+### Adding API scopes in the Admin Console
+
+1. Log in to the Admin Console.
+2. Go to **Security & Control > API Scopes**.
+3. Click **New** and select an existing client app.
+4. Under the Scopes section, select the appropriate scopes.
+5. Click **Save**.
+
+## Available API scopes
+
+| Scope | Description |
+|---|---|
+| Intent and Entity Detection | Allow intent and entity detection from an utterance using secured APIs. |
+| User Engagement Trend | Retrieve the user engagement trend. |
+| Batch Tests Execution | Execute Batch Test Suites and get results. |
+| Batch Tests Management | Create, modify, and delete Batch Test Suites and results. |
+| Chat History | Retrieve chat transcripts using secured APIs. |
+| Debug Logs | Retrieve debug logs using secured APIs. |
+| Bot Export | Export definition of a selected agent. |
+| Import Variables | Import variables using secured APIs. |
+| Export Variables | Export variables using secured APIs. |
+| Proactive Messages | Proactively send messages to end-users via supported channels. |
+| Train ML | Match a given utterance against the NL model. |
+| Train FAQ | Match a given FAQ against the FAQ model. |
+| Utterances Import | Import utterances for a task. |
+| Utterances Export | Export utterances for a task. |
+| Logs History | Retrieve the change logs for the particular AI Agent. |
+| Bot Sessions | Retrieve conversation sessions. |
+| Billing Sessions | Retrieve billing sessions. |
+| Custom Reports | Retrieve data associated with custom widgets and reports. |
+| Metrics | Retrieve metrics for Intents Found, Not Found, Failed Tasks, Successful Tasks, and Performance Logs. |
+| Manage Knowledge Graph | Export the complete definition of the Knowledge Graph. |
+| NLP Configurations | Update NLP thresholds and configurations. |
+
+<Note>After enabled, API Scopes must be published. Follow the Publish process to ensure that the API Scopes are selected.</Note>
+
+## Generating the JWT token
+
+After associating API scopes with a client app:
+
+<Steps>
+  <Step title="Visit the JWT tool">
+    Go to https://developer.kore.ai/tools/jwt/
+  </Step>
+  <Step title="Select the algorithm">
+    In the **Algorithm** drop-down list, select **HS256**.
+  </Step>
+  <Step title="Update the payload">
+    In the **Decoded** section, replace the **Payload** content with:
+
+    ```json
+    {
+      "sub": "1234567890",
+      "appId": "add-Client-ID-here"
+    }
+    ```
+
+    <Note>The platform validates the token only when entered as `"appId"`. Do not use `"App ID"`, `"appid"`, or `"app ID"`.</Note>
+  </Step>
+  <Step title="Enter the secret">
+    In the **Verify Signature** field, replace `your-256-bit-secret` with the Client Secret.
+  </Step>
+  <Step title="Copy the JWT">
+    Click **Copy JWT** to copy the generated token. Pass this token in the API request for authorization.
+  </Step>
+</Steps>
+
+## Data Tables
+
+Access control from the Data Tables module is different from the Platform and Admin Console access controls.
+
+You can define apps to securely access data from data tables and views:
+
+- Create one or more apps.
+- Apps can be used for accessing data tables and views over public APIs, using Service Node, and for export/import API for data table definitions.
+- Grant the app read, write, and delete permissions to each table and view separately.

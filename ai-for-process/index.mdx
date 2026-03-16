@@ -1,0 +1,101 @@
+---
+title: "AI for Process"
+description: "Streamline knowledge-intensive business processes with autonomous AI agents. Orchestrate AI models, integrations, and human decision points into structured, executable workflows."
+---
+
+AI for Process provides a unified, flexible framework for implementing AI capabilities within an enterprise. It combines pre-built components, customization options, and integration capabilities to address a wide range of business needs while ensuring security and compliance.
+
+<CardGroup cols={2}>
+  <Card title="Get Started" icon="rocket" href="/ai-for-process/getting-started">
+    Set up a workspace, configure AI models, and build your first AI-powered workflow.
+  </Card>
+  <Card title="Core Concepts" icon="book-open" href="/ai-for-process/concepts">
+    Understand workspaces, workflows, nodes, triggers, and the context object.
+  </Card>
+  <Card title="Workflows" icon="diagram-project" href="/ai-for-process/workflows/overview">
+    Design and deploy workflows using the visual no-code builder.
+  </Card>
+  <Card title="Workflow Nodes" icon="cubes" href="/ai-for-process/nodes">
+    Reference for all node types: AI, logic, integration, human, and utility.
+  </Card>
+  <Card title="Inbox" icon="inbox" href="/ai-for-process/inbox">
+    Centralized queue for human-in-the-loop approvals, reviews, and data input.
+  </Card>
+  <Card title="Model Hub" icon="microchip" href="/ai-for-process/models">
+    Connect external providers, deploy open-source models, and fine-tune on your data.
+  </Card>
+  <Card title="Prompt Studio" icon="pen-to-square" href="/ai-for-process/prompts">
+    Design, test, and manage prompts with version control and multi-model comparison.
+  </Card>
+  <Card title="Administration" icon="gear" href="/ai-for-process/admin-settings">
+    Users, roles, security, integrations, and monitoring settings.
+  </Card>
+</CardGroup>
+
+## Key components
+
+| Component | Description |
+|-----------|-------------|
+| **Access Points** | Entry interfaces for users, systems, and external applications through web-based interfaces, mobile applications, APIs, and direct integrations. |
+| **Application Gateway** | Central routing and management layer for request handling, load balancing, and traffic distribution. Ensures secure and efficient communication between external access points and internal services. |
+| **Services** | Core business logic and AI processing layer, including the Workflow Engine, Expert AI Reasoning, multiple AI model integrations, and the Human-in-the-Loop framework. |
+| **Integrations** | Enterprise connectivity layer with pre-built connectors, API adapters, and data transformation services. Supports over 250 enterprise integrations including SharePoint, Salesforce, ServiceNow, enterprise databases, and email systems. |
+| **Security & Compliance** | Enterprise-grade protection through role-based access control, data encryption, audit logging, and regulatory compliance frameworks. |
+| **Observability & Monitoring** | Comprehensive visibility into system performance through metrics, logs, and traces across all components. |
+
+## How it works
+
+A workflow starts when a trigger fires — via API call, schedule, event from a third-party app, or manual action. The Workflow Engine executes a directed graph of nodes: each node receives input from the workflow context, processes it, and writes output back. Downstream nodes reference earlier outputs using `{{context.steps.NodeName.output}}` syntax.
+
+```
+Trigger (API / Schedule / Event / Manual)
+           │
+           ▼
+   Workflow Engine
+   ┌─────────────────────────────────────────┐
+   │  Start → AI Node → Human Node → API Node → End │
+   │               │          │                     │
+   │           Model Hub   Inbox Queue              │
+   └─────────────────────────────────────────┘
+           │
+           ▼
+   Output (API Response / File / Notification)
+```
+
+## Use cases
+
+AI for Process operates as an overlay automation layer that integrates with your existing enterprise ecosystem — ERP (SAP, Oracle), CRM (Salesforce, MS Dynamics), ITSM (ServiceNow, Zendesk), RPA (UiPath, Automation Anywhere, Power Automate), and data platforms — without replacing current investments.
+
+<AccordionGroup>
+  <Accordion title="Finance">
+    - **Invoice processing**: Faster cycle time, lower operational cost. Document processing, data extraction, and compliance approval workflows.
+  </Accordion>
+  <Accordion title="HR">
+    - **Employee onboarding and access provisioning**: Day-1 readiness, fewer manual handoffs.
+  </Accordion>
+  <Accordion title="IT">
+    - **Zero-touch ticket resolution**: Higher auto-closure of routine tickets. Event-driven automation and cross-system data synchronization.
+  </Accordion>
+  <Accordion title="Procurement">
+    - **Supplier onboarding and management**: Higher conversions, reduced manual follow-ups.
+  </Accordion>
+  <Accordion title="Customer Support">
+    - **Complaint and escalation management**: Significant reduction in non-compliance effort. Intelligent routing and response for customer service workflows.
+  </Accordion>
+</AccordionGroup>
+
+## Key solution features
+
+| Concept | Description |
+|---------|-------------|
+| [Workspaces](/ai-for-process/admin-settings) | Logical groupings of workflows and configurations, organized by teams or projects. Controls what data and workflows are accessible and which permissions apply. |
+| [Workflows](/ai-for-process/workflows/overview) | Structured, executable flows of tasks designed to automate a specific business process. Each workflow run executes independently based on provided inputs. |
+| [Nodes](/ai-for-process/nodes) | Fundamental building blocks of automation arranged on the visual builder canvas. Categorized by function: AI, Logic, Integration, and Control. |
+| [Triggers & Schedules](/ai-for-process/workflows/triggers-and-access) | Enable event-driven automation by initiating workflows automatically via real-time events, scheduled intervals, external API calls, or manual actions. |
+| [Context Object](/ai-for-process/workflows/overview) | Central runtime state container that captures inputs, intermediate data, and node-level status for a specific execution. |
+| [Prompt Studio](/ai-for-process/prompts) | Dedicated workspace for managing the entire prompt lifecycle, from creation and testing to optimization. Supports multi-model comparison, version control, and 65+ pre-built templates. |
+| [Model Hub](/ai-for-process/models) | Centralized interface for full control over the AI model lifecycle. Supports external providers, open-source models, and fine-tuned models. |
+| [Inbox (Human-in-the-Loop)](/ai-for-process/inbox) | Centralized queue where human reviewers process tasks requiring manual judgment such as approvals, data input, or content review. |
+| [Observability & Analytics](/ai-for-process/settings/monitoring-overview) | Suite including the Workflow Monitor, Audit Logs, and performance dashboards. Tracks success rates, response times, latency, and token consumption. |
+| [Security & Administration](/ai-for-process/settings/security-control) | Enterprise-grade controls managing users via RBAC and secure authentication through SSO. |
+| [Integrations](/ai-for-process/settings/integrations) | Connectivity layer with pre-built connectors for 120+ third-party services, including Salesforce, Slack, and AWS S3. |

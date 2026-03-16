@@ -1,0 +1,144 @@
+---
+title: "Admin Settings"
+description: "Reference guide to the AI for Process Settings console. Covers workspaces, user management, integrations, custom scripts, guardrails, monitoring, and security controls."
+---
+
+The **Settings** console is a centralized management interface for administrators to configure, monitor, and manage AI for Process system configurations.
+
+<Note>Only users with the **Admin** role and the required permissions can access the **Settings** console.</Note>
+
+## Access the Settings console
+
+1. Log in to AI for Process.
+2. In the top menu, click **Settings**. The system redirects to the **Users** page under **Users Management**.
+
+## User management levels
+
+The Settings console provides administrators control over user management at the following levels:
+
+- **Account level**: Manage users, their roles, and permissions throughout the entire AI for Process account. This includes inviting users, establishing automatic data synchronization from the enterprise Active Directory (AD), and setting up access controls for modules including workflow creation, model management, integrations, user management, audit logs, security controls, and model guardrails.
+
+- **Workflow level**: Manage user access focused on individual workflow deployments and configurations. Each workflow's owner can invite users, customize permissions and access levels, and manage tasks such as creating and deleting workflows, assigning roles, overseeing deployments, configuring guardrails, and managing API apps and keys.
+
+## Modules and features
+
+<AccordionGroup>
+
+<Accordion title="Workspace">
+
+A workspace is a logical grouping of workflows and configurations, typically organized by teams or projects. It controls what workflows and data are accessible, what actions are allowed, and which configurations apply.
+
+A default workspace is created when a new account is set up. New workflows are automatically associated with the current workspace.
+
+**Key behaviors:**
+- Every workflow is tied to a specific workspace and cannot be moved or accessed across workspaces. Use import/export to move workflows between workspaces.
+- All configurations — AI model configurations, settings, auth profiles, and permissions — are maintained separately per workspace.
+
+**Switching between workspaces:**
+
+Click the workspace name in the top-right corner to open a dropdown of all accessible workspaces. When you switch workspaces:
+- Workflows refresh to show those in the new workspace.
+- Permissions reflect your role in the new workspace.
+- Settings, models, prompts, inbox, and data reflect workspace-specific configurations.
+
+The workspace switcher also lets you:
+- **Set a default workspace**: Auto-load a workspace on login.
+- **Search and browse**: Locate workspaces using the search bar.
+- **Request access**: The **My Workspaces** tab lists accessible workspaces; inaccessible ones appear under **Other Workspaces**.
+
+</Accordion>
+
+<Accordion title="Users Management">
+
+Helps add, remove, and manage admin, member, and viewer users, roles, and permissions for accounts, workflows, and models.
+
+**Users**
+- All users across your enterprise network accounts are listed with Name, Email ID, Account Role, and Status.
+- Add new users by sending bulk or individual email invites, or import a user information file directly to the console.
+- Set user role when sending the email invite: Master Admin, Admin, Member, Viewer, or Custom roles.
+- Select one or multiple users to change access permissions or delete a user.
+
+**Role Management**
+- View, assign, and reassign system or custom roles. System roles cannot be edited or deleted.
+- Create a copy of a system role as a custom role and manage its permissions.
+- Add, delete, edit, and duplicate custom roles.
+
+**Settings**
+- **Active Directory**: Configure sync with your organization's AD to import user information for required organization units. Configure auto sync schedules (daily, weekly, or monthly).
+- **User Settings**: Set visibility of user profile information across AI for Process. Configure how joining requests from new users are handled.
+- **Email Notifications**: Configure when users receive email notifications when added to your account.
+
+For detailed steps, see [User Management](/ai-for-process/settings/user-management).
+
+</Accordion>
+
+<Accordion title="Integrations">
+
+Manage 130+ pre-built integrations for third-party services in one place.
+
+- Create and configure secure connections across multiple categories like marketing, AI, sales, and more.
+- Pre-authorize the connection using the required auth method.
+- Add authorization credentials to secure the connection when users interact with the workflow.
+- Use the configured connection in the Integration node to access third-party services while building the workflow.
+
+For details on all supported services and configuration steps, see [Integrations](/ai-for-process/settings/integrations).
+
+</Accordion>
+
+<Accordion title="Manage Custom Scripts">
+
+Import custom scripts with reusable functions that can be invoked from anywhere in the platform using isolated container capabilities.
+
+- Import a custom script by configuring its general details, uploading the script file, and providing runtime settings and resource allocation details.
+- Review and deploy the custom script into the platform.
+- Undeploy, export, or delete a script as needed.
+- Create and manage API keys to securely access the script's API endpoint.
+- View and copy endpoint code for use in external systems or integrations.
+- Select and execute the configured custom script through the Function node in workflows.
+
+</Accordion>
+
+<Accordion title="Manage Guardrails">
+
+Deploy models to make them available as anomaly scanners in all workflows.
+
+| Scanner | Description |
+|---------|-------------|
+| **Anonymize** | Prevents exposure of sensitive information using redaction, pseudonymization, and generalization. |
+| **Ban Topics** | Restricts sensitive and controversial topics to maintain content moderation and compliance. |
+| **Prompt Injection** | Guards against attacks that manipulate language model behavior. |
+| **Toxicity** | Detects and manages toxic, harmful, offensive, or abusive content. |
+| **Bias Detection** | Ensures fairness by evaluating outputs for systematic prejudices and neutralizing responses. |
+| **Relevance** | Ensures prompt outputs are accurate to the input context and meet the user's intent. |
+
+</Accordion>
+
+<Accordion title="Monitoring">
+
+**Audit Logs** — Gain complete visibility into all account activities. Track real-time account and workflow-level event logs across login/logout, roles, integrations, models, workflows, users management, prompts, datasets, and guardrails.
+
+**Workflow Analytics Dashboard** — Get actionable insights into successful and failed workflow runs, average workflow response time, and node execution data. Compare performance between workflow versions.
+
+**Model Analytics Dashboard** — Review and monitor key performance indicators for open-source, fine-tuned, and external models. Analyze credit consumption, latency, requests, and token generation.
+
+**Model Traces** — Review run-level performance metrics for each model execution. Analyze requests, model outputs, response times, and sources.
+
+**Custom Scripts** — View and trace execution logs from custom scripts. Monitor run-level and log-specific metrics.
+
+For details, see [Monitoring Overview](/ai-for-process/settings/monitoring-overview).
+
+</Accordion>
+
+<Accordion title="Security and Control">
+
+**Single Sign-On** — Centralize authentication for enterprise account users. Configure SSO for SAML (Okta, OneLogin), WS-Federation (Windows Azure), or OpenID Connect (Google). Disable SSO or exclude specific users from the SSO requirement.
+
+**Authorization Profile** — Configure authorization profiles using the OAuth2 standard. Manage and reuse authentication settings across AI for Process, eliminating the need to create new authentication mechanisms each time.
+
+**API Scopes** — Create and manage API-scoped apps, assign API keys, and select scopes to control access to specific endpoints. Restrict access to authorized users and prevent unauthorized use.
+
+For detailed configuration steps, see [Security and Control](/ai-for-process/settings/security-control).
+
+</Accordion>
+
+</AccordionGroup>

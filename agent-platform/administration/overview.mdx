@@ -1,0 +1,88 @@
+---
+title: "Administration Overview"
+description: "The Settings Console is the centralized management interface for account administrators to configure users, roles, workspaces, security, and monitoring."
+---
+
+The Settings Console is the centralized management interface for account administrators. Use it to configure users, roles, workspaces, integrations, security, and monitoring across Agent Platform.
+
+<Note>Only users with the **Admin** role and required permissions can access the Settings Console.</Note>
+
+## Accessing the Settings Console
+
+1. Log in and select the **Autonomous Agents** module.
+2. Select **Settings** in the top navigation bar.
+
+The console opens to the **Users** page in **User Management** by default.
+
+## Workspaces
+
+A workspace is a logical grouping of apps, tools, and configurations — typically organized by team or project. Every account starts with a default workspace assigned automatically.
+
+### Workspace behavior
+
+- Every app belongs to exactly one workspace.
+- Apps and tools are not shared across workspaces by default.
+- Configurations (AI models, auth profiles, environments, settings) are workspace-specific.
+- To move apps or tools between workspaces, use import/export.
+
+### Workspace switcher
+
+The active workspace is shown in the top-right corner of the platform. Click it to switch workspaces or browse all available ones.
+
+| Feature | Description |
+|---|---|
+| **Default workspace** | Mark any workspace as default — it loads automatically at login |
+| **Search and browse** | Find workspaces via search or pagination |
+| **Request access** | Request access to workspaces listed under **Other Workspaces** |
+| **Role visibility** | See your role and member count per workspace |
+
+## Settings Console sections
+
+<CardGroup cols={2}>
+  <Card title="User management" icon="users" href="/agent-platform/administration/user-management">
+    Invite users, assign roles, and sync from Active Directory.
+  </Card>
+  <Card title="Security and control" icon="shield" href="/agent-platform/administration/security-and-control">
+    Configure SSO, MFA, authorization profiles, API scopes, and encryption.
+  </Card>
+  <Card title="Billing and usage" icon="credit-card" href="/agent-platform/administration/billing-and-usage">
+    Monitor credit consumption, tool run usage, and cost breakdowns.
+  </Card>
+  <Card title="Integrations" icon="plug">
+    Connect to 130+ pre-built third-party integrations organized by category.
+  </Card>
+</CardGroup>
+
+## Guardrails (account-level)
+
+View and manage pre-deployed guardrail models that scan prompt inputs and outputs across all tools.
+
+| Guardrail | Purpose |
+|---|---|
+| **Anonymize** | Redacts or masks sensitive information in text |
+| **Ban topics** | Blocks policy-restricted or sensitive topics |
+| **Prompt injection** | Detects malicious inputs designed to manipulate model behavior |
+| **Toxicity** | Identifies and manages harmful or abusive language |
+| **Bias detection** | Flags and neutralizes systematic biases in model outputs |
+| **Relevance** | Scores how well an output matches the input context |
+
+## Monitoring dashboards
+
+| Dashboard | What it tracks |
+|---|---|
+| **Audit logs** | All user activity: login/logout, roles, integrations, models, tools, users, prompts, datasets, guardrails |
+| **Tools analytics** | Tool run success/failure rates, average response times, node execution data |
+| **Model analytics** | Model performance, credit consumption, request rates, latency |
+| **Model traces** | Run-level metrics and metadata per model execution |
+| **Custom scripts** | Execution runs and logs for endpoints, Function nodes, and API nodes |
+
+All dashboards support date range filtering and search.
+
+## Security and control
+
+| Feature | Description |
+|---|---|
+| **Single Sign-On (SSO)** | Centralize authentication using your IdP. Exclude specific users from the SSO requirement as needed. |
+| **Authorization profiles** | Configure OAuth2-based auth profiles to reuse across tools, models, and agents. |
+| **API scopes** | Create API-scoped apps and keys to restrict access to specific endpoints. |
+| **Encryption key management** | Configure platform-managed or bring-your-own-key (BYOK) encryption for account data. |

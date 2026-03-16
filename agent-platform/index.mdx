@@ -1,0 +1,84 @@
+---
+title: "Agent Platform"
+description: "Build intelligent, autonomous AI agents that understand context, take actions, and deliver results at enterprise scale."
+---
+
+The Agent Platform is a comprehensive solution for enterprises to develop, deploy, and manage AI-powered business applications. It enables the orchestration of intelligent agents across service, work, and process automation while upholding enterprise-grade security and governance.
+
+## Key components
+
+The Platform's key components provide comprehensive capabilities that empower organizations to efficiently scale and manage AI deployments across the AI lifecycle.
+
+<CardGroup cols={2}>
+  <Card title="Multi-Agent Orchestration" icon="network-wired" href="/agent-platform/orchestration">
+    Define agent behaviors, skills, and integrations through low-code, declarative programming. Supports real-time streaming across voice and chat channels.
+  </Card>
+  <Card title="Tools and integrations" icon="wrench" href="/agent-platform/tools">
+    Build reusable tools agents invoke to perform tasks or access external systems via visual workflow builders, custom JavaScript or Python, or MCP.
+  </Card>
+  <Card title="Knowledge and RAG" icon="database" href="/agent-platform/knowledge">
+    Enable context-aware responses with hybrid retrieval-augmented generation. Supports agentic retrieval where multiple agents collaborate to find information.
+  </Card>
+  <Card title="Model Hub" icon="brain" href="/agent-platform/models">
+    Deploy and manage AI models including fine-tuned domain-specific models. Use any AI model—OpenAI, Anthropic, Google, or custom.
+  </Card>
+  <Card title="Prompt Studio" icon="pen-to-square" href="/agent-platform/prompts">
+    Design, test, and optimize prompts collaboratively with real-time co-editing, commenting, and version tracking.
+  </Card>
+  <Card title="Evaluation Studio" icon="chart-line" href="/agent-platform/evaluation">
+    Measure AI performance with AI-driven automated assessments and human evaluator insights.
+  </Card>
+  <Card title="AI Safety and Guardrails" icon="shield" href="/agent-platform/guardrails">
+    Ensure responsible agent operations with PII anonymization, input/output guardrails, and advanced content filtering.
+  </Card>
+  <Card title="Analytics and Observability" icon="magnifying-glass-chart" href="/agent-platform/analytics">
+    Gain deep insights into agent performance through detailed activity capture, session logs, and usage metrics.
+  </Card>
+  <Card title="Memory" icon="memory" href="/agent-platform/memory">
+    Manage interaction state throughout its entire lifecycle. Maintain continuity across sessions.
+  </Card>
+  <Card title="Agent Protocol" icon="plug" href="/agent-platform/apis">
+    Communicate seamlessly between agents, tools, and external systems using a standardized protocol.
+  </Card>
+  <Card title="SDKs" icon="code" href="/agent-platform/sdk-overview">
+    Build and integrate Platform capabilities with comprehensive SDKs for custom agents, tools, Search/RAG, and observability traces.
+  </Card>
+  <Card title="Administration" icon="gear" href="/agent-platform/administration/overview">
+    Manage users, roles, security, billing, and workspace configuration for your Agent Platform account.
+  </Card>
+</CardGroup>
+
+## Platform components
+
+| Component | Description |
+|---|---|
+| [Multi-Agent Orchestration](/agent-platform/orchestration) | Define agent behaviors, skills, and integrations through low-code, declarative programming. Give agents advanced reasoning and planning skills to analyze their environment, act effectively, and operate autonomously. Supports real-time streaming across voice and chat channels. |
+| [Tools and Integrations](/agent-platform/tools) | Build reusable tools agents invoke to perform tasks or access external systems. Create tools via visual workflow builders, custom JavaScript or Python, pre-built enterprise connectors, or external API integrations. |
+| [Knowledge and RAG](/agent-platform/knowledge) | Enable context-aware responses with hybrid retrieval-augmented generation. Supports agentic retrieval where multiple agents collaborate to find information, and adapts to user preferences, current tasks, and interaction history. |
+| [Model Hub](/agent-platform/models) | Deploy and manage AI models including fine-tuned domain-specific models. Use any AI model—OpenAI, Anthropic, Google, or custom—and seamlessly integrate open-source models and third-party providers. |
+| [Prompt Studio](/agent-platform/prompts) | Design, test, and optimize prompts collaboratively with real-time co-editing, commenting, and version tracking. Compare prompts across models, use variables, and deploy through an integrated prompt library. |
+| [Evaluation Studio](/agent-platform/evaluation) | Measure AI performance with AI-driven automated assessments and human evaluator insights. Use customizable scoring rubrics and real-time performance monitoring to improve agent quality. |
+| [AI Safety and Guardrails](/agent-platform/guardrails) | Ensure responsible agent operations with PII anonymization, input/output guardrails, advanced content filtering, and granular role-based access controls. |
+| [Analytics and Observability](/agent-platform/analytics) | Gain deep insights into agent performance through detailed activity capture, session logs, conversation histories, and usage metrics. |
+| [Memory](/agent-platform/memory) | Manage interaction state throughout its entire lifecycle. Maintain continuity across sessions by tracking previous interactions, user preferences, and relevant data. |
+| [Agent Protocol](/agent-platform/apis) | Communicate seamlessly between agents, tools, and external systems using a standardized protocol. Supports multi-modal content, real-time streaming, and flexible API design. |
+| [SDKs](/agent-platform/sdk-overview) | Build and integrate Platform capabilities with comprehensive SDKs for custom agents, tools, Search/RAG, and observability traces. |
+
+## How it works
+
+When a user submits a request, the orchestrator analyzes intent, selects the appropriate agent or agents, and coordinates the response:
+
+1. **User request** arrives at the agentic app.
+2. **Orchestrator** analyzes intent and selects agents.
+3. **Agents** receive delegated tasks and invoke tools or knowledge as needed.
+4. **Tools and knowledge** execute and return results to agents.
+5. **Unified response** is assembled and returned to the user.
+
+<CardGroup cols={2}>
+  <Card title="Get started" icon="rocket" href="/agent-platform/getting-started">
+    Set up your workspace, create your first agentic app, and deploy it in four phases.
+  </Card>
+  <Card title="Core concepts" icon="book" href="/agent-platform/concepts">
+    Learn the building blocks: agents, orchestrators, tools, knowledge, and state.
+  </Card>
+</CardGroup>

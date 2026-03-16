@@ -1,0 +1,250 @@
+---
+title: "Release Notes"
+description: "Feature updates and enhancements for the AI for Work platform."
+---
+
+This page provides information on the feature updates and enhancements introduced in recent releases of AI for Work.
+
+---
+
+## v1.13.0 — December 16, 2025
+
+**Major Release**
+
+### New features
+
+**Slack integration**
+
+AI for Work now supports native Slack integration, allowing you to bring AI capabilities directly into your team's communication workflows. Configure agents to respond in Slack channels, provide intelligent assistance, and streamline collaboration without leaving your Slack workspace.
+
+[Configure Slack →](/ai-for-work/channels#slack)
+
+**MCP Server integration**
+
+AI for Work now supports Model Context Protocol (MCP) Server integration, enabling you to expose pre-built agents as tools through MCP servers. This capability allows you to use your agents within the Agentic Search app on the Agent platform, creating a seamless bridge between your existing agent configurations and advanced search capabilities.
+
+[Learn more →](/ai-for-work/assistant-configurations#mcp-server)
+
+**Work – Agentic Search**
+
+Introducing Work, an intelligent search capability that leverages AI agents to deliver more contextual and actionable search results. This feature enhances the Work Orchestrator experience by enabling agents to understand search intent, reason through complex queries, and provide comprehensive answers with proper source attribution.
+
+To enable Work – Agentic Search, create an agentic app from the base template and link it with AI for Work.
+
+**Schedule Trigger**
+
+Automate your workflows with Schedule Trigger, a new capability that enables agents to execute tasks on predefined schedules. Configure agents to run at specific times or intervals, ensuring critical operations happen automatically without manual intervention.
+
+Ideal for recurring tasks such as generating reports, sending notifications, syncing data, and performing routine maintenance operations.
+
+### Feature enhancements
+
+**Agent publishing defaults**: Agent publishing is streamlined with improved default settings. The enablement type now defaults to “Enabled by Default,” reducing configuration steps and accelerating deployment workflows.
+
+**Persistent compose bar agents and attachments**: Agents and attachments added to the compose bar now remain visible until manually removed by the user.
+
+**HubSpot integration optimization**: The HubSpot connector in Work – Agentic Search is optimized for improved query performance using API-based agents that excel at aggregation and lookup queries.
+
+<Note>Semantic search and advanced reasoning queries are not currently supported for HubSpot integration. Support is coming soon.</Note>
+
+---
+
+## v1.12.0 — November 13, 2025
+
+**Major Release**
+
+### New features
+
+**Enterprise Directory**
+
+Introducing the Enterprise Directory, a centralized employee contact management system that allows users to easily search, filter, and view colleague information across your organization.
+
+Admins configure the directory by feeding data through the Push API source. Features include intelligent search with customizable filters (Department, Designation, First Name, Location), rich contact cards with profile details, and streamlined contact management.
+
+[Learn more →](/ai-for-work/administration/user-management#enterprise-directory)
+
+### Feature enhancements
+
+**Agent Selection UI/UX improvements**: Redesigned the agent selection interface for better usability and clearer navigation.
+
+**Product-specific email templates**: Customize email communications with product-specific templates for more branded and contextually relevant messaging.
+
+**Work Orchestrator improvements** (formerly OmniSearch): Improved sources and citations for better content traceability, plus PDF/PPT generation support.
+
+**Message timestamps on hover**: Message timestamps are now visible when hovering over messages.
+
+**Partner Domain onboarding**: Onboard partner domains without requiring them to create an enterprise account of their own.
+
+---
+
+## v1.11.0 — September 24, 2025
+
+**Major Release**
+
+### New features
+
+**Omni Search (Beta)**
+
+AI for Work now includes **Omni Search**, powered by a smart agentic platform. Omni Search replaces basic direct search with a more sophisticated system that understands your account and user context. Integrates with Google Calendar, Gmail, Jira, HubSpot, Zendesk, and Company Policies.
+
+<Note>This beta feature is available only for internal accounts. Users must add connections (for Gmail, Google Calendar) to use Omni Search.</Note>
+
+**Agent Version Control System**
+
+Agents now maintain two distinct versions, **Draft** and **Published**, ensuring that improvements don't directly impact the live published version. Users can test and refine agent configurations in draft mode before publishing.
+
+**Support for Google Gemini models**
+
+AI for Work now supports:
+- Gemini 2.5 Flash
+- Gemini 2.5 Pro
+- Gemini 2.5 Flash Lite
+- Gemini 2.0 Flash
+
+**Recommended configuration**: Use **Gemini 2.5 Pro** and **2.5 Flash** as defaults for best performance and reliability.
+
+### Feature enhancements
+
+**Personal Workspace collaboration**: Enhanced Personal Workspace to support agent sharing across all published users. Shared users can now view and edit agent configurations together before running them.
+
+---
+
+## v1.10.0 — September 8, 2025
+
+**Major Release**
+
+### New features
+
+**Microsoft Teams and Copilot integration**
+
+AI for Work integrates natively with Microsoft Teams through the Azure Bot Service architecture. The integration supports both Multi-Tenant and Single-Tenant authentication models with proactive notification capabilities.
+
+The system generates custom Microsoft Teams app manifests with organizational branding options and supports multiple deployment strategies: organization-wide rollout, selective user groups, or self-service installation.
+
+[Configure Microsoft Teams →](/ai-for-work/channels#microsoft-teams)
+
+**Amazon Q integration**
+
+AI for Work now supports Amazon Q integration as both an Enterprise Knowledge source and a specialized Search Agent, providing hybrid search capabilities across SearchAI and Amazon Q indices.
+
+Configuration options:
+- **Enterprise Knowledge Mode**: Set Amazon Q as the primary knowledge source.
+- **Search Agent Mode**: Use Amazon Q as a specialized, context-aware search tool.
+
+**Announcements**
+
+The Admin Hub now includes an **Announcements** capability under **Assistant Configurations**, giving administrators a streamlined way to deliver timely, targeted updates. Supports rich content (up to 800 characters with formatting and links), flexible targeting, and dynamic display with rotation.
+
+[Learn more →](/ai-for-work/assistant-configurations#announcements)
+
+**Enterprise Encryption**
+
+Administrators can now choose between system-generated **Default Keys** or **Bring Your Own Key (BYOK)** with AWS KMS or Azure Key Vault.
+
+[Learn more →](/ai-for-work/administration/security-and-control#enterprise-encryption)
+
+### Feature enhancements
+
+**SAML – ACS URLs for SP and IDP flows**: Enhanced SAML SSO configuration with account-specific fields for seamless setup.
+
+**Agent Icons upgrade**: Updated agent icons across the platform for a more modern, consistent interface.
+
+---
+
+## v1.9.3 — July 29, 2025
+
+**Minor Release**
+
+### New features
+
+**Agent Testing**: New comprehensive validation tools to prepare agents before publishing. Simulate diverse user interactions with varied sample queries and use direct refinement tools for optimizing intent recognition, entity extraction, and conversational logic.
+
+**Domain Management**: Now distinguishes between Company Domains (organization-owned) and Partner Domains (external collaborators), providing flexible access control.
+
+**Real-time query execution status**: New feature offering real-time visibility into query processing. The **Response Flow** button reveals all execution steps when the response is ready.
+
+**Advanced Agent Configuration**: New enterprise-grade features for Bots, Workflows, and Autonomous Agents:
+- **Allow End User Notification**: Enables external notification integration.
+- **Clear Chat History**: Automated chat history management with flexible scheduling (1 to 90 days).
+
+---
+
+## v1.9.2 — June 21, 2025
+
+**Minor Release**
+
+### New features
+
+**Guardrails Security Framework**: Multi-layered security for enterprise AI interactions. Automatically safeguards sensitive data and enforces content policies with PII detection, customizable topic restrictions, and comprehensive testing tools.
+
+[Learn more →](/ai-for-work/assistant-configurations#guardrails)
+
+**AI Query Pipeline Orchestration**: New **Orchestration Settings** with complete control over the AI query processing workflow. Selectively activate only the components you need.
+
+[Learn more →](/ai-for-work/assistant-configurations#orchestration-settings)
+
+### Feature enhancements
+
+**Conversation Data Storage Controls**: Enhanced **Data Settings** with three control levels: All Agents, All Agents Except Selected, and Only Selected Agents.
+
+**Agent Layout Enhancements**: Redesigned agent creation and management interface with improved version control and streamlined navigation.
+
+**Compose Bar Query Scope**: New Work, AI Model, and Web scope selection buttons for directing queries to specific knowledge sources.
+
+**Multiple File Upload Support**: Upload up to 5 files simultaneously when interacting with prompt agents.
+
+---
+
+## v1.9.0 — April 30, 2025
+
+**Major Release**
+
+### New features
+
+**New homepage experience**: Redesigned home page with a focus on visual and navigational enhancements. Features a left panel with direct access to the Agent Store, conversation history categorized by Today/Yesterday/Last 7 Days, and easy conversation management.
+
+**AI for Work in Marketplace**: The Marketplace now features AI for Work with two main categories: **Apps** (complex, multi-functional AI solutions) and **Agents** (standalone AI components for specific tasks).
+
+**Audit Log**: New Audit Log system tracks user activity across the platform. Captures activities at Admin Hub, Workspace, and Agent levels.
+
+[Learn more →](/ai-for-work/administration/audit-log)
+
+**Account Data Settings**: New **Data Settings** in the Admin Console with control over Conversation Data Storage and Data Retention Period.
+
+### Feature enhancements
+
+**Enterprise Knowledge Agent**: If relevant answers are not found in the Enterprise Knowledge base, the system now automatically utilizes LLM models with integrated web search.
+
+**Updated RAG Agent**: Search Agents now display relevant results in the right panel, maintaining consistency with enterprise knowledge responses.
+
+---
+
+## v1.8.0 — March 26, 2025
+
+**Major Release**
+
+### New features
+
+**Workspaces**: New enterprise solution for deploying and managing AI capabilities across your organization. Features include granular access controls, centralized governance, tiered permission systems, and agent visibility controls. The default workspace includes pre-built solutions for HR, IT, Recruitment, and Analytics.
+
+**Agent Sharing**: Teams can now collaborate and manage agents more effectively within their workspace, with fine-grained permission controls and flexible collaboration options.
+
+---
+
+## v1.7.0 — February 14, 2025
+
+**Minor Release**
+
+### New features
+
+**Standard Agentic Apps**: Organize multiple AI agents in sequence to automate and execute complex business tasks using predefined logic.
+
+**Advanced Agentic Apps**: Leverage non-deterministic AI algorithms to autonomously manage complex business processes. These applications function independently and integrate seamlessly into the Agentic platform.
+
+### Feature enhancements
+
+**Bot Response Notification System**: Enhanced notification system for bot agent interactions, with proactive alerts when responses are ready.
+
+**API Agent**: Now supports multi-value parameters for querying multiple values within a single request.
+
+**Search AI Connectors**: Expanded support including Gmail, Google Calendar, Google Drive, Outlook, Outlook Calendar, Slack, HubSpot, Jira, BitBucket, Zendesk, Confluence, and WordPress.

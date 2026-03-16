@@ -1,0 +1,110 @@
+---
+title: "Monitoring Overview"
+description: "Track account activity, audit user actions, analyze workflow and model performance, and monitor custom script execution in AI for Process."
+---
+
+The **Monitoring** module in AI for Process tracks events, actions, and changes across your account. Use it to maintain security, ensure compliance, and optimize performance across roles, integrations, models, workflows, users, datasets, guardrails, and the playground.
+
+<CardGroup cols={2}>
+  <Card title="Audit Logs" icon="clipboard-list">
+    Full visibility into every user action and system event. Filter by time period, category, event type, or user. Export as CSV for compliance reporting.
+  </Card>
+  <Card title="Workflow Analytics" icon="chart-line">
+    Track success and failure rates, average response time, and node execution counts for deployed workflows and versions.
+  </Card>
+  <Card title="Model Analytics" icon="microchip">
+    Measure model latency, request rates, scaling usage, and credit consumption across fine-tuned, open-source, and external models.
+  </Card>
+  <Card title="Model Traces" icon="magnifying-glass">
+    Run-level analysis of model executions. Inspect inputs, outputs, response times, and source metadata. Export trace data as CSV.
+  </Card>
+</CardGroup>
+
+## Audit logs
+
+**Audit Logs** provides full visibility into every user action and system event in your account. Each log entry captures the event name, category, user, date and time, and a detailed description.
+
+Tracked event categories:
+
+- Login/Logout
+- Roles
+- Integrations
+- Models
+- Workflows
+- Users Management
+- Prompts
+- Dataset
+- Guardrails
+
+**Key capabilities:**
+- Filter logs by time period, category, event type, or user to isolate specific activity.
+- Set one or more levels of custom filters to view only specific audit logs.
+- Search for required audit logs from the listed entries.
+- Export logs as a CSV file for compliance reporting or offline analysis.
+
+## Workflow analytics
+
+The **Workflow Analytics Dashboard** tracks performance of deployed workflows and their versions. It shows:
+
+- Success and failure rates for workflow runs.
+- Average response time (ART) per request.
+- Event-based node execution counts, scoped to a selected time period and workflow version.
+
+Use it to:
+- Identify failure patterns and detect performance bottlenecks.
+- Compare performance across workflow versions.
+- Monitor node executions across different types and ensure workflow runs stay within your account's rate limits.
+- Optimize workflow performance with real-time metrics.
+
+## Model analytics
+
+The **Model Analytics Dashboard** tracks performance for fine-tuned, open-source, and external models. Metrics include:
+
+- Model latency
+- Request success and failure rates
+- Scaling and replica usage
+- Credit consumption for deployments and fine-tuning
+
+Use global timeline and model-specific filters to scope data to the model and period you need.
+
+**Key capabilities:**
+- Select a single date or date range to view time-based model performance metrics.
+- Analyze credit consumption for deployment and fine-tuning requests.
+- Monitor model replica generation within subscription limits.
+- Compare successful versus failed requests over time and identify failure patterns.
+- Explore latency, requests, token generation, and scaling metrics through dedicated, expandable widgets.
+
+## Model traces
+
+**Model Traces** provides run-level analysis of any model deployed or integrated in your account. Each trace record includes:
+
+- Request input and generated output
+- Response time
+- Deployment version
+- Source metadata
+
+Use it to troubleshoot individual runs, investigate failures, and validate model behavior. Filter by status, response time, source type, or request ID, and export trace data as a CSV for deeper analysis.
+
+**Key capabilities:**
+- Select a single date or date range to view time-based run performance metrics.
+- Analyze failed runs by exporting performance metrics into a CSV file and identify failure patterns.
+- Analyze hosting credits versus each successful or failed run to ensure optimal usage.
+- Identify and isolate model runs with low response times for further investigation.
+
+## Custom scripts monitoring
+
+**Monitoring > Custom Scripts** provides run-level and log-level visibility into custom scripts deployed in your account.
+
+- The **All Runs** tab shows execution status, response time, function name, and source for each run.
+- The **Logs** tab shows log entries captured during execution, including log level, message, and timestamp.
+- Use time-based and column filters to narrow results.
+- Click any run to inspect its input, output, and log details in the record view.
+
+## Best practices
+
+<Tip>
+- Regularly review audit logs, performance metrics, and model run analytics for security and compliance.
+- Use filters to focus on specific events or users.
+- Use time-based filters for targeted analysis of specific periods.
+- Export data as CSV for offline analysis or sharing with stakeholders.
+</Tip>
