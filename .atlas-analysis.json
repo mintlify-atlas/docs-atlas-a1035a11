@@ -1,0 +1,249 @@
+{
+  "projectType": "saas",
+  "projectName": "Kore.ai",
+  "projectDescription": "Enterprise AI platform offering intelligent agent creation, customer service automation, workforce productivity, and process automation across Agent Platform, AI for Service, AI for Work, and AI for Process products.",
+  "theme": "linden",
+  "primaryColor": "#848c94",
+  "lightColor": "#171f2f",
+  "darkColor": "#d4d5d7",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Home",
+        "pages": ["home"]
+      },
+      {
+        "tab": "Agent Platform",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "agent-platform/index",
+              "agent-platform/concepts",
+              "agent-platform/getting-started"
+            ]
+          },
+          {
+            "group": "Building Agents",
+            "pages": [
+              "agent-platform/agents",
+              "agent-platform/orchestration",
+              "agent-platform/tools",
+              "agent-platform/knowledge",
+              "agent-platform/memory"
+            ]
+          },
+          {
+            "group": "Platform Services",
+            "pages": [
+              "agent-platform/models",
+              "agent-platform/prompts",
+              "agent-platform/evaluation",
+              "agent-platform/guardrails",
+              "agent-platform/analytics"
+            ]
+          },
+          {
+            "group": "Administration",
+            "pages": [
+              "agent-platform/administration/overview",
+              "agent-platform/administration/user-management",
+              "agent-platform/administration/security-and-control",
+              "agent-platform/administration/billing-and-usage"
+            ]
+          },
+          {
+            "group": "References",
+            "pages": [
+              "agent-platform/apis",
+              "agent-platform/sdk-overview",
+              "agent-platform/release-notes"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "AI for Work",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "ai-for-work/index",
+              "ai-for-work/getting-started"
+            ]
+          },
+          {
+            "group": "Agents",
+            "pages": [
+              "ai-for-work/custom-agents",
+              "ai-for-work/pre-built-agents",
+              "ai-for-work/pre-built-solutions"
+            ]
+          },
+          {
+            "group": "Platform Services",
+            "pages": [
+              "ai-for-work/analytics",
+              "ai-for-work/assistant-configurations",
+              "ai-for-work/llm-configuration",
+              "ai-for-work/channels"
+            ]
+          },
+          {
+            "group": "Administration",
+            "pages": [
+              "ai-for-work/administration/account-and-workspace",
+              "ai-for-work/administration/user-management",
+              "ai-for-work/administration/security-and-control",
+              "ai-for-work/administration/audit-log"
+            ]
+          },
+          {
+            "group": "References",
+            "pages": [
+              "ai-for-work/apis",
+              "ai-for-work/release-notes"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "AI for Service",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "ai-for-service/index",
+              "ai-for-service/getting-started"
+            ]
+          },
+          {
+            "group": "Automation AI",
+            "pages": [
+              "ai-for-service/automationai",
+              "ai-for-service/flows",
+              "ai-for-service/automation/dialogs"
+            ]
+          },
+          {
+            "group": "Search AI",
+            "pages": [
+              "ai-for-service/searchai",
+              "ai-for-service/searchai/content-sources",
+              "ai-for-service/searchai/index-configuration"
+            ]
+          },
+          {
+            "group": "Contact Center AI",
+            "pages": [
+              "ai-for-service/contact-center",
+              "ai-for-service/contact-center/flows-and-routing",
+              "ai-for-service/contact-center/configurations"
+            ]
+          },
+          {
+            "group": "Agent AI & Quality AI",
+            "pages": [
+              "ai-for-service/agent-ai",
+              "ai-for-service/quality"
+            ]
+          },
+          {
+            "group": "Platform Services",
+            "pages": [
+              "ai-for-service/generative-ai-tools/overview",
+              "ai-for-service/channels",
+              "ai-for-service/integrations",
+              "ai-for-service/analytics/overview"
+            ]
+          },
+          {
+            "group": "Administration",
+            "pages": [
+              "ai-for-service/administration/overview",
+              "ai-for-service/user-management/users-and-role",
+              "ai-for-service/app-settings"
+            ]
+          },
+          {
+            "group": "References",
+            "pages": [
+              "ai-for-service/apis/automation/api-introduction",
+              "ai-for-service/sdk/bot-sdk-introduction",
+              "ai-for-service/release-notes"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "AI for Process",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "ai-for-process/index",
+              "ai-for-process/concepts",
+              "ai-for-process/getting-started"
+            ]
+          },
+          {
+            "group": "Building Workflows",
+            "pages": [
+              "ai-for-process/workflows/overview",
+              "ai-for-process/nodes",
+              "ai-for-process/workflows/triggers-and-access",
+              "ai-for-process/inbox"
+            ]
+          },
+          {
+            "group": "Platform Services",
+            "pages": [
+              "ai-for-process/prompts",
+              "ai-for-process/models",
+              "ai-for-process/settings/monitoring-overview"
+            ]
+          },
+          {
+            "group": "Administration",
+            "pages": [
+              "ai-for-process/admin-settings",
+              "ai-for-process/settings/user-management",
+              "ai-for-process/settings/security-control",
+              "ai-for-process/settings/billing-and-usage"
+            ]
+          },
+          {
+            "group": "References",
+            "pages": [
+              "ai-for-process/settings/integrations",
+              "ai-for-process/release-notes"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Multi-agent orchestration with single, supervisor, and adaptive network patterns",
+    "Agent Platform for building autonomous enterprise AI agents",
+    "AI for Service: Automation AI, Search AI, Contact Center AI, Agent AI, Quality AI",
+    "AI for Work: custom and pre-built enterprise productivity agents",
+    "AI for Process: no-code workflow automation with human-in-the-loop support",
+    "Model Hub with support for OpenAI, Anthropic, Google, and open-source models",
+    "Prompt Studio for collaborative prompt design, testing, and version control",
+    "Evaluation Studio for automated AI performance measurement",
+    "Enterprise-grade guardrails with PII anonymization and content filtering",
+    "Analytics and observability with end-to-end agent tracing"
+  ],
+  "publicApiSurface": [
+    "Agent Protocol API (agent-platform/apis)",
+    "AI for Service Automation APIs (ai-for-service/apis/automation/api-introduction)",
+    "AI for Work APIs (ai-for-work/apis)",
+    "Bot SDK (ai-for-service/sdk/bot-sdk-introduction)",
+    "Web SDK (ai-for-service/sdk/web-sdk)",
+    "BotKit SDK (ai-for-service/sdk/botkit-sdk)",
+    "Agent Platform SDK (agent-platform/sdk-overview)",
+    "MCP (Model Context Protocol) Tools integration",
+    "Workflow Trigger API (event, schedule, manual, API-triggered)"
+  ]
+}
